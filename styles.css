@@ -1,0 +1,188 @@
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #1976d2;
+  color: white;
+  padding: 10px 20px;
+  flex-wrap: wrap;
+}
+
+/* Agrupación izquierda */
+.header-izquierda {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* Logo */
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+/* Menú */
+.menu-container {
+  position: relative;
+}
+
+.menu-btn {
+  background-color: white;
+  color: #1976d2;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.menu-opciones {
+  display: none;
+  position: absolute;
+  top: 40px;
+  left: 0;
+  background-color: white;
+  color: #1976d2;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  flex-direction: column;
+  z-index: 100;
+  min-width: 120px;
+}
+
+.menu-opciones a {
+  padding: 10px;
+  text-decoration: none;
+  color: #1976d2;
+}
+
+.menu-opciones a:hover {
+  background-color: #f1f1f1;
+}
+
+/* Buscador */
+.buscador input {
+  padding: 5px 10px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  width: 60rem;  
+}
+
+/* Acciones a la derecha */
+.acciones {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.acciones a {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  text-decoration: none;
+  color: white;
+}
+
+.icono {
+  width: 24px;
+  height: 24px;
+}
+
+/*================================ CONTENIDO PRINCIPAL ================================*/
+.productos-recomendados {
+  padding: 30px 40px;
+  background-color: #f4f4f4;
+}
+
+.productos-recomendados h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #0d47a1;
+}
+
+.grid-productos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.producto {
+  background-color: rgb(189, 227, 234);
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 0 8px rgba(180, 120, 120, 0.1);
+  text-align: center;
+  transition: transform 0.2s;
+
+  width: 250px;
+  height: 280px;
+  margin: 0 auto;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+
+.producto:hover {
+  transform: translateY(-5px);
+}
+
+.producto h3 {
+  font-size: 1rem;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.categoria {
+  font-size: 0.9rem;
+  color: #777;
+}
+
+.precio {
+  font-weight: bold;
+  margin-top: 5px;
+  color: #1976d2;
+}
+
+
+
+
+/*================================ PIE DE PÁGINA ================================*/
+/* Footer */
+.footer {
+  background-color: #0d47a1;
+  color: white;
+  text-align: center;
+  padding: 15px 0;
+  margin-top: 30px;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.footer-links a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.footer-links a:hover {
+  text-decoration: underline;
+}
+
