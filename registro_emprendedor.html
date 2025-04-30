@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Registro Emprendedor</title>
+  <link rel="stylesheet" href="registro_emprendedor.css" />
+</head>
+<body>
+
+  <div class="contenedor-registro">
+
+    <!-- Formulario a la izquierda -->
+    <div class="formulario-registro">
+      <div class="caja-formulario">
+        <h2>Registro Emprendedor</h2>
+        <input type="text" placeholder="Nombre" id="nombre" />
+        <input type="text" placeholder="Apellido" id="apellido" />
+        <input type="text" placeholder="Nombre del Emprendimiento" id="nombre_emprendimiento" />
+        <input type="email" placeholder="Correo" id="correo" />
+        <input type="password" placeholder="Contraseña" id="contraseña" />
+        <button onclick="registrarEmprendedor()">REGISTRARSE</button>
+      </div>
+    </div>
+
+    <!-- Imagen a la derecha -->
+    <div class="imagen-registro">
+      <img src="https://www.elemprendedor.pe/media/2024/04/emprendedores-peru.jpg" alt="Registro emprendedor" />
+    </div>
+
+    <script src="registro_emprendedor.js" defer></script>
+
+  </div>
+
+</body>
+</html>
