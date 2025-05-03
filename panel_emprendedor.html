@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Panel Emprendedor</title>
+  <link rel="stylesheet" href="panel_emprendedor.css" />
+  <script src="panel_emprendedor.js" defer></script>
+</head>
+<body>
+  <header class="header">
+    <div class="logo">LlaqtaMarket</div>
+    <div class="nombre-emprendimiento">Mi Emprendimiento</div>
+    <button class="cerrar-sesion" onclick="cerrarSesion()">Cerrar Sesión</button>
+  </header>
+
+  <div class="contenedor">
+    <aside class="sidebar">
+      <ul>
+        <li onclick="mostrarSeccion('productos')">📦 Mis Productos</li>
+        <li onclick="mostrarSeccion('agregar')">➕ Agregar Producto</li>
+        <li onclick="mostrarSeccion('estadisticas')">📊 Estadísticas</li>
+        <li onclick="mostrarSeccion('pedidos')">📬 Pedidos Recibidos</li>
+        <li onclick="mostrarSeccion('configuracion')">⚙️ Configuración</li>
+      </ul>
+    </aside>
+
+    <main id="contenidoPrincipal">
+      <!-- Aquí se inyectarán las plantillas -->
+    </main>
+  </div>
+
+  <!-- 🔽 Templates ocultos 🔽 -->
+
+  <template id="productos">
+    <section>
+      <h2>Mis Productos</h2>
+      <div id="listaMisProductos" class="productos-grid">
+        <!-- Los productos se insertarán dinámicamente aquí -->
+      </div>
+    </section>
+  </template>
+  
+
+  <template id="productos">
+    <section>
+      <h2>Mis Productos</h2>
+      <div id="listaMisProductos" class="productos-grid">
+        <!-- Los productos se insertarán dinámicamente aquí -->
+      </div>
+    </section>
+  </template>
+  
+  <template id="agregar">
+    <section>
+      <h2 id="tituloFormulario">Agregar Producto</h2>
+      <form onsubmit="guardarProducto(event)">
+        <input type="text" id="nombreProducto" placeholder="Nombre del producto" required />
+        <input type="number" id="precioProducto" placeholder="Precio" required />
+        <select id="categoriaProducto" required>
+          <option value="">Categoría</option>
+          <option value="Ropa">Ropa</option>
+          <option value="Calzado">Calzado</option>
+          <option value="Electrónica">Electrónica</option>
+          <!-- más opciones -->
+        </select>
+        <textarea id="descripcionProducto" placeholder="Descripción"></textarea>
+        <input type="file" id="imagenProducto" accept="image/*" />
+        <button type="submit">Guardar</button>
+      </form>
+    </section>
+  </template>
+  
+  
+
+  <template id="estadisticas">
+    <section>
+      <h2>Estadísticas</h2>
+      <p>Aquí puedes ver el rendimiento de tus productos.</p>
+      <!-- Puedes agregar gráficos más adelante -->
+    </section>
+  </template>
+
+  <template id="pedidos">
+    <section>
+      <h2>Pedidos Recibidos</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Cliente</th><th>Producto</th><th>Cantidad</th><th>Estado</th><th>Fecha</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Juan Pérez</td><td>Producto 1</td><td>2</td><td>Pendiente</td><td>2025-05-03</td>
+          </tr>
+          <!-- más pedidos -->
+        </tbody>
+      </table>
+    </section>
+  </template>
+
+  <template id="configuracion">
+    <section>
+      <h2>Configuración</h2>
+      <form onsubmit="guardarConfiguracion(event)" class="formulario-configuracion">
+        <div class="campo">
+          <label for="configNombre">Nombre:</label>
+          <input type="text" id="configNombre" disabled />
+        </div>
+  
+        <div class="campo">
+          <label for="configApellido">Apellido:</label>
+          <input type="text" id="configApellido" disabled />
+        </div>
+  
+        <div class="campo">
+          <label for="configNombreEmprendimiento">Nombre del Emprendimiento:</label>
+          <input type="text" id="configNombreEmprendimiento" disabled />
+        </div>
+  
+        <div class="campo">
+          <label for="configCorreo">Correo electrónico:</label>
+          <input type="email" id="configCorreo" disabled />
+        </div>
+  
+        <div class="campo">
+          <label for="configContrasena">Contraseña:</label>
+          <input type="password" id="configContrasena" required />
+        </div>
+  
+        <div class="campo">
+          <label for="configTelefono">Teléfono de contacto:</label>
+          <input type="text" id="configTelefono" />
+        </div>
+  
+        <div class="campo">
+          <label for="configDireccion">Dirección:</label>
+          <input type="text" id="configDireccion" />
+        </div>
+  
+        <div class="campo">
+          <label for="configDescripcion">Descripción del emprendimiento:</label>
+          <textarea id="configDescripcion"></textarea>
+        </div>
+  
+        <button type="submit">Guardar Cambios</button>
+      </form>
+    </section>
+  </template>  
+
+</body>
+</html>

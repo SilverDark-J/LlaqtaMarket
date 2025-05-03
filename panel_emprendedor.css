@@ -1,0 +1,162 @@
+/* Asegura que todo el layout esté bien estructurado */
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: Arial, sans-serif;
+}
+
+.header {
+  background-color: #1976d2;
+  color: white;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.contenedor {
+  display: flex;
+  height: calc(100vh - 60px); /* Resta la altura del header */
+}
+
+/* Sidebar lateral */
+.sidebar {
+  width: 220px;
+  background-color: #f2f2f2;
+  padding: 20px;
+  border-right: 1px solid #ccc;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar li {
+  padding: 10px;
+  cursor: pointer;
+  color: #1976d2;
+  font-weight: bold;
+}
+
+.sidebar li:hover {
+  background-color: #e0e0e0;
+}
+
+/* Contenido principal */
+#contenidoPrincipal {
+  flex: 1;
+  padding: 30px;
+  overflow-y: auto;
+}
+
+/* Grid de productos */
+.productos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.tarjeta-producto {
+  background: #e3f2fd;
+  padding: 15px;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 0 8px rgba(0,0,0,0.1);
+}
+
+.tarjeta-producto img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.tarjeta-producto button {
+  margin: 5px 5px 0 5px;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.tarjeta-producto button:first-of-type {
+  background-color: #ffca28; /* Editar */
+  color: #000;
+}
+
+.tarjeta-producto button:last-of-type {
+  background-color: #ef5350; /* Eliminar */
+  color: white;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 500px;
+}
+
+form input, form textarea, form select, form button {
+  padding: 10px;
+  font-size: 1rem;
+}
+
+form button {
+  background-color: #1976d2;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+form button:hover {
+  background-color: #125ea8;
+}
+
+/* CSS PARA CONFIGURACIÓN */
+
+.formulario-configuracion {
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.formulario-configuracion .campo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
+.formulario-configuracion label {
+  width: 200px;
+  font-weight: bold;
+}
+
+.formulario-configuracion input,
+.formulario-configuracion textarea {
+  flex: 1;
+  padding: 8px;
+  font-size: 1rem;
+}
+
+.formulario-configuracion button {
+  margin-left: auto;
+  padding: 10px 20px;
+  background-color: #1976d2;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.formulario-configuracion button:hover {
+  background-color: #125ea8;
+}
+
+
+/* TERMINA CSS PARA CONFIGURACIÓN */
