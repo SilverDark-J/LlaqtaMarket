@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Productos - LlaqtaMarket</title>
+  <link rel="stylesheet" href="productos.css" />
+</head>
+<body>
+
+  <header class="header">
+    <div class="header-izquierda">
+      <div class="logo">LlaqtaMarket</div>
+      <div class="menu-container">
+        <button onclick="menuDeslizable()" class="menu-btn">Menú</button>
+        <div class="menu-opciones" id="menuOpciones">
+          <a href="#" onclick="filtrarPorCategoria('Ropa')">Ropa</a>
+          <a href="#" onclick="filtrarPorCategoria('Calzado')">Calzado</a>
+          <a href="#" onclick="filtrarPorCategoria('Electrónica')">Electrónica</a>
+          <a href="#" onclick="filtrarPorCategoria('Hogar')">Hogar</a>
+          <a href="#" onclick="filtrarPorCategoria('Juguetería')">Juguetería</a>
+          <a href="#" onclick="filtrarPorCategoria('Belleza')">Belleza</a>
+          <a href="#" onclick="filtrarPorCategoria('Deportes')">Deportes</a>
+          <a href="#" onclick="filtrarPorCategoria('Libros')">Libros</a>
+        </div>
+      </div>
+      <div class="buscador">
+        <input type="text" id="busqueda" placeholder="¿Qué estás buscando?" oninput="filtrarProductos()" />
+      </div>
+    </div>
+
+    <div class="acciones">
+      <a href="login.html" class="btn">
+        <img src="media/user-icon.png" alt="" class="icono" />
+        <p>Iniciar Sesión</p>
+      </a>
+      <a href="productos.html" class="btn">
+        <img src="media/store-icon.png" alt="" class="icono" />
+        <p>Carrito</p>
+      </a>
+    </div>
+  </header>
+
+  <main class="contenido">
+    <aside class="categorias">
+      <h3>Categoría</h3>
+      <ul>
+        <li onclick="mostrarTodos()">Todos</li>
+        <li onclick="filtrarPorCategoria('Ropa')">Ropa</li>
+        <li onclick="filtrarPorCategoria('Calzado')">Calzado</li>
+        <li onclick="filtrarPorCategoria('Electrónica')">Electrónica</li>
+        <li onclick="filtrarPorCategoria('Hogar')">Hogar</li>
+        <li onclick="filtrarPorCategoria('Juguetería')">Juguetería</li>
+        <li onclick="filtrarPorCategoria('Belleza')">Belleza</li>
+        <li onclick="filtrarPorCategoria('Deportes')">Deportes</li>
+        <li onclick="filtrarPorCategoria('Libros')">Libros</li>
+      </ul>
+    </aside>
+
+    <section class="productos" id="productosContainer">
+      <!-- Se generan desde JS -->
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-links">
+      <a href="#">Acerca de nosotros</a>
+      <a href="#">Términos y condiciones</a>
+      <a href="#">Redes Sociales</a>
+    </div>
+  </footer>
+
+  <script src="productos.js"></script>
+</body>
+</html>
