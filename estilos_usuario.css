@@ -6,7 +6,7 @@
 
 body {
   font-family: 'Segoe UI', sans-serif;
-  background: #f0f4f8;
+  background-color: #fff3e0;
   height: 100vh;
   display: flex;
   align-items: center;
@@ -15,26 +15,41 @@ body {
 
 .registro-contenedor {
   display: flex;
-  background: white;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-  border-radius: 12px;
-  overflow: hidden;
-  max-width: 900px;
   width: 90%;
+  max-width: 900px;
+  height: 600px;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  background-color: #ffffff;
 }
 
+/* Lado Izquierdo */
 .formulario {
   flex: 1;
   padding: 40px;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center; /* Centrado del contenido */
+}
+
+.formulario .empresa-info {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Centrado del nombre y logo */
+  margin-bottom: 30px;
+}
+
+.formulario .empresa-info .logo {
+  margin-right: 15px;
 }
 
 .formulario h1 {
   font-size: 28px;
-  color: #1a202c;
+  color: #f57c00; /* Naranja */
   margin-bottom: 10px;
+  text-align: center;
 }
 
 .formulario p {
@@ -44,39 +59,48 @@ body {
 
 form input {
   width: 100%;
-  padding: 12px;
+  padding: 14px;
   margin-bottom: 15px;
   border: 1px solid #ccc;
-  border-radius: 6px;
+  border-radius: 8px;
   font-size: 15px;
 }
 
 form button {
   width: 100%;
-  padding: 12px;
-  background-color: #007bff;
+  padding: 14px;
+  background-color: #f57c00;
   color: white;
   font-weight: bold;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 form button:hover {
-  background-color: #0056b3;
+  background-color: #ef6c00;
 }
 
+/* Lado Derecho */
 .imagen-lateral {
   flex: 1;
-  background-color: #e6f0ff;
+  background-color: #f57c00;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 20px;
 }
 
 .imagen-lateral img {
   width: 100%;
   height: auto;
-  max-width: 400px;
+  max-width: 350px;
+  border-radius: 12px;
+}
+
+/* Para logo */
+.logo img {
+  width: 100px; /* Ajusta el tamaño del logo */
+  height: auto;
 }
