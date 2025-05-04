@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Panel de Usuario</title>
+  <link rel="stylesheet" href="panel_usuario.css" />
+</head>
+<body>
+  <header class="header">
+    <div class="logo">
+      <img src="media/logo2.jpg" alt="Logo" class="logo-img" />
+      LlaqtaMarket
+    </div>
+    <div class="nombre-usuario">Bienvenido, Usuario</div>
+    <button class="cerrar-sesion" onclick="cerrarSesion()">X</button>
+  </header>
+
+  <div class="contenedor">
+    <aside class="sidebar">
+      <ul>
+        <li onclick="mostrarSeccion('misPedidos')">Mis Pedidos</li>
+        <li onclick="mostrarSeccion('favoritos')">Favoritos</li>
+        <li onclick="mostrarSeccion('configuracion')">Configuración</li>
+        <li onclick="cerrarSesion()">Cerrar Sesión</li>
+      </ul>
+    </aside>
+
+    <main id="contenidoPrincipal">
+      <!-- Secciones dinámicas -->
+    </main>
+  </div>
+
+  <!-- Plantillas -->
+  <template id="misPedidos">
+    <section>
+      <h2>Mis Pedidos</h2>
+      <div class="productos-grid" id="listaPedidos">
+        <!-- Pedidos cargados dinámicamente -->
+      </div>
+    </section>
+  </template>
+
+  <template id="favoritos">
+    <section>
+      <h2>Mis Favoritos</h2>
+      <div class="productos-grid" id="listaFavoritos">
+        <!-- Productos favoritos -->
+      </div>
+    </section>
+  </template>
+
+  <template id="configuracion">
+    <section>
+      <h2>Configuración</h2>
+      <form class="formulario-configuracion">
+        <div class="campo">
+          <label for="nombreUsuario">Nombre:</label>
+          <input type="text" id="nombreUsuario" disabled value="Juan" />
+        </div>
+        <div class="campo">
+          <label for="apellidoUsuario">Apellido:</label>
+          <input type="text" id="apellidoUsuario" disabled value="Pérez" />
+        </div>
+        <div class="campo">
+          <label for="correoUsuario">Correo:</label>
+          <input type="email" id="correoUsuario" disabled value="juan@example.com" />
+        </div>
+        <div class="campo">
+          <label for="contraseñaUsuario">Contraseña:</label>
+          <input type="password" id="contraseñaUsuario" placeholder="••••••••" />
+        </div>
+        <button type="submit">Actualizar</button>
+      </form>
+    </section>
+  </template>
+
+  <script src="panel_usuario.js"></script>
+</body>
+</html>

@@ -54,7 +54,7 @@ main section h2 {
   width: 240px;
   background-color: #ffe1b0;
   padding: 25px 20px;
-  border-right: 1px solid #ddd;
+  border-right: 1px solid #ffccbc;
 }
 
 .sidebar ul {
@@ -71,7 +71,7 @@ main section h2 {
 }
 
 .sidebar li:hover {
-  background-color: #ffe0b2;
+  background-color: #fff3e0;
 }
 
 /* ================= Contenido Principal ================= */
