@@ -1,57 +1,88 @@
-/* Asegura que todo el layout esté bien estructurado */
-body, html {
+/* Reset básico */
+* {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+}
+
+body, html {
   height: 100%;
-  font-family: Arial, sans-serif;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #fff8f0;
+  color: #333;
+}
+
+main section h2 {
+  margin-bottom: 20px; /* opcional para separar del contenido */
+}
+
+/* ================= Header ================= */
+.logo {
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  gap: 10px; /* espacio entre imagen y texto */
+}
+
+.logo-img {
+  height: 40px;
+  width: auto;
+  border-radius: 4px; /* opcional: para esquinas redondeadas */
 }
 
 .header {
-  background-color: #1976d2;
+  background-color: #f57c00;
   color: white;
-  padding: 10px 20px;
+  padding: 15px 25px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  font-size: 1.1rem;
+  font-weight: bold;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
+/* ================= Contenedor Principal ================= */
 .contenedor {
   display: flex;
-  height: calc(100vh - 60px); /* Resta la altura del header */
+  height: calc(100vh - 60px);
 }
 
-/* Sidebar lateral */
+/* ================= Sidebar ================= */
 .sidebar {
-  width: 220px;
-  background-color: #f2f2f2;
-  padding: 20px;
-  border-right: 1px solid #ccc;
+  width: 240px;
+  background-color: #ffe1b0;
+  padding: 25px 20px;
+  border-right: 1px solid #ddd;
 }
 
 .sidebar ul {
   list-style: none;
-  padding: 0;
 }
 
 .sidebar li {
-  padding: 10px;
+  padding: 12px 15px;
   cursor: pointer;
-  color: #1976d2;
-  font-weight: bold;
+  color: #f57c00;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
 }
 
 .sidebar li:hover {
-  background-color: #e0e0e0;
+  background-color: #ffe0b2;
 }
 
-/* Contenido principal */
+/* ================= Contenido Principal ================= */
 #contenidoPrincipal {
   flex: 1;
   padding: 30px;
   overflow-y: auto;
+  background-color: #ffffff;
 }
 
-/* Grid de productos */
+/* ================= Productos Grid ================= */
 .productos-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -59,77 +90,147 @@ body, html {
 }
 
 .tarjeta-producto {
-  background: #e3f2fd;
+  background-color: #fff8e1;
   padding: 15px;
-  border-radius: 8px;
+  border: 2px solid  #f2b85b;
+  border-radius: 12px;
   text-align: center;
-  box-shadow: 0 0 8px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  transition: transform 0.2s;
+  height: 350px; /* <- ajusta según tu contenido promedio */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+
+.tarjeta-producto:hover {
+  transform: translateY(-4px);
 }
 
 .tarjeta-producto img {
   width: 100%;
   height: 150px;
   object-fit: cover;
-  border-radius: 4px;
-  margin-bottom: 10px;
+  border-radius: 6px;
+  margin-bottom: 12px;
+  background-color: #e0e0e0; /* color gris claro como placeholder */
 }
 
+
 .tarjeta-producto button {
-  margin: 5px 5px 0 5px;
-  padding: 8px 12px;
+  margin: 6px;
+  padding: 8px 14px;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
+  font-weight: 600;
   cursor: pointer;
-  font-weight: bold;
+  transition: background-color 0.2s ease;
 }
 
 .tarjeta-producto button:first-of-type {
-  background-color: #ffca28; /* Editar */
-  color: #000;
+  background-color: #ffeb3b;
+  color: #333;
 }
 
 .tarjeta-producto button:last-of-type {
-  background-color: #ef5350; /* Eliminar */
+  background-color: #ef5350;
   color: white;
 }
 
+.tarjeta-producto button:hover {
+  opacity: 0.9;
+}
+
+/* ================= Formularios Generales ================= */
 form {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  max-width: 500px;
+  gap: 12px;
+  max-width: 550px;
 }
 
-form input, form textarea, form select, form button {
-  padding: 10px;
+form input,
+form textarea,
+form select,
+form button {
+  padding: 12px;
   font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
 }
 
 form button {
-  background-color: #1976d2;
+  background-color: #f57c00;
   color: white;
+  font-weight: bold;
   border: none;
   cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 form button:hover {
-  background-color: #125ea8;
+  background-color: #ef6c00;
 }
 
-/* CSS PARA CONFIGURACIÓN */
-
-.formulario-configuracion {
+/* ================= Agregar Productos ================= */
+.formulario-agregar {
   max-width: 600px;
   display: flex;
   flex-direction: column;
   gap: 15px;
 }
 
-.formulario-configuracion .campo {
+.formulario-agregar .campo {
   display: flex;
-  flex-direction: row;
   align-items: center;
   gap: 10px;
+}
+
+.formulario-agregar label {
+  width: 200px;
+  font-weight: bold;
+}
+
+.formulario-agregar input,
+.formulario-agregar select,
+.formulario-agregar textarea {
+  flex: 1;
+  padding: 8px;
+  font-size: 1rem;
+}
+
+.formulario-agregar button {
+  align-self: flex-end; /* Alinea el botón a la derecha dentro del form */
+  padding: 10px 20px;
+  background-color: #f57c00;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.formulario-agregar button:hover {
+  background-color: #ef6c00;
+}
+
+/* ================= Agregar Productos ================= */
+
+/* ================= Configuración ================= */
+.formulario-configuracion {
+  max-width: 650px;
+  background-color: #fffaf3;  
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.formulario-configuracion .campo {
+  display: flex;
+  align-items: center;
+  gap: 15px;
 }
 
 .formulario-configuracion label {
@@ -140,23 +241,31 @@ form button:hover {
 .formulario-configuracion input,
 .formulario-configuracion textarea {
   flex: 1;
-  padding: 8px;
+  padding: 10px;
   font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+}
+
+.formulario-configuracion input[disabled] {
+  background-color: #f0f0f0;
+  color: #777;
+  cursor: not-allowed;
 }
 
 .formulario-configuracion button {
-  margin-left: auto;
-  padding: 10px 20px;
-  background-color: #1976d2;
+  align-self: flex-end;
+  padding: 12px 24px;
+  background-color: #f57c00;
   color: white;
   border: none;
-  border-radius: 4px;
+  font-weight: bold;
+  border-radius: 8px;
   cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 .formulario-configuracion button:hover {
-  background-color: #125ea8;
+  background-color: #ef6c00;
 }
-
-
-/* TERMINA CSS PARA CONFIGURACIÓN */
