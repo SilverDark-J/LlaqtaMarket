@@ -53,27 +53,47 @@
   <template id="configuracion">
     <section>
       <h2>Configuración</h2>
-      <form class="formulario-configuracion">
+      <form onsubmit="guardarConfiguracionUsuario(event)" class="formulario-configuracion">
         <div class="campo">
-          <label for="nombreUsuario">Nombre:</label>
-          <input type="text" id="nombreUsuario" disabled value="Juan" />
+          <label for="usuarioNombre">Nombres:</label>
+          <input type="text" id="usuarioNombre" disabled />
         </div>
+  
         <div class="campo">
-          <label for="apellidoUsuario">Apellido:</label>
-          <input type="text" id="apellidoUsuario" disabled value="Pérez" />
+          <label for="usuarioApellido">Apellidos:</label>
+          <input type="text" id="usuarioApellido" disabled />
         </div>
+  
         <div class="campo">
-          <label for="correoUsuario">Correo:</label>
-          <input type="email" id="correoUsuario" disabled value="juan@example.com" />
+          <label for="usuarioCorreo">Correo:</label>
+          <input type="email" id="usuarioCorreo" disabled />
         </div>
+  
         <div class="campo">
-          <label for="contraseñaUsuario">Contraseña:</label>
-          <input type="password" id="contraseñaUsuario" placeholder="••••••••" />
+          <label for="usuarioContrasena">Contraseña:</label>
+          <input type="password" id="usuarioContrasena" placeholder="••••••••" required />
         </div>
+  
+        <div class="campo">
+          <label for="usuarioDireccion">Dirección:</label>
+          <input type="text" id="usuarioDireccion" placeholder="Av. Central 123" />
+        </div>
+  
+        <div class="campo">
+          <label for="usuarioTelefono">Teléfono:</label>
+          <input type="tel" id="usuarioTelefono" placeholder="987654321" />
+        </div>
+  
+        <div class="campo">
+          <label for="usuarioFechaRegistro">Fecha de Registro:</label>
+          <input type="text" id="usuarioFechaRegistro" disabled />
+        </div>
+  
         <button type="submit">Actualizar</button>
       </form>
     </section>
   </template>
+  
 
   <script src="panel_usuario.js"></script>
 </body>
