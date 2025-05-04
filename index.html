@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LlaqtaMarket</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <header class="header">
+
+    <!-- IZQUIERDA: Logo, Menú y Buscador -->
+    <div class="header-izquierda">
+
+      <!-- LOGOTIPO -->
+      <div class="logo">LlaqtaMarket</div>
+
+      <!-- MENÚ DESPLEGABLE -->
+      <div class="menu-container">
+        <button onclick="menuDeslizable()" class="menu-btn">Menú</button>
+        <div class="menu-opciones" id="menuOpciones">
+          <a href="#">Ropa</a>
+          <a href="#">Calzado</a>
+          <a href="#">Electrónica</a>
+          <a href="#">Más...</a>
+        </div>
+      </div>
+
+      <!-- BUSCADOR DE PRODUCTOS -->
+      <div class="buscador">
+        <input type="text" placeholder="¿Qué estás buscando?" />
+      </div>
+    </div>   
+    
+    <!-- DERECHA: Perfil y Carrito -->
+    <div class="acciones">
+      <!-- PERFIL -->
+      <a href="login.html" class="perfil">
+        <img src="media/user-icon.png" alt="" class="icono" />
+        <p>Iniciar Sesión</p>
+      </a>
+
+      <!-- CARRITO -->
+      <a href="productos.html" class="carrito">
+        <img src="media/store-icon.png" alt="" class="icono" />
+        <p>Carrito</p>
+      </a>
+    </div>
+
+  </header> 
+
+
+  <!-- CONTENIDO DE PRODUCTOS RECOMENDADOS -->
+  <main class="productos-recomendados">
+    <h2>Productos Recomendados</h2>
+    <div class="grid-productos">
+      <!-- Producto 1 -->
+      <div class="producto">
+        <h3>Zapatillas Urbanas</h3>
+        <p class="categoria">Calzado</p>
+        <p class="precio">S/ 120.00</p>
+      </div>
+      <!-- Producto 2 -->
+      <div class="producto">
+        <h3>Polera Casual</h3>
+        <p class="categoria">Ropa</p>
+        <p class="precio">S/ 85.00</p>
+      </div>
+      <!-- Producto 3 -->
+      <div class="producto">
+        <h3>Auriculares Bluetooth</h3>
+        <p class="categoria">Electrónica</p>
+        <p class="precio">S/ 150.00</p>
+      </div>
+      <!-- Producto 4 -->
+      <div class="producto">
+        <h3>Gorro de Lana</h3>
+        <p class="categoria">Ropa</p>
+        <p class="precio">S/ 25.00</p>
+      </div>
+      <!-- Producto 5 -->
+      <div class="producto">
+        <h3>Smartwatch Fit</h3>
+        <p class="categoria">Electrónica</p>
+        <p class="precio">S/ 210.00</p>
+      </div>
+      <!-- Producto 6 -->
+      <div class="producto">
+        <h3>Mochila Escolar</h3>
+        <p class="categoria">Ropa</p>
+        <p class="precio">S/ 65.00</p>
+      </div>
+      <!-- Producto 7 -->
+      <div class="producto">
+        <h3>Sandalias Verano</h3>
+        <p class="categoria">Calzado</p>
+        <p class="precio">S/ 35.00</p>
+      </div>
+      <!-- Producto 8 -->
+      <div class="producto">
+        <h3>Camisa Formal</h3>
+        <p class="categoria">Ropa</p>
+        <p class="precio">S/ 95.00</p>
+      </div>
+      <!-- Producto 9 -->
+      <div class="producto">
+        <h3>Mouse Inalámbrico</h3>
+        <p class="categoria">Electrónica</p>
+        <p class="precio">S/ 45.00</p>
+      </div>
+      <!-- Producto 10 -->
+      <div class="producto">
+        <h3>Polo Básico</h3>
+        <p class="categoria">Ropa</p>
+        <p class="precio">S/ 30.00</p>
+      </div>
+      <!-- Producto 11 -->
+      <div class="producto">
+        <h3>Cargador Rápido</h3>
+        <p class="categoria">Electrónica</p>
+        <p class="precio">S/ 60.00</p>
+      </div>
+      <!-- Producto 12 -->
+      <div class="producto">
+        <h3>Zapatos de Cuero</h3>
+        <p class="categoria">Calzado</p>
+        <p class="precio">S/ 180.00</p>
+      </div>
+    </div>
+  </main>
+  
+
+
+  <!-- ENLAZAR EL SCRIPT -->
+  <script src="scripts/script.js" defer></script>
+
+
+  <!-- PIE DE PÁGINA  -->
+  <footer class="footer">
+    <div class="footer-links">
+      <a href="#">Acerca de nosotros</a>
+      <a href="#">Términos y condiciones</a>
+      <a href="#">Redes Sociales</a>
+    </div>
+  </footer>  
+
+</body>
+
+</html>
