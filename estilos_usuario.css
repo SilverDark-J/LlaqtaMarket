@@ -104,3 +104,57 @@ form button:hover {
   width: 100px; /* Ajusta el tamaño del logo */
   height: auto;
 }
+
+/*responsive*/
+@media (max-width: 768px) {
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #fff3e0;
+  }
+
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px; /* Espacio uniforme en todos los lados */
+  }
+
+  .registro-contenedor {
+    flex-direction: column;
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    border-radius: 16px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+    background-color: #ffffff;
+  }
+
+  .formulario, .imagen-lateral {
+    width: 100%;
+    padding: 30px 20px;
+    text-align: center;
+  }
+
+  .imagen-lateral img {
+    max-width: 250px;
+  }
+
+  .formulario h1 {
+    font-size: 22px;
+  }
+
+  .formulario p {
+    font-size: 14px;
+  }
+
+  form input, form button {
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  .logo img {
+    width: 80px;
+  }
+}

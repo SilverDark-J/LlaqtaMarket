@@ -121,3 +121,66 @@ body {
 .register-link a:hover {
   text-decoration: underline;
 }
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 768px) {
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #fff3e0;
+  }
+
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px; /* Espacio uniforme arriba, abajo y a los lados */
+  }
+
+  .login-container {
+    flex-direction: column;
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    border-radius: 16px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+    background-color: #ffffff;
+  }
+
+  .login-left, .login-right {
+    width: 100%;
+    padding: 30px 20px;
+    text-align: center;
+  }
+
+  .logo {
+    font-size: 26px;
+  }
+
+  .mensaje {
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+
+  .login-box {
+    max-width: 100%;
+  }
+
+  .login-box h2 {
+    font-size: 20px;
+  }
+
+  .form-group input {
+    padding: 12px;
+  }
+
+  .login-btn {
+    padding: 12px;
+    font-size: 15px;
+  }
+
+  .register-link {
+    font-size: 13px;
+  }
+}
