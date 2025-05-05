@@ -15,6 +15,13 @@ function mostrarSeccion(id) {
   if (id === "configuracion") {
     cargarConfiguracionUsuario();
   }
+
+  const items = document.querySelectorAll(".sidebar li");
+  items.forEach(li => li.classList.remove("activo"));
+  const itemActivo = Array.from(items).find(li => li.getAttribute("onclick")?.includes(id));
+  if (itemActivo) {
+    itemActivo.classList.add("activo");
+  }
 }
 
 function cerrarSesion() {
@@ -70,5 +77,6 @@ function cargarConfiguracionUsuario() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  mostrarSeccion("configuracion");
   cargarConfiguracionUsuario();
 });

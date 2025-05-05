@@ -95,7 +95,11 @@ main section h2 {
   .sidebar li:hover {
     background-color: #fff3e0;
   }
-  
+
+  .sidebar li.activo {
+    background-color: #fff3e0; /* mismo color que hover */
+  } 
+
   /* Contenido principal */
   #contenidoPrincipal {
     flex: 1;
