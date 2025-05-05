@@ -38,8 +38,8 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
 
   // Si todo es correcto, redirigir según el tipo de usuario
   if (cuenta.tipo === 'usuario') {
-    window.location.href = '../index.html';
+    window.location.href = 'index.html';
   } else if (cuenta.tipo === 'emprendedor') {
-    window.location.href = '../index.html';
+    window.location.href = 'index.html';
   }
 });
