@@ -43,7 +43,11 @@ main section h2 {
 }
   
 .nombre-usuario {
-  font-size: 18px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.2rem;
+  font-weight: bold;
 }
   
 .cerrar-sesion {
