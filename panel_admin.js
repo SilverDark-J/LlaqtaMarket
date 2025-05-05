@@ -1,42 +1,48 @@
 function mostrarSeccion(id) {
-    const plantilla = document.getElementById(id);
-    const contenedor = document.getElementById("contenidoPrincipal");
-    contenedor.innerHTML = "";
-    contenedor.appendChild(plantilla.content.cloneNode(true));
+  const plantilla = document.getElementById(id);
+  const contenedor = document.getElementById("contenidoPrincipal");
+  contenedor.innerHTML = "";
+  contenedor.appendChild(plantilla.content.cloneNode(true));
   
-    if (id === "usuarios") {
-      cargarUsuarios();
-    } else if (id === "emprendedores") {
-      cargarEmprendedores();
-    } else if (id === "pedidos") {
-      cargarPedidos();
-    }
+  if (id === "usuarios") {
+    cargarUsuarios();
+  } else if (id === "emprendedores") {
+    cargarEmprendedores();
+  } else if (id === "pedidos") {
+    cargarPedidos();
   }
+
+  const items = document.querySelectorAll(".sidebar li");
+  items.forEach(li => li.classList.remove("activo"));
+  const itemActivo = Array.from(items).find(li => li.getAttribute("onclick")?.includes(id));
+  if (itemActivo) {
+    itemActivo.classList.add("activo");
+  }
+}
   
-  function cerrarSesion() {
-    alert("Sesión cerrada");
-    window.location.href = "index.html";
-  }
+function cerrarSesion() {
+  window.location.href = "index.html";
+}
   
   // Cargar usuarios
-  function cargarUsuarios() {
-    const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
-    const contenedor = document.getElementById("listaUsuarios");
-    contenedor.innerHTML = "";
-  
-    usuarios.forEach((usuario) => {
-      const div = document.createElement("div");
-      div.className = "tarjeta-producto";
-      div.innerHTML = `
-        <h3>${usuario.nombres} ${usuario.apellidos}</h3>
-        <p><strong>Correo:</strong> ${usuario.correo}</p>
-        <p><strong>Dirección:</strong> ${usuario.direccion}</p>
-        <p><strong>Teléfono:</strong> ${usuario.telefono}</p>
-        <p><strong>Registrado el:</strong> ${usuario.fechaRegistro}</p>
-      `;
-      contenedor.appendChild(div);
-    });
-  }
+function cargarUsuarios() {
+  const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+  const contenedor = document.getElementById("listaUsuarios");
+  contenedor.innerHTML = "";
+
+  usuarios.forEach((usuario) => {
+    const div = document.createElement("div");
+    div.className = "tarjeta-producto";
+    div.innerHTML = `
+      <h3>${usuario.nombres} ${usuario.apellidos}</h3>
+      <p><strong>Correo:</strong> ${usuario.correo}</p>
+      <p><strong>Dirección:</strong> ${usuario.direccion}</p>
+      <p><strong>Teléfono:</strong> ${usuario.telefono}</p>
+      <p><strong>Registrado el:</strong> ${usuario.fechaRegistro}</p>
+    `;
+    contenedor.appendChild(div);
+  });
+}
   
   // Cargar emprendedores
   function cargarEmprendedores() {
