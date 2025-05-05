@@ -1,0 +1,160 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #fff3e0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.registro-contenedor {
+  display: flex;
+  width: 90%;
+  max-width: 900px;
+  height: 600px;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  background-color: #ffffff;
+}
+
+/* Lado Izquierdo */
+.formulario {
+  flex: 1;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.formulario .empresa-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.formulario .empresa-info .logo {
+  margin-right: 15px;
+}
+
+.formulario h1 {
+  font-size: 28px;
+  color: #f57c00; /* Naranja */
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.formulario h2 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+form input {
+  width: 100%;
+  padding: 14px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 15px;
+}
+
+form button {
+  width: 100%;
+  padding: 14px;
+  background-color: #f57c00;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+form button:hover {
+  background-color: #ef6c00;
+}
+
+/* Lado Derecho */
+.imagen-lateral {
+  flex: 1;
+  background-color: #f57c00;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.imagen-lateral img {
+  width: 100%;
+  height: auto;
+  max-width: 350px;
+  border-radius: 12px;
+}
+
+/* Para logo */
+.logo img {
+  width: 100px; /* Ajusta el tamaño del logo */
+  height: auto;
+}
+/*responsive*/
+@media (max-width: 768px) {
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #fff3e0;
+  }
+
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px; /* Margen uniforme superior, inferior y laterales */
+  }
+
+  .registro-contenedor {
+    flex-direction: column;
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    border-radius: 16px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+    background-color: #ffffff;
+  }
+
+  .formulario, .imagen-lateral {
+    width: 100%;
+    padding: 30px 20px;
+    text-align: center;
+  }
+
+  .imagen-lateral img {
+    max-width: 250px;
+  }
+
+  .formulario h1 {
+    font-size: 22px;
+  }
+
+  .formulario h2 {
+    font-size: 20px;
+  }
+
+  form input, form button {
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  .logo img {
+    width: 80px;
+  }
+}
