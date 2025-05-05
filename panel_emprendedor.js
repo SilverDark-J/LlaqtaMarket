@@ -1,23 +1,32 @@
 let indiceEditar = null;
 
 function mostrarSeccion(id) {
+  // Actualiza contenido
   const plantilla = document.getElementById(id);
   const contenedor = document.getElementById("contenidoPrincipal");
   contenedor.innerHTML = "";
   contenedor.appendChild(plantilla.content.cloneNode(true));
 
+  // Lógica específica por sección
   if (id === "productos") {
     mostrarMisProductos();
   }
-
   if (id === "agregar" && indiceEditar !== null) {
     cargarProductoParaEditar();
   }
-
   if (id === "configuracion") {
     cargarConfiguracion();
   }
+
+  // ✅ Marcar como activo en el sidebar
+  const items = document.querySelectorAll(".sidebar li");
+  items.forEach(li => li.classList.remove("activo"));
+  const itemActivo = Array.from(items).find(li => li.getAttribute("onclick")?.includes(id));
+  if (itemActivo) {
+    itemActivo.classList.add("activo");
+  }
 }
+
 
 function cerrarSesion() {
   alert("Sesión cerrada");
@@ -138,13 +147,14 @@ function cargarConfiguracion() {
   document.getElementById("configDireccion").value = datos.direccion || "";
   document.getElementById("configDescripcion").value = datos.descripcion || "";
 
-  // ✅ Mostrar también el nombre en el header al cargar
+  // Mostrar también el nombre en el header al cargar
   if (datos.emprendimiento) {
     document.querySelector(".nombre-emprendimiento").textContent = datos.emprendimiento;
   }
 }
 
-// ✅ Ejecutar al cargar la página
+// Ejecutar al cargar la página
 document.addEventListener("DOMContentLoaded", () => {
+  mostrarSeccion('productos'); // ← esto hace que cargue "Mis Productos" al iniciar
   cargarConfiguracion();
 });
