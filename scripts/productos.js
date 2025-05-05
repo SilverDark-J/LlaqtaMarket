@@ -40,7 +40,7 @@ function mostrarProductos(lista) {
         `;
         div.onclick = () => {
             localStorage.setItem("productoSeleccionado", JSON.stringify(prod));
-            window.location.href = "detalle_producto.html";
+            window.location.href = "producto_detalle.html";
         };
         contenedor.appendChild(div);
     });
