@@ -1,24 +1,27 @@
 // Datos de ejemplo para usuarios
 const usuariosEjemplo = [
-    {
-      id: 1,
-      nombres: "Juan",
-      apellidos: "Pérez",
-      correo: "juan@example.com",
-      direccion: "Av. Lima 123",
-      telefono: "987654321",
-      fechaRegistro: "2024-05-01"
-    },
-    {
-      id: 2,
-      nombres: "Lucía",
-      apellidos: "Ramírez",
-      correo: "lucia@example.com",
-      direccion: "Calle Sol 456",
-      telefono: "912345678",
-      fechaRegistro: "2024-05-02"
-    }
-  ];
+  {
+    id_usuario: 1,
+    nombres: "Juan",
+    apellidos: "Pérez",
+    correo: "juan@example.com",
+    contrasenia: "contraseña123",
+    direccion: "Av. Lima 123",
+    telefono: "987654321",
+    fecha_registro: "2024-05-01"
+  },
+  {
+    id_usuario: 2,
+    nombres: "Lucía",
+    apellidos: "Ramírez",
+    correo: "lucia@example.com",
+    contrasenia: "contraseña456",
+    direccion: "Calle Sol 456",
+    telefono: "912345678",
+    fecha_registro: "2024-05-02"
+  }
+];
+
   
   // Datos de ejemplo para emprendedores
   const emprendedoresEjemplo = [

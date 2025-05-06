@@ -31,15 +31,31 @@
     </main>
   </div>
 
-  <!-- Plantillas -->
-  <template id="usuarios">
-    <section>
-      <h2>Gestión de Usuarios</h2>
-      <div class="productos-grid" id="listaUsuarios">
-        <!-- Usuarios cargados dinámicamente -->
-      </div>
-    </section>
-  </template>
+<!-- Plantillas -->
+<template id="usuarios">
+  <section>
+    <h2>Gestión de Usuarios</h2>
+    <table id="tablaUsuarios">
+      <thead>
+        <tr>
+          <th>ID Usuario</th>
+          <th>Nombres</th>
+          <th>Apellidos</th>
+          <th>Correo</th>
+          <th>Teléfono</th>
+          <th>Fecha de Registro</th>
+          <th>Acciones</th> <!-- Nueva columna para las acciones -->
+        </tr>
+      </thead>
+      <tbody id="listaUsuarios">
+        <!-- Los usuarios se cargarán dinámicamente aquí -->
+      </tbody>
+    </table>
+  </section>
+</template>
+
+
+  
 
   <template id="emprendedores">
     <section>
