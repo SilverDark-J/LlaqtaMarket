@@ -10,15 +10,33 @@
   <!-- ENCABEZADO -->
   <header class="encabezado">
     <div class="logo">LlaqtaMarket</div>
-    <button class="menu-btn">Menú</button>
+    <!-- Botón de menú para dispositivos móviles -->
+    <button class="menu-btn" onclick="menuDeslizable()">Menú</button>
+
+    <!-- Contenedor del menú -->
+    <div id="menuOpciones" class="menu-opciones">
+        <a href="#" onclick="filtrarPorCategoria('Calzado')">Calzado</a>
+        <a href="#" onclick="filtrarPorCategoria('Ropa')">Ropa</a>
+        <a href="#" onclick="filtrarPorCategoria('Electrónica')">Electrónica</a>
+        <a href="#" onclick="filtrarPorCategoria('Hogar')">Hogar</a>
+        <a href="#" onclick="filtrarPorCategoria('Juguetería')">Juguetería</a>
+        <a href="#" onclick="filtrarPorCategoria('Belleza')">Belleza</a>
+        <a href="#" onclick="filtrarPorCategoria('Deportes')">Deportes</a>
+        <a href="#" onclick="filtrarPorCategoria('Libros')">Libros</a>
+    </div>
+
+    <!-- Contenedor de productos -->
+    <div id="productosContainer"></div>
     <input type="text" class="buscador" placeholder="¿Qué estás buscando?" />
     <div class="acciones">
-      <button class="btn">
+      <!-- Enlace de Iniciar Sesión -->
+      <a href="login.html" class="btn">
         <img src="icono_login.png" alt="usuario" width="16" /> Iniciar Sesión
-      </button>
-      <button class="btn">
+      </a>
+      <!-- Enlace del Carrito -->
+      <a href="productos.html" class="btn">
         <img src="icono_carrito.png" alt="carrito" width="16" /> Carrito
-      </button>
+      </a>
     </div>
   </header>
 

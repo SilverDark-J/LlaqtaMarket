@@ -1,4 +1,4 @@
-const producto = {
+const producto = { 
   nombre: "Casaca Hypnotic Mujer Pipe",
   precioRegular: 129.0,
   precioOferta: 79.95,
@@ -85,4 +85,24 @@ btnComentario.addEventListener("click", () => {
   comentarioInput.value = "";
   valorSeleccionado = 0;
   actualizarEstrellas();
+<<<<<<< HEAD
 });
+=======
+});
+
+// ==========================
+// FUNCIONALIDAD DEL MENÚ
+// ==========================
+function menuDeslizable() {
+  const menu = document.getElementById("menuOpciones");
+  menu.style.display = menu.style.display === "flex" ? "none" : "flex";
+}
+
+// Preparado para filtrar por categoría (si usas productos en esta página)
+function filtrarPorCategoria(categoria) {
+  const productos = JSON.parse(localStorage.getItem("productos") || "[]");
+  const filtrados = productos.filter(p => p.categoria === categoria);
+  localStorage.setItem("productosFiltrados", JSON.stringify(filtrados));
+  window.location.href = "index.html"; // Cambia esta línea según la página de productos
+}
+>>>>>>> origin/aracely

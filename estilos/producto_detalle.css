@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+/* Reset básico */
+>>>>>>> origin/aracely
 * {
   margin: 0;
   padding: 0;
@@ -8,6 +12,9 @@ body {
   font-family: 'Segoe UI', sans-serif;
   background-color: #fff3e0;
   color: #333;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;  /* Asegura que el body ocupe todo el alto de la ventana */
 }
 
 /* ENCABEZADO */
@@ -38,11 +45,12 @@ body {
 }
 
 .buscador {
-  flex: 1;
-  min-width: 200px;
-  padding: 6px;
-  border-radius: 4px;
-  border: none;
+  padding: 6px 12px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  width: 60rem; /* Ancho de la barra igual que en el primer CSS */
+  background-color: white; /* Fondo blanco */
+  color: #333; /* Color de texto */
 }
 
 .acciones {
@@ -72,19 +80,34 @@ body {
 .contenido {
   display: flex;
   flex-wrap: wrap;
+<<<<<<< HEAD
+=======
+  flex: 1; /* Esto asegura que el contenido ocupe todo el espacio disponible entre el encabezado y el footer */
+  padding: 20px;
+>>>>>>> origin/aracely
 }
 
+/* MENÚ LATERAL (CATEGORÍAS) */
 .categorias {
   width: 220px;
   background-color: #ffe0b2;
   padding: 20px;
+  box-shadow: 0 4px 8px rgba(180, 120, 120, 0.1);
+  margin-right: 20px;
+  margin-top: 20px; /* Añadido espacio respecto al encabezado */
+  /* Eliminar bordes redondeados */
+  border-radius: 0;
 }
 
+/* CATEGORÍAS - TÍTULO */
 .categorias h3 {
   margin-top: 0;
   color: #f57c00;
+  font-size: 1.25rem;
+  font-weight: bold;
 }
 
+/* CATEGORÍAS - LISTA */
 .categorias ul {
   list-style: none;
   padding: 0;
@@ -94,6 +117,13 @@ body {
   margin-bottom: 10px;
   cursor: pointer;
   color: #f57c00;
+  font-weight: bold;
+  transition: all 0.2s;
+}
+
+.categorias li:hover {
+  text-decoration: underline;
+  background-color: #ffe0b2;
 }
 
 /* PRODUCTO DETALLE */
@@ -197,30 +227,23 @@ button.enviar-comentario {
   padding-top: 10px;
   border-top: 1px solid #ccc;
 }
-
 /* FOOTER */
 .footer {
   background-color: #ef6c00;
-  color: white;
+  color: white;  /* Asegura que el texto del pie de página sea blanco */
   text-align: center;
   padding: 15px 20px;
+  margin-top: 30px;
 }
 
-.footer-links {
-  margin-top: 10px;
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  flex-wrap: wrap;
+/* Asegura que los enlaces dentro del pie de página sean blancos */
+.footer a {
+  color: white;  /* Hace que los enlaces sean blancos */
+  text-decoration: none; /* Opcional: Si quieres que los enlaces no tengan subrayado */
 }
 
-.footer-links a {
-  color: white;
-  text-decoration: none;
-}
-
-.footer-links a:hover {
-  text-decoration: underline;
+.footer a:hover {
+  text-decoration: underline; /* Si quieres que los enlaces tengan subrayado al pasar el mouse */
 }
 
 /* RESPONSIVE */
@@ -231,6 +254,7 @@ button.enviar-comentario {
 
   .categorias {
     width: 100%;
+    margin-top: 10px;
   }
 
   .encabezado {
@@ -246,4 +270,49 @@ button.enviar-comentario {
   .estrellas span {
     font-size: 30px;
   }
+<<<<<<< HEAD
 }
+=======
+}
+
+/* Estilo para el botón del menú */
+.menu-btn {
+  background-color: white;
+  color: #f57c00;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* Estilo para el menú despegable */
+.menu-opciones {
+  display: none;
+    position: absolute;
+    top: 40px;
+    left: 0;
+    background-color: white;
+    color: #f57c00;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    flex-direction: column;
+    z-index: 100;
+    min-width: 120px;
+}
+
+.menu-opciones a {
+  padding: 10px;
+  text-decoration: none;
+  color: #f57c00;
+}
+
+.menu-opciones a:hover {
+  background-color: #ffe0b2;
+}
+
+/* Mostrar el menú cuando el botón sea presionado */
+.menu-opciones.show {
+  display: flex;
+}
+>>>>>>> origin/aracely
