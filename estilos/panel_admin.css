@@ -161,44 +161,156 @@ main section h2 {
   text-decoration: underline;
 }
 
-/* Estilo para el botón de acciones (⋮) */
+/* ESTILO PARA EL MENÚ DE ACCIONES */
+
+/* Botón de acciones (⋮) */
 .acciones-btn {
   background: none;
   border: none;
   color: #f57c00;
   font-size: 18px;
   cursor: pointer;
-  position: relative; /* Esto asegura que el menú de acciones se posicione correctamente */
+  position: relative;
+  padding: 4px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
 }
 
-/* Estilo para el menú de acciones */
+.acciones-btn:hover {
+  background-color: #fff3e0;
+}
+
+/* Menú de acciones */
 .menu-acciones {
   position: absolute;
+  min-width: 180px;
   background-color: #fff;
-  border: 1px solid #ddd;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  border-radius: 6px;
-  padding: 10px;
+  border: 1px solid #ffe1b0;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+  padding: 8px 0;
   z-index: 1000;
+  animation: fadeIn 0.2s ease-out;
+}
+
+/* Animación de entrada */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .menu-acciones.active {
-  display: block; /* Muestra el menú cuando se activa */
+  display: block;
 }
 
 .menu-acciones ul {
   list-style: none;
+  margin: 0;
   padding: 0;
 }
 
 .menu-acciones li {
-  padding: 8px;
+  padding: 10px 18px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 15px;
   color: #333;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.menu-acciones li:not(:last-child) {
+  border-bottom: 1px solid #f2f2f2;
 }
 
 .menu-acciones li:hover {
-  background-color: #f1f1f1;
+  background-color: #fff3e0;
+  color: #f57c00;
+  font-weight: bold;
+}
+
+/* Triángulo decorativo del menú */
+.menu-acciones::before {
+  content: "";
+  position: absolute;
+  top: -8px;
+  left: 20px; /* Ajusta según la posición del botón */
+  border-width: 0 8px 8px 8px;
+  border-style: solid;
+  border-color: transparent transparent #ffe1b0 transparent;
+}
+
+
+/* ========== MODAL DE EDICIÓN DE USUARIO ========== */
+dialog#modalEditarUsuario {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: none;
+  border-radius: 12px;
+  padding: 25px 30px;
+  width: 100%;
+  max-width: 400px;
+  background-color: #fff3e0;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  font-family: 'Segoe UI', sans-serif;
+  z-index: 1000;
+}
+
+#modalEditarUsuario h3 {
+  margin-bottom: 15px;
+  color: #f57c00;
+  font-size: 20px;
+}
+
+#modalEditarUsuario label {
+  display: block;
+  margin-top: 10px;
+  font-weight: 600;
+}
+
+#modalEditarUsuario input {
+  width: 100%;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  margin-top: 5px;
+  font-size: 15px;
+}
+
+.acciones-modal {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.acciones-modal button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.acciones-modal button[type="submit"] {
+  background-color: #f57c00;
+  color: white;
+}
+
+.acciones-modal button[type="submit"]:hover {
+  background-color: #ef6c00;
+}
+
+.acciones-modal button[type="button"] {
+  background-color: #e0e0e0;
+}
+
+.acciones-modal button[type="button"]:hover {
+  background-color: #c2c2c2;
 }
 

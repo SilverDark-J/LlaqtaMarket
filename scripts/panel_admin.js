@@ -77,11 +77,62 @@ function mostrarOpciones(event, id_usuario) {
 }
 
 
-// Función para editar usuario
+// FUNCIÓN PARA EDITAR A LOS USUARIOS
+
+// Abrir modal con datos del usuario
 function editarUsuario(id_usuario) {
-  alert(`Editar usuario con ID: ${id_usuario}`);
-  // Aquí iría la lógica para editar los datos del usuario
+  const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+  const usuario = usuarios.find(u => u.id_usuario === id_usuario);
+  if (!usuario) return alert("Usuario no encontrado");
+
+  // Llenar campos del formulario
+  document.getElementById("edit-id_usuario").value = usuario.id_usuario;
+  document.getElementById("edit-nombres").value = usuario.nombres;
+  document.getElementById("edit-apellidos").value = usuario.apellidos;
+  document.getElementById("edit-correo").value = usuario.correo;
+  document.getElementById("edit-contrasenia").value = usuario.contrasenia;
+  document.getElementById("edit-direccion").value = usuario.direccion;
+  document.getElementById("edit-telefono").value = usuario.telefono;
+
+  // Mostrar el modal
+  document.getElementById("modalEditarUsuario").showModal();
 }
+
+// Guardar cambios del usuario
+document.getElementById("formEditarUsuario").addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  const id = parseInt(document.getElementById("edit-id_usuario").value);
+  const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+
+  const index = usuarios.findIndex(u => u.id_usuario === id);
+  if (index === -1) return alert("Usuario no encontrado");
+
+  usuarios[index].nombres = document.getElementById("edit-nombres").value;
+  usuarios[index].apellidos = document.getElementById("edit-apellidos").value;
+  usuarios[index].correo = document.getElementById("edit-correo").value;
+  usuarios[index].contrasenia = document.getElementById("edit-contrasenia").value;
+  usuarios[index].direccion = document.getElementById("edit-direccion").value;
+  usuarios[index].telefono = document.getElementById("edit-telefono").value;
+
+  localStorage.setItem("usuarios", JSON.stringify(usuarios));
+  cerrarModal();
+  cargarUsuarios();
+  alert("Usuario actualizado correctamente.");
+});
+
+function cerrarModal() {
+  document.getElementById("modalEditarUsuario").close();
+}
+
+function togglePassword() {
+  const input = document.getElementById("edit-contrasenia");
+  const button = document.querySelector(".toggle-pass");
+  const isHidden = input.type === "password";
+  input.type = isHidden ? "text" : "password";
+  button.textContent = isHidden ? "🙈" : "👁";
+}
+
 
 // Función para bloquear usuario
 function bloquearUsuario(id_usuario) {

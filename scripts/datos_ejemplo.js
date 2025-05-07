@@ -19,8 +19,89 @@ const usuariosEjemplo = [
     direccion: "Calle Sol 456",
     telefono: "912345678",
     fecha_registro: "2024-05-02"
+  },
+  {
+    id_usuario: 3,
+    nombres: "Carlos",
+    apellidos: "Gómez",
+    correo: "carlos@example.com",
+    contrasenia: "clave789",
+    direccion: "Jr. Arequipa 321",
+    telefono: "901234567",
+    fecha_registro: "2024-05-03"
+  },
+  {
+    id_usuario: 4,
+    nombres: "Ana",
+    apellidos: "Torres",
+    correo: "ana@example.com",
+    contrasenia: "miClaveSegura",
+    direccion: "Av. Los Olivos 888",
+    telefono: "923456789",
+    fecha_registro: "2024-05-04"
+  },
+  {
+    id_usuario: 5,
+    nombres: "Luis",
+    apellidos: "Fernández",
+    correo: "luis@example.com",
+    contrasenia: "password123",
+    direccion: "Calle Luna 101",
+    telefono: "934567890",
+    fecha_registro: "2024-05-05"
+  },
+  {
+    id_usuario: 6,
+    nombres: "María",
+    apellidos: "Quispe",
+    correo: "maria@example.com",
+    contrasenia: "contrasenia2024",
+    direccion: "Av. Perú 202",
+    telefono: "945678901",
+    fecha_registro: "2024-05-06"
+  },
+  {
+    id_usuario: 7,
+    nombres: "José",
+    apellidos: "Sánchez",
+    correo: "jose@example.com",
+    contrasenia: "clave321",
+    direccion: "Calle Mar 56",
+    telefono: "956789012",
+    fecha_registro: "2024-05-07"
+  },
+  {
+    id_usuario: 8,
+    nombres: "Elena",
+    apellidos: "Mendoza",
+    correo: "elena@example.com",
+    contrasenia: "pass456",
+    direccion: "Jr. Sol 777",
+    telefono: "967890123",
+    fecha_registro: "2024-05-08"
+  },
+  {
+    id_usuario: 9,
+    nombres: "Miguel",
+    apellidos: "Rojas",
+    correo: "miguel@example.com",
+    contrasenia: "miclave123",
+    direccion: "Av. Amazonas 33",
+    telefono: "978901234",
+    fecha_registro: "2024-05-09"
+  },
+  {
+    id_usuario: 10,
+    nombres: "Camila",
+    apellidos: "Zapata",
+    correo: "camila@example.com",
+    contrasenia: "segura2024",
+    direccion: "Calle Central 19",
+    telefono: "989012345",
+    fecha_registro: "2024-05-10"
   }
 ];
+
 
   
   // Datos de ejemplo para emprendedores
