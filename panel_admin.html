@@ -5,15 +5,57 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Panel de Administrador</title>
   <link rel="stylesheet" href="estilos/panel_admin.css" />
+  <style>
+    /* Estilo para el input con botón mostrar contraseña */
+    .input-password {
+      position: relative;
+    }
+
+    .input-password input {
+      width: 100%;
+      padding-right: 35px;
+    }
+
+    .toggle-pass {
+      position: absolute;
+      top: 50%;
+      right: 8px;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    dialog#modalEditarUsuario {
+      padding: 20px;
+      border: none;
+      border-radius: 10px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    dialog::backdrop {
+      background: rgba(0, 0, 0, 0.4);
+    }
+
+    .acciones-modal {
+      margin-top: 20px;
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+  </style>
 </head>
+
 <body>
   <header class="header">
     <div class="logo">
-      <img src="media/logo2.jpg" alt="Logo" class="logo-img" />
+      <a href="index.html" target="_blank">
+        <img src="media/logo2.jpg" alt="Logo" class="logo-img" />
+      </a>
       LlaqtaMarket Admin
     </div>
     <div class="nombre-usuario">Administrador</div>
-    <button class="cerrar-sesion" onclick="cerrarSesion()">X</button>
   </header>
 
   <div class="contenedor">
@@ -21,7 +63,6 @@
       <ul>
         <li onclick="mostrarSeccion('usuarios')">Usuarios</li>
         <li onclick="mostrarSeccion('emprendedores')">Emprendedores</li>
-        <li onclick="mostrarSeccion('pedidos')">Pedidos</li>
         <li onclick="cerrarSesion()">Cerrar Sesión</li>
       </ul>
     </aside>
@@ -35,32 +76,124 @@
   <template id="usuarios">
     <section>
       <h2>Gestión de Usuarios</h2>
-      <div class="productos-grid" id="listaUsuarios">
-        <!-- Usuarios cargados dinámicamente -->
-      </div>
+      <table id="tablaUsuarios">
+        <thead>
+          <tr>
+            <th>ID Usuario</th>
+            <th>Nombres</th>
+            <th>Apellidos</th>
+            <th>Correo</th>
+            <th>Teléfono</th>
+            <th>Fecha de Registro</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="listaUsuarios">
+          <!-- Los usuarios se cargarán dinámicamente aquí -->
+        </tbody>
+      </table>
     </section>
   </template>
 
   <template id="emprendedores">
     <section>
       <h2>Gestión de Emprendedores</h2>
-      <div class="productos-grid" id="listaEmprendedores">
-        <!-- Emprendedores cargados dinámicamente -->
-      </div>
+      <table id="tablaEmprendedores">
+        <thead>
+          <tr>
+            <th>ID Emprendedor</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Nombre del Emprendimiento</th>
+            <th>Correo</th>
+            <th>Teléfono</th>
+            <th>Fecha de Registro</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="listaEmprendedores">
+          <!-- Los emprendedores se cargarán dinámicamente aquí -->
+        </tbody>
+      </table>
     </section>
   </template>
+  
+  
+  <!-- Modal de edición de emprendedor -->
+  <dialog id="modalEditarEmprendedor">
+    <h3>Editar Emprendedor</h3>
+    <form id="formEditarEmprendedor">
+      <input type="hidden" id="edit-id_emprendedor" />
+  
+      <label for="edit-nombre">Nombre</label>
+      <input type="text" id="edit-nombre" required />
+  
+      <label for="edit-apellido">Apellido</label>
+      <input type="text" id="edit-apellido" required />
+  
+      <label for="edit-nombre_emprendimiento">Nombre del emprendimiento</label>
+      <input type="text" id="edit-nombre_emprendimiento" required />
+  
+      <label for="edit-correo">Correo</label>
+      <input type="email" id="edit-correo" required />
+  
+      <label for="edit-contrasenia">Contraseña:</label>
+      <div class="input-password">
+        <input type="password" id="edit-contrasenia" required>
+        <button type="button" class="toggle-pass" onclick="togglePassword()">👁</button>
+      </div>
+  
+      <label for="edit-telefono">Teléfono</label>
+      <input type="text" id="edit-telefono" required />
+  
+      <label for="edit-direccion">Dirección</label>
+      <input type="text" id="edit-direccion" required />
+  
+      <label for="edit-descripcion">Descripción</label>
+      <textarea id="edit-descripcion" required></textarea>
+  
+      <div class="acciones-modal">
+        <button type="submit">Guardar Cambios</button>
+        <button type="button" onclick="cerrarModal()">Cancelar</button>
+      </div>
+    </form>
+  </dialog>
 
-  <template id="pedidos">
-    <section>
-      <h2>Gestión de Pedidos</h2>
-      <div class="productos-grid" id="listaPedidosAdmin">
-        <!-- Pedidos cargados dinámicamente -->
+  <!-- Modal para editar usuario -->
+  <dialog id="modalEditarUsuario">
+    <form method="dialog" id="formEditarUsuario">
+      <h3>Editar Usuario</h3>
+      <input type="hidden" id="edit-id_usuario">
+      
+      <label for="edit-nombres">Nombres:</label>
+      <input type="text" id="edit-nombres" required>
+
+      <label for="edit-apellidos">Apellidos:</label>
+      <input type="text" id="edit-apellidos" required>
+
+      <label for="edit-correo">Correo:</label>
+      <input type="email" id="edit-correo" required>
+
+      <label for="edit-contrasenia">Contraseña:</label>
+      <div class="input-password">
+        <input type="password" id="edit-contrasenia" required>
+        <button type="button" class="toggle-pass" onclick="togglePassword()">👁</button>
       </div>
-    </section>
-  </template>
+
+      <label for="edit-direccion">Dirección:</label>
+      <input type="text" id="edit-direccion" required>
+
+      <label for="edit-telefono">Teléfono:</label>
+      <input type="text" id="edit-telefono" required>
+
+      <div class="acciones-modal">
+        <button type="submit">Guardar</button>
+        <button type="button" onclick="cerrarModal()">Cancelar</button>
+      </div>
+    </form>
+  </dialog>
 
   <script src="scripts/datos_ejemplo.js"></script>
-  <script src="scripts/panel_admin.js"></script> <!-- Solo para desarrollo -->
-
+  <script src="scripts/panel_admin.js"></script>
 </body>
 </html>

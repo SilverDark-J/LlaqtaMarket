@@ -9,18 +9,19 @@
 <body>
   <header class="header">
     <div class="logo">
-      <img src="media/logo2.jpg" alt="Logo" class="logo-img" />
+      <a href="productos.html" target="_blank">
+        <img src="media/logo2.jpg" alt="Logo" class="logo-img" />
+      </a>
       LlaqtaMarket
     </div>
     <div class="nombre-usuario">Bienvenido, </div>
-    <button class="cerrar-sesion" onclick="cerrarSesion()">X</button>
+    <button class="ir-productos" onclick="window.location.href='productos.html'">X</button>
   </header>
 
   <div class="contenedor">
     <aside class="sidebar">
       <ul>
-        <li onclick="mostrarSeccion('misPedidos')">Mis Pedidos</li>
-        <li onclick="mostrarSeccion('favoritos')">Favoritos</li>
+        <li onclick="mostrarSeccion('misPedidos')">Mis Pedidos</li>        
         <li onclick="mostrarSeccion('configuracion')">Configuración</li>
         <li onclick="cerrarSesion()">Cerrar Sesión</li>
       </ul>
@@ -51,17 +52,17 @@
   </template>
 
   <template id="configuracion">
-    <section>
+    <section class="contenedor-configuracion">
       <h2>Configuración</h2>
       <form onsubmit="guardarConfiguracionUsuario(event)" class="formulario-configuracion">
         <div class="campo">
           <label for="usuarioNombre">Nombres:</label>
-          <input type="text" id="usuarioNombre" disabled />
+          <input type="text" id="usuarioNombre" />
         </div>
   
         <div class="campo">
           <label for="usuarioApellido">Apellidos:</label>
-          <input type="text" id="usuarioApellido" disabled />
+          <input type="text" id="usuarioApellido" />
         </div>
   
         <div class="campo">
@@ -95,6 +96,7 @@
   </template>
   
 
+  <script src="scripts/datos_ejemplo.js"></script>
   <script src="scripts/panel_usuario.js"></script>
-</body>
+  </body>
 </html>

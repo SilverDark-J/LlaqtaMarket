@@ -1,145 +1,445 @@
 /* Reset y base */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  body, html {
-    height: 100%;
-    font-family: 'Segoe UI', sans-serif;
-    background-color: #fff3e0;
-  }
-  
-  main section h2 {
-    margin-bottom: 20px;
-  }
-  
-  /* Header */
-  .header {
-    background-color: #f57c00;
-    color: white;
-    padding: 15px 25px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 1.1rem;
-    font-weight: bold;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .logo {
-    display: flex;
-    align-items: center;
-    font-size: 1.5rem;
-    font-weight: bold;
-    gap: 10px;
-  }
-  
-  .logo-img {
-    height: 40px;
-    width: auto;
-    border-radius: 4px;
-  }
-  
-  .nombre-usuario {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 1.2rem;
-    font-weight: bold;
-  }
-  
-  .cerrar-sesion {
-    background-color: white;
-    color: #f57c00;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 6px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  .cerrar-sesion:hover {
-    background-color: #ffe0b2;
-  }
-  
-  /* Layout */
-  .contenedor {
-    display: flex;
-    height: calc(100vh - 60px);
-  }
-  
-  /* Sidebar */
-  .sidebar {
-    width: 240px;
-    background-color: #ffe1b0;
-    padding: 25px 20px;
-    border-right: 1px solid #ffccbc;
-  }
-  
-  .sidebar ul {
-    list-style: none;
-  }
-  
-  .sidebar li {
-    padding: 12px 15px;
-    cursor: pointer;
-    color: #f57c00;
-    font-weight: 600;
-    border-radius: 8px;
-    transition: background-color 0.3s ease;
-  }
-  
-  .sidebar li:hover {
-    background-color: #fff3e0;
-  }
-  
-  .sidebar li.activo {
-    background-color: #fff3e0; /* mismo color que hover */
-  }  
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-  /* Contenido principal */
-  #contenidoPrincipal {
-    flex: 1;
-    padding: 30px;
-    overflow-y: auto;
+body, html {
+  height: 100%;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #fff3e0;
+}
+
+main section h2 {
+  margin-bottom: 20px;
+}
+
+/* Header */
+.header {
+  background-color: #f57c00;
+  color: white;
+  padding: 15px 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.1rem;
+  font-weight: bold;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  gap: 10px;
+}
+
+.logo-img {
+  height: 40px;
+  width: auto;
+  border-radius: 4px;
+}
+
+.nombre-usuario {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.cerrar-sesion {
+  background-color: white;
+  color: #f57c00;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.cerrar-sesion:hover {
+  background-color: #ffe0b2;
+}
+
+/* Layout */
+.contenedor {
+  display: flex;
+  height: calc(100vh - 60px);
+}
+
+/* Sidebar */
+.sidebar {
+  width: 240px;
+  background-color: #ffe1b0;
+  padding: 25px 20px;
+  border-right: 1px solid #ffccbc;
+}
+
+.sidebar ul {
+  list-style: none;
+}
+
+.sidebar li {
+  padding: 12px 15px;
+  cursor: pointer;
+  color: #f57c00;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.sidebar li:hover {
+  background-color: #fff3e0;
+}
+
+.sidebar li.activo {
+  background-color: #fff3e0; /* mismo color que hover */
+}
+
+/* Contenido principal */
+#contenidoPrincipal {
+  flex: 1;
+  padding: 30px;
+  overflow-y: auto;
+}
+
+/* Tabla de usuarios */
+#tablaUsuarios {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-size: 1rem;
+}
+
+#tablaUsuarios th,
+#tablaUsuarios td {
+  padding: 12px;
+  text-align: left;
+  border: 1px solid #f2b85b;
+}
+
+#tablaUsuarios th {
+  background-color: #f57c00;
+  color: white;
+  font-weight: bold;
+}
+
+#tablaUsuarios tr:nth-child(even) {
+  background-color: #f7f7f7;
+}
+
+#tablaUsuarios tr:hover {
+  background-color: #ffe0b2;
+}
+
+/* Opcional: añadir un borde más suave a la tabla */
+#tablaUsuarios td {
+  border: 1px solid #ffe1b0;
+}
+
+/* Estilos adicionales para los enlaces u opciones en la tabla */
+#tablaUsuarios td a {
+  color: #f57c00;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+#tablaUsuarios th:nth-child(1),
+#tablaUsuarios td:nth-child(1) {
+  width: 120px; /* o el valor que prefieras */
+  max-width: 120px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#tablaUsuarios td a:hover {
+  text-decoration: underline;
+}
+
+/* ESTILO PARA EL MENÚ DE ACCIONES */
+
+/* Botón de acciones (⋮) */
+.acciones-btn {
+  background: none;
+  border: none;
+  color: #f57c00;
+  font-size: 18px;
+  cursor: pointer;
+  position: relative;
+  padding: 4px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.acciones-btn:hover {
+  background-color: #fff3e0;
+}
+
+/* Menú de acciones */
+.menu-acciones {
+  position: absolute;
+  min-width: 180px;
+  background-color: #fff;
+  border: 1px solid #ffe1b0;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+  padding: 8px 0;
+  z-index: 1000;
+  animation: fadeIn 0.2s ease-out;
+}
+
+/* Animación de entrada */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
   }
-  
-  /* Grid de tarjetas */
-  .productos-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 20px;
-    margin-top: 15px;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
-  
-  .tarjeta-producto {
-    background-color: #fff8e1;
-    padding: 15px;
-    border-radius: 10px;
-    text-align: center;
-    border: 2px solid #f2b85b;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-  }
-  
-  .tarjeta-producto img {
-    width: 100%;
-    height: 150px;
-    object-fit: cover;
-    border-radius: 6px;
-    margin-bottom: 10px;
-  }
-  
-  .tarjeta-producto h3 {
-    font-size: 1.2rem;
-    margin-bottom: 8px;
-  }
-  
-  .tarjeta-producto p {
-    font-size: 0.95rem;
-    color: #555;
-    margin-bottom: 5px;
-  }
-  
+}
+
+.menu-acciones.active {
+  display: block;
+}
+
+.menu-acciones ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.menu-acciones li {
+  padding: 10px 18px;
+  cursor: pointer;
+  font-size: 15px;
+  color: #333;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.menu-acciones li:not(:last-child) {
+  border-bottom: 1px solid #f2f2f2;
+}
+
+.menu-acciones li:hover {
+  background-color: #fff3e0;
+  color: #f57c00;
+  font-weight: bold;
+}
+
+/* Triángulo decorativo del menú */
+.menu-acciones::before {
+  content: "";
+  position: absolute;
+  top: -8px;
+  left: 20px; /* Ajusta según la posición del botón */
+  border-width: 0 8px 8px 8px;
+  border-style: solid;
+  border-color: transparent transparent #ffe1b0 transparent;
+}
+
+
+/* ========== MODAL DE EDICIÓN DE USUARIO ========== */
+dialog#modalEditarUsuario {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: none;
+  border-radius: 12px;
+  padding: 25px 30px;
+  width: 100%;
+  max-width: 400px;
+  background-color: #fff3e0;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  font-family: 'Segoe UI', sans-serif;
+  z-index: 1000;
+}
+
+#modalEditarUsuario h3 {
+  margin-bottom: 15px;
+  color: #f57c00;
+  font-size: 20px;
+}
+
+#modalEditarUsuario label {
+  display: block;
+  margin-top: 10px;
+  font-weight: 600;
+}
+
+#modalEditarUsuario input {
+  width: 100%;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  margin-top: 5px;
+  font-size: 15px;
+}
+
+.acciones-modal {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.acciones-modal button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.acciones-modal button[type="submit"] {
+  background-color: #f57c00;
+  color: white;
+}
+
+.acciones-modal button[type="submit"]:hover {
+  background-color: #ef6c00;
+}
+
+.acciones-modal button[type="button"] {
+  background-color: #e0e0e0;
+}
+
+.acciones-modal button[type="button"]:hover {
+  background-color: #c2c2c2;
+}
+
+/* ============================== TABLA DE EMPRENDEDORES ============================== */
+#tablaEmprendedores {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-size: 1rem;
+}
+
+#tablaEmprendedores th,
+#tablaEmprendedores td {
+  padding: 12px;
+  text-align: left;
+  border: 1px solid #f2b85b;
+}
+
+#tablaEmprendedores th {
+  background-color: #f57c00;
+  color: white;
+  font-weight: bold;
+}
+
+#tablaEmprendedores tr:nth-child(even) {
+  background-color: #f7f7f7;
+}
+
+#tablaEmprendedores tr:hover {
+  background-color: #ffe0b2;
+}
+
+/* Opcional: añadir un borde más suave a la tabla */
+#tablaEmprendedores td {
+  border: 1px solid #ffe1b0;
+}
+
+/* Estilos adicionales para los enlaces u opciones en la tabla */
+#tablaEmprendedores td a {
+  color: #f57c00;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+#tablaEmprendedores th:nth-child(1),
+#tablaEmprendedores td:nth-child(1) {
+  width: 160px; /* o el valor que prefieras */
+  max-width: 160px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#tablaEmprendedores td a:hover {
+  text-decoration: underline;
+}
+
+
+/* ========== MODAL DE EDICIÓN DE EMPRENDEDOR ========== */
+dialog#modalEditarEmprendedor {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: none;
+  border-radius: 12px;
+  padding: 25px 30px;
+  width: 100%;
+  max-width: 400px;
+  background-color: #fff3e0;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  font-family: 'Segoe UI', sans-serif;
+  z-index: 1000;
+}
+
+#modalEditarEmprendedor h3 {
+  margin-bottom: 15px;
+  color: #f57c00;
+  font-size: 20px;
+}
+
+#modalEditarEmprendedor label {
+  display: block;
+  margin-top: 10px;
+  font-weight: 600;
+}
+
+#modalEditarEmprendedor input,
+#modalEditarEmprendedor textarea {
+  width: 100%;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  margin-top: 5px;
+  font-size: 15px;
+}
+
+#modalEditarEmprendedor textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.acciones-modal {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.acciones-modal button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.acciones-modal button[type="submit"] {
+  background-color: #f57c00;
+  color: white;
+}
+
+.acciones-modal button[type="submit"]:hover {
+  background-color: #ef6c00;
+}
+
+.acciones-modal button[type="button"] {
+  background-color: #e0e0e0;
+}
+
+.acciones-modal button[type="button"]:hover {
+  background-color: #c2c2c2;
+}

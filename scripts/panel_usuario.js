@@ -6,13 +6,7 @@ function mostrarSeccion(id) {
 
   if (id === "misPedidos") {
     cargarPedidos();
-  }
-
-  if (id === "favoritos") {
-    cargarFavoritos();
-  }
-
-  if (id === "configuracion") {
+  } else  if (id === "configuracion") {
     cargarConfiguracionUsuario();
   }
 
@@ -34,13 +28,6 @@ function cargarPedidos() {
   if (!lista) return;
 
   lista.innerHTML = "<p>No tienes pedidos aún.</p>"; 
-}
-
-function cargarFavoritos() {
-  const lista = document.getElementById("listaFavoritos");
-  if (!lista) return;
-
-  lista.innerHTML = "<p>No tienes productos favoritos aún.</p>"; 
 }
 
 function guardarConfiguracionUsuario(event) {
@@ -76,7 +63,25 @@ function cargarConfiguracionUsuario() {
   document.querySelector(".nombre-usuario").textContent = `Bienvenido, ${datos.nombres}`;
 }
 
+// Verificar si ya hay un usuario en localStorage, si no, cargar uno de ejemplo
 document.addEventListener("DOMContentLoaded", () => {
+  if (!localStorage.getItem("datosUsuario")) {
+    // Asegúrate de que usuariosEjemplo esté disponible en este archivo
+    const usuarioEjemplo = usuariosEjemplo[0]; // Cambia el índice si quieres otro usuario
+
+    const datos = {
+      nombres: usuarioEjemplo.nombres,
+      apellidos: usuarioEjemplo.apellidos,
+      correo: usuarioEjemplo.correo,
+      contrasena: usuarioEjemplo.contrasenia,
+      direccion: usuarioEjemplo.direccion,
+      telefono: usuarioEjemplo.telefono,
+      fechaRegistro: usuarioEjemplo.fecha_registro
+    };
+
+    localStorage.setItem("datosUsuario", JSON.stringify(datos));
+  }
+
   mostrarSeccion("configuracion");
   cargarConfiguracionUsuario();
 });
