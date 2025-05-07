@@ -8,9 +8,7 @@ function mostrarSeccion(id) {
     cargarUsuarios();
   } else if (id === "emprendedores") {
     cargarEmprendedores();
-  } else if (id === "pedidos") {
-    cargarPedidos();
-  }
+  } 
 
   const items = document.querySelectorAll(".sidebar li");
   items.forEach(li => li.classList.remove("activo"));
@@ -66,8 +64,7 @@ function mostrarOpciones(event, id_usuario) {
   menu.innerHTML = `
     <ul>
       <li onclick="editarUsuario(${id_usuario})">Editar</li>
-      <li onclick="bloquearUsuario(${id_usuario})">Bloquear</li>
-      <li onclick="verHistorial(${id_usuario})">Ver Historial de Pedidos</li>
+      <li onclick="bloquearUsuario(${id_usuario})">Bloquear</li>      
     </ul>
   `;
 
@@ -140,12 +137,6 @@ function bloquearUsuario(id_usuario) {
   // Aquí iría la lógica para bloquear al usuario (por ejemplo, cambiar su estado en la base de datos)
 }
 
-// Función para ver el historial de pedidos de un usuario
-function verHistorial(id_usuario) {
-  alert(`Ver historial de pedidos del usuario con ID: ${id_usuario}`);
-  // Aquí iría la lógica para mostrar el historial de pedidos del usuario
-}
-
 // ====================== FUNCIONALIDADES CON LOS EMPRENDEDORES ======================
 
 // Cargar emprendedores
@@ -155,47 +146,105 @@ function cargarEmprendedores() {
   contenedor.innerHTML = "";
 
   emprendedores.forEach((emp) => {
-    const div = document.createElement("div");
-    div.className = "tarjeta-producto";
-    div.innerHTML = `
-      <h3>${emp.nombreEmprendimiento}</h3>
-      <p><strong>Propietario:</strong> ${emp.nombre} ${emp.apellido}</p>
-      <p><strong>Correo:</strong> ${emp.correo}</p>
-      <p><strong>Teléfono:</strong> ${emp.telefono}</p>
-      <p><strong>Dirección:</strong> ${emp.direccion}</p>
-      <p><strong>Descripción:</strong> ${emp.descripcion}</p>
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>${emp.id_emprendedor}</td>
+      <td>${emp.nombre}</td>
+      <td>${emp.apellido}</td>
+      <td>${emp.nombre_emprendimiento}</td>
+      <td>${emp.correo}</td>
+      <td>${emp.telefono}</td>
+      <td>${new Date(emp.fecha_registro).toLocaleDateString()}</td>
+      <td>
+        <button class="acciones-btn" onclick="mostrarOpcionesEmprendedor(event, ${emp.id_emprendedor})">⋮</button>
+      </td>
     `;
-    contenedor.appendChild(div);
+    contenedor.appendChild(tr);
   });
 }
 
-// Cargar pedidos
-function cargarPedidos() {
-  const pedidos = JSON.parse(localStorage.getItem("pedidos")) || [];
-  const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
-  const contenedor = document.getElementById("listaPedidosAdmin");
-  contenedor.innerHTML = "";
+// Mostrar opciones (Editar) cuando se hace clic en "⋮" para un emprendedor
+function mostrarOpcionesEmprendedor(event, id_emprendedor) {
+  event.stopPropagation(); // Evitar que el clic cierre el menú al hacer clic en el botón
 
-  pedidos.forEach((pedido) => {
-    const usuario = usuarios.find(u => u.id === pedido.usuarioId);
-    const div = document.createElement("div");
-    div.className = "tarjeta-producto";
+  // Verificar si ya existe un menú desplegable, si es así, eliminarlo
+  const menusActivos = document.querySelectorAll('.menu-acciones');
+  menusActivos.forEach(menu => menu.remove());
 
-    const productosHTML = pedido.productos.map(p =>
-      `<li>${p.nombre} (x${p.cantidad}) - S/ ${p.precio}</li>`
-    ).join("");
+  // Crear un menú desplegable con las opciones
+  const menu = document.createElement("div");
+  menu.className = "menu-acciones";
+  menu.innerHTML = `
+    <ul>
+      <li onclick="editarEmprendedor(${id_emprendedor})">Editar</li>
+      <li onclick="bloquearUsuario(${id_emprendedor})">Bloquear</li>
+    </ul>
+  `;
 
-    div.innerHTML = `
-      <h3>Pedido #${pedido.id}</h3>
-      <p><strong>Usuario:</strong> ${usuario ? usuario.nombres : "Desconocido"}</p>
-      <p><strong>Fecha:</strong> ${pedido.fecha}</p>
-      <p><strong>Total:</strong> S/ ${pedido.total}</p>
-      <p><strong>Productos:</strong></p>
-      <ul>${productosHTML}</ul>
-    `;
-    contenedor.appendChild(div);
-  });
+  // Posicionar el menú en el lugar correcto (debajo del botón)
+  const button = event.target;
+  button.parentNode.appendChild(menu);
 }
+
+// Abrir modal con datos del emprendedor
+function editarEmprendedor(id_emprendedor) {
+  const emprendedores = JSON.parse(localStorage.getItem("emprendedores")) || [];
+  const emprendedor = emprendedores.find(emp => emp.id_emprendedor === id_emprendedor);
+  if (!emprendedor) return alert("Emprendedor no encontrado");
+
+  // Llenar campos del formulario
+  document.getElementById("edit-id_emprendedor").value = emprendedor.id_emprendedor;
+  document.getElementById("edit-nombre").value = emprendedor.nombre;
+  document.getElementById("edit-apellido").value = emprendedor.apellido;
+  document.getElementById("edit-nombre_emprendimiento").value = emprendedor.nombre_emprendimiento;
+  document.getElementById("edit-correo").value = emprendedor.correo;
+  document.getElementById("edit-contrasenia").value = emprendedor.contrasenia;
+  document.getElementById("edit-telefono").value = emprendedor.telefono;
+  document.getElementById("edit-direccion").value = emprendedor.direccion;
+  document.getElementById("edit-descripcion").value = emprendedor.descripcion;
+
+  // Mostrar el modal
+  document.getElementById("modalEditarEmprendedor").showModal();
+}
+
+// Guardar cambios del emprendedor
+document.getElementById("formEditarEmprendedor").addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  const id = parseInt(document.getElementById("edit-id_emprendedor").value);
+  const emprendedores = JSON.parse(localStorage.getItem("emprendedores")) || [];
+
+  const index = emprendedores.findIndex(emp => emp.id_emprendedor === id);
+  if (index === -1) return alert("Emprendedor no encontrado");
+
+  emprendedores[index].nombre = document.getElementById("edit-nombre").value;
+  emprendedores[index].apellido = document.getElementById("edit-apellido").value;
+  emprendedores[index].nombre_emprendimiento = document.getElementById("edit-nombre_emprendimiento").value;
+  emprendedores[index].correo = document.getElementById("edit-correo").value;
+  emprendedores[index].contrasenia = document.getElementById("edit-contrasenia").value;
+  emprendedores[index].telefono = document.getElementById("edit-telefono").value;
+  emprendedores[index].direccion = document.getElementById("edit-direccion").value;
+  emprendedores[index].descripcion = document.getElementById("edit-descripcion").value;
+
+  localStorage.setItem("emprendedores", JSON.stringify(emprendedores));
+  cerrarModal();
+  cargarEmprendedores();
+  alert("Emprendedor actualizado correctamente.");
+});
+
+function cerrarModal() {
+  document.getElementById("modalEditarEmprendedor").close();
+}
+
+// Al cargar la página, mostrar emprendedores por defecto
+document.addEventListener("DOMContentLoaded", () => {
+  mostrarSeccion("emprendedores");
+});
+
+
+
+// ====================== FUNCIONALIDADES CON LOS EMPRENDEDORES ======================
+
 
 // Al cargar la página, mostrar usuarios por defecto
 document.addEventListener("DOMContentLoaded", () => {

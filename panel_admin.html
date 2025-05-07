@@ -63,7 +63,6 @@
       <ul>
         <li onclick="mostrarSeccion('usuarios')">Usuarios</li>
         <li onclick="mostrarSeccion('emprendedores')">Emprendedores</li>
-        <li onclick="mostrarSeccion('pedidos')">Pedidos</li>
         <li onclick="cerrarSesion()">Cerrar Sesión</li>
       </ul>
     </aside>
@@ -99,20 +98,66 @@
   <template id="emprendedores">
     <section>
       <h2>Gestión de Emprendedores</h2>
-      <div class="productos-grid" id="listaEmprendedores">
-        <!-- Emprendedores cargados dinámicamente -->
-      </div>
+      <table id="tablaEmprendedores">
+        <thead>
+          <tr>
+            <th>ID Emprendedor</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Nombre del Emprendimiento</th>
+            <th>Correo</th>
+            <th>Teléfono</th>
+            <th>Fecha de Registro</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="listaEmprendedores">
+          <!-- Los emprendedores se cargarán dinámicamente aquí -->
+        </tbody>
+      </table>
     </section>
   </template>
-
-  <template id="pedidos">
-    <section>
-      <h2>Gestión de Pedidos</h2>
-      <div class="productos-grid" id="listaPedidosAdmin">
-        <!-- Pedidos cargados dinámicamente -->
+  
+  
+  <!-- Modal de edición de emprendedor -->
+  <dialog id="modalEditarEmprendedor">
+    <h3>Editar Emprendedor</h3>
+    <form id="formEditarEmprendedor">
+      <input type="hidden" id="edit-id_emprendedor" />
+  
+      <label for="edit-nombre">Nombre</label>
+      <input type="text" id="edit-nombre" required />
+  
+      <label for="edit-apellido">Apellido</label>
+      <input type="text" id="edit-apellido" required />
+  
+      <label for="edit-nombre_emprendimiento">Nombre del emprendimiento</label>
+      <input type="text" id="edit-nombre_emprendimiento" required />
+  
+      <label for="edit-correo">Correo</label>
+      <input type="email" id="edit-correo" required />
+  
+      <label for="edit-contrasenia">Contraseña:</label>
+      <div class="input-password">
+        <input type="password" id="edit-contrasenia" required>
+        <button type="button" class="toggle-pass" onclick="togglePassword()">👁</button>
       </div>
-    </section>
-  </template>
+  
+      <label for="edit-telefono">Teléfono</label>
+      <input type="text" id="edit-telefono" required />
+  
+      <label for="edit-direccion">Dirección</label>
+      <input type="text" id="edit-direccion" required />
+  
+      <label for="edit-descripcion">Descripción</label>
+      <textarea id="edit-descripcion" required></textarea>
+  
+      <div class="acciones-modal">
+        <button type="submit">Guardar Cambios</button>
+        <button type="button" onclick="cerrarModal()">Cancelar</button>
+      </div>
+    </form>
+  </dialog>
 
   <!-- Modal para editar usuario -->
   <dialog id="modalEditarUsuario">

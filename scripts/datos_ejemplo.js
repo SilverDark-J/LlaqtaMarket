@@ -104,27 +104,131 @@ const usuariosEjemplo = [
 
 
   
-  // Datos de ejemplo para emprendedores
-  const emprendedoresEjemplo = [
-    {
-      nombre: "Carlos",
-      apellido: "Gómez",
-      correo: "carlos@emprende.com",
-      telefono: "989898989",
-      direccion: "Pasaje Comercio 12",
-      descripcion: "Venta de productos orgánicos",
-      nombreEmprendimiento: "EcoMarket"
-    },
-    {
-      nombre: "María",
-      apellido: "Lozano",
-      correo: "maria@tienda.com",
-      telefono: "999888777",
-      direccion: "Av. Central 45",
-      descripcion: "Artesanías hechas a mano",
-      nombreEmprendimiento: "Manos Peruanas"
-    }
-  ];
+// Datos de ejemplo para emprendedores
+const emprendedoresEjemplo = [
+  {
+    id_emprendedor: 1,
+    nombre: "Carlos",
+    apellido: "Gómez",
+    nombre_emprendimiento: "EcoMarket",
+    correo: "carlos@emprende.com",
+    contrasenia: "contrasenia123", // ejemplo de contraseña
+    telefono: "989898989",
+    direccion: "Pasaje Comercio 12",
+    descripcion: "Venta de productos orgánicos",
+    fecha_registro: "2022-05-10"
+  },
+  {
+    id_emprendedor: 2,
+    nombre: "María",
+    apellido: "Lozano",
+    nombre_emprendimiento: "Manos Peruanas",
+    correo: "maria@tienda.com",
+    contrasenia: "mariaPass456", // ejemplo de contraseña
+    telefono: "999888777",
+    direccion: "Av. Central 45",
+    descripcion: "Artesanías hechas a mano",
+    fecha_registro: "2024-05-10"
+  },
+  {
+    id_emprendedor: 3,
+    nombre: "Ana",
+    apellido: "Martínez",
+    nombre_emprendimiento: "Sweet Treats",
+    correo: "ana@sweettreats.com",
+    contrasenia: "anaPass789", // ejemplo de contraseña
+    telefono: "987654321",
+    direccion: "Calle de las Flores 56",
+    descripcion: "Venta de pasteles y postres personalizados",
+    fecha_registro: "2023-07-15"
+  },
+  {
+    id_emprendedor: 4,
+    nombre: "Luis",
+    apellido: "Pérez",
+    nombre_emprendimiento: "TechSolutions",
+    correo: "luis@techsolutions.com",
+    contrasenia: "luisPass321", // ejemplo de contraseña
+    telefono: "912345678",
+    direccion: "Calle Río 34",
+    descripcion: "Desarrollo de software para empresas",
+    fecha_registro: "2022-11-22"
+  },
+  {
+    id_emprendedor: 5,
+    nombre: "Pedro",
+    apellido: "Ruiz",
+    nombre_emprendimiento: "FitnessHub",
+    correo: "pedro@fitnesshub.com",
+    contrasenia: "pedroFit2023", // ejemplo de contraseña
+    telefono: "933221233",
+    direccion: "Av. del Sol 12",
+    descripcion: "Gimnasio y centro de entrenamiento personalizado",
+    fecha_registro: "2023-02-18"
+  },
+  {
+    id_emprendedor: 6,
+    nombre: "Lucía",
+    apellido: "Fernández",
+    nombre_emprendimiento: "Arte & Deco",
+    correo: "lucia@arteydeco.com",
+    contrasenia: "luciaDeco2023", // ejemplo de contraseña
+    telefono: "933445566",
+    direccion: "Calle Arte 18",
+    descripcion: "Venta de productos decorativos hechos a mano",
+    fecha_registro: "2023-06-20"
+  },
+  {
+    id_emprendedor: 7,
+    nombre: "Juan",
+    apellido: "Vargas",
+    nombre_emprendimiento: "GreenFoods",
+    correo: "juan@greenfoods.com",
+    contrasenia: "juanFood456", // ejemplo de contraseña
+    telefono: "919283746",
+    direccion: "Calle Verde 15",
+    descripcion: "Comida saludable y orgánica a domicilio",
+    fecha_registro: "2024-03-12"
+  },
+  {
+    id_emprendedor: 8,
+    nombre: "Laura",
+    apellido: "Jiménez",
+    nombre_emprendimiento: "HomeStyle",
+    correo: "laura@homestyle.com",
+    contrasenia: "lauraHome123", // ejemplo de contraseña
+    telefono: "965478521",
+    direccion: "Calle Estilo 8",
+    descripcion: "Muebles y decoración personalizada para hogares",
+    fecha_registro: "2022-09-30"
+  },
+  {
+    id_emprendedor: 9,
+    nombre: "Carlos",
+    apellido: "Sánchez",
+    nombre_emprendimiento: "Café del Valle",
+    correo: "carlos@cafedelvalle.com",
+    contrasenia: "carlosCafé789", // ejemplo de contraseña
+    telefono: "992233445",
+    direccion: "Av. de los Bosques 22",
+    descripcion: "Café de especialidad y productos artesanales",
+    fecha_registro: "2023-01-25"
+  },
+  {
+    id_emprendedor: 10,
+    nombre: "Elena",
+    apellido: "García",
+    nombre_emprendimiento: "Fashion Avenue",
+    correo: "elena@fashionavenue.com",
+    contrasenia: "elenaFashion456", // ejemplo de contraseña
+    telefono: "991122334",
+    direccion: "Calle Glamour 44",
+    descripcion: "Venta de ropa y accesorios de moda",
+    fecha_registro: "2022-08-05"
+  }
+];
+
+  
   
   // Datos de ejemplo para pedidos
   const pedidosEjemplo = [
