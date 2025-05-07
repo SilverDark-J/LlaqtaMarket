@@ -38,7 +38,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center; /* Centrado del nombre y logo */
-  margin-bottom: 30px;
+  margin-bottom: 10px;
 }
 
 .formulario .empresa-info .logo {
@@ -51,7 +51,11 @@ body {
   margin-bottom: 10px;
   text-align: center;
 }
-
+.formulario h2 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
+}
 .formulario p {
   color: #555;
   margin-bottom: 30px;

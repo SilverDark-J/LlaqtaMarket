@@ -7,7 +7,8 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
   // Simulación de base de datos con contraseñas que cumplen con las reglas de validación
   const usuarios = [
     { tipo: 'usuario', email: 'cliente@llaqtamarket.com', password: 'Cliente123.' },
-    { tipo: 'emprendedor', email: 'emprendedor@llaqtamarket.com', password: 'Emprende123.' }
+    { tipo: 'emprendedor', email: 'emprendedor@llaqtamarket.com', password: 'Emprende123.' },
+    { tipo: 'admin', email: 'admin@llaqtamarket.com', password: 'Admin123.' }
   ];
 
   // Validaciones básicas
@@ -36,10 +37,18 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
     return;
   }
 
-  // Si todo es correcto, redirigir según el tipo de usuario
-  if (cuenta.tipo === 'usuario') {
-    window.location.href = 'index.html';
-  } else if (cuenta.tipo === 'emprendedor') {
-    window.location.href = 'index.html';
+  // Redirección según tipo de usuario
+  switch (cuenta.tipo) {
+    case 'usuario':
+      window.location.href = 'productos.html';
+      break;
+    case 'emprendedor':
+      window.location.href = 'panel_emprendedor.html';
+      break;
+    case 'admin':
+      window.location.href = 'panel_admin.html';
+      break;
+    default:
+      alert('Tipo de usuario no reconocido.');
   }
 });
