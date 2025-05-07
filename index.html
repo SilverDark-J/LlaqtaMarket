@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>LlaqtaMarket</title>
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="estilos/styles.css" />
 </head>
 <body>
 
@@ -20,10 +20,14 @@
       <div class="menu-container">
         <button onclick="menuDeslizable()" class="menu-btn">Menú</button>
         <div class="menu-opciones" id="menuOpciones">
-          <a href="#">Ropa</a>
-          <a href="#">Calzado</a>
-          <a href="#">Electrónica</a>
-          <a href="#">Más...</a>
+          <a href="#" onclick="filtrarPorCategoria('Ropa')">Ropa</a>
+          <a href="#" onclick="filtrarPorCategoria('Calzado')">Calzado</a>
+          <a href="#" onclick="filtrarPorCategoria('Electrónica')">Electrónica</a>
+          <a href="#" onclick="filtrarPorCategoria('Hogar')">Hogar</a>
+          <a href="#" onclick="filtrarPorCategoria('Juguetería')">Juguetería</a>
+          <a href="#" onclick="filtrarPorCategoria('Belleza')">Belleza</a>
+          <a href="#" onclick="filtrarPorCategoria('Deportes')">Deportes</a>
+          <a href="#" onclick="filtrarPorCategoria('Libros')">Libros</a>
         </div>
       </div>
 
@@ -129,12 +133,9 @@
       </div>
     </div>
   </main>
-  
-
 
   <!-- ENLAZAR EL SCRIPT -->
   <script src="scripts/script.js" defer></script>
-
 
   <!-- PIE DE PÁGINA  -->
   <footer class="footer">
