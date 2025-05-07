@@ -1,36 +1,41 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Registro Emprendedor</title>
-  <link rel="stylesheet" href="registro_emprendedor.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registro - LlaqtaMarket</title>
+  <link rel="stylesheet" href="estilos/registro_emprendedor.css">
 </head>
 <body>
-
-  <div class="contenedor-registro">
-
-    <!-- Formulario a la izquierda -->
-    <div class="formulario-registro">
-      <div class="caja-formulario">
-        <h2>Registro Emprendedor</h2>
-        <input type="text" placeholder="Nombre" id="nombre" />
-        <input type="text" placeholder="Apellido" id="apellido" />
-        <input type="text" placeholder="Nombre del Emprendimiento" id="nombre_emprendimiento" />
-        <input type="email" placeholder="Correo" id="correo" />
-        <input type="password" placeholder="Contraseña" id="contraseña" />
-        <button onclick="registrarEmprendedor()">REGISTRARSE</button>
+  <div class="registro-contenedor">
+    <!-- Lado izquierdo con nombre de la empresa y logo -->
+    <div class="formulario">
+      <!-- Contenedor para nombre y logo -->
+      <div class="empresa-info">
+        <div class="logo">
+          <img src="media/logo2.jpg" alt="Logo LlaqtaMarket">
+        </div>
+        <div class="nombre-empresa">
+          <h1>LlaqtaMarket</h1>
+        </div>
       </div>
+      <h2>Registro Emprendedor</h2>
+      <form>
+        <input type="text" placeholder="Ingrese su nombre" required>
+        <input type="text" placeholder="Ingrese su apellido" required>
+        <input type="text" placeholder="Nombre del Emprendimiento" required>
+        <input type="email" placeholder="Correo" required>
+        <input type="password" placeholder="Contraseña" required>
+        <button type="submit">REGISTRARSE</button>
+      </form>
     </div>
 
-    <!-- Imagen a la derecha -->
-    <div class="imagen-registro">
-      <img src="https://www.elemprendedor.pe/media/2024/04/emprendedores-peru.jpg" alt="Registro emprendedor" />
+    <!-- Lado derecho con imagen lateral -->
+    <div class="imagen-lateral">
+      <img src="media/registro_emprendedor.jpg" alt="Registro emprendedor">
     </div>
-
-    <script src="registro_emprendedor.js" defer></script>
-
   </div>
 
+  <script src="scripts/registro_emprendedor.js"></script>
 </body>
 </html>

@@ -4,13 +4,22 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Registro - LlaqtaMarket</title>
-  <link rel="stylesheet" href="estilos_usuario.css">
+  <link rel="stylesheet" href="estilos/estilos_usuario.css">
 </head>
 <body>
   <div class="registro-contenedor">
+    <!-- Lado izquierdo con nombre de la empresa y logo -->
     <div class="formulario">
-      <h1>¡Bienvenido a LlaqtaMarket!</h1>
-      <p>Regístrate para empezar a comprar y vender.</p>
+      <!-- Contenedor para nombre y logo -->
+      <div class="empresa-info">
+        <div class="logo">
+          <img src="media/logo2.jpg" alt="Logo LlaqtaMarket">
+        </div>
+        <div class="nombre-empresa">
+          <h1>LlaqtaMarket</h1>
+        </div>
+      </div>
+      <h2>Registro usuario</h2>
       <form>
         <input type="text" placeholder="Ingrese su nombre" required>
         <input type="text" placeholder="Ingrese su apellido" required>
@@ -20,10 +29,11 @@
       </form>
     </div>
 
+    <!-- Lado derecho con imagen lateral -->
     <div class="imagen-lateral">
-      <img src="https://cdn-icons-png.flaticon.com/512/8146/8146003.png" alt="Registro LlaqtaMarket">
+      <img src="media/registro_usuario.jpg" alt="Registro LlaqtaMarket">
     </div>
   </div>
 </body>
-<script src="registro_usuario.js"></script>
+<script src="scripts/registro_usuario.js"></script>
 </html>
