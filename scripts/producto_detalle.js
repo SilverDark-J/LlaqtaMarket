@@ -85,9 +85,6 @@ btnComentario.addEventListener("click", () => {
   comentarioInput.value = "";
   valorSeleccionado = 0;
   actualizarEstrellas();
-<<<<<<< HEAD
-});
-=======
 });
 
 // ==========================
@@ -105,4 +102,3 @@ function filtrarPorCategoria(categoria) {
   localStorage.setItem("productosFiltrados", JSON.stringify(filtrados));
   window.location.href = "index.html"; // Cambia esta línea según la página de productos
 }
->>>>>>> origin/aracely

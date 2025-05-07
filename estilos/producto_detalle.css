@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-=======
 /* Reset básico */
->>>>>>> origin/aracely
 * {
   margin: 0;
   padding: 0;
@@ -80,11 +77,8 @@ body {
 .contenido {
   display: flex;
   flex-wrap: wrap;
-<<<<<<< HEAD
-=======
   flex: 1; /* Esto asegura que el contenido ocupe todo el espacio disponible entre el encabezado y el footer */
   padding: 20px;
->>>>>>> origin/aracely
 }
 
 /* MENÚ LATERAL (CATEGORÍAS) */
@@ -270,9 +264,6 @@ button.enviar-comentario {
   .estrellas span {
     font-size: 30px;
   }
-<<<<<<< HEAD
-}
-=======
 }
 
 /* Estilo para el botón del menú */
@@ -315,4 +306,3 @@ button.enviar-comentario {
 .menu-opciones.show {
   display: flex;
 }
->>>>>>> origin/aracely
