@@ -14,112 +14,148 @@ body {
   min-height: 100vh;  /* Asegura que el body ocupe todo el alto de la ventana */
 }
 
-/* ENCABEZADO */
-.encabezado {
+/* =============== HEADER =================== */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   background-color: #f57c00;
   color: white;
-  display: flex;
-  align-items: center;
   padding: 10px 20px;
   flex-wrap: wrap;
+  gap: 15px;
 }
 
+/* Agrupación izquierda */
+.header-izquierda {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+/* Logo con imagen */
 .logo {
-  font-size: 22px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.3rem;
   font-weight: bold;
-  margin-right: 20px;
+  color: white;
+  text-decoration: none;
+}
+
+.logo-img {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+}
+
+/* Menú */
+.menu-container {
+  position: relative;
 }
 
 .menu-btn {
-  background: white;
+  background-color: white;
   color: #f57c00;
+  padding: 5px 10px;
   border: none;
-  padding: 6px 12px;
   border-radius: 4px;
   cursor: pointer;
-  margin-right: 15px;
   font-weight: bold;
 }
 
-.buscador {
-  padding: 6px 12px;
-  border-radius: 20px;
+.menu-opciones {
+  display: none;
+  position: absolute;
+  top: 40px;
+  left: 0;
+  background-color: white;
+  color: #f57c00;
   border: 1px solid #ccc;
-  width: 60rem; /* Ancho de la barra igual que en el primer CSS */
-  background-color: white; /* Fondo blanco */
-  color: #333; /* Color de texto */
+  border-radius: 4px;
+  flex-direction: column;
+  z-index: 100;
+  min-width: 120px;
 }
 
+.menu-opciones a {
+  padding: 10px;
+  text-decoration: none;
+  color: #f57c00;
+}
+
+.menu-opciones a:hover {
+  background-color: #ffe0b2;
+}
+
+/* Buscador */
+  .buscador input {
+    padding: 5px 10px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    width: 60rem;  
+  }
+
+/* Acciones a la derecha */
 .acciones {
   display: flex;
-  gap: 10px;
-  margin-left: auto;
+  align-items: center;
+  gap: 20px;
 }
 
-.btn {
-  background-color: transparent;
-  color: white;
-  border: none;
-  padding: 6px 10px;
-  border-radius: 4px;
-  cursor: pointer;
+.acciones a {
   display: flex;
   align-items: center;
   gap: 5px;
+  text-decoration: none;
+  color: white;
   font-weight: bold;
 }
 
-.btn img {
+.icono {
+  width: 24px;
+  height: 24px;
   filter: brightness(0) invert(1);
 }
 
 /* CONTENIDO */
 .contenido {
   display: flex;
+  padding: 20px 40px;
+  background-color: #fff3e0;
+  gap: 30px;
   flex-wrap: wrap;
-  flex: 1; /* Esto asegura que el contenido ocupe todo el espacio disponible entre el encabezado y el footer */
-  padding: 20px;
+  flex: 1;
 }
 
-/* MENÚ LATERAL (CATEGORÍAS) */
+/* Aside de categorías */
 .categorias {
-  width: 220px;
+  width: 200px;
   background-color: #ffe0b2;
   padding: 20px;
-  box-shadow: 0 4px 8px rgba(180, 120, 120, 0.1);
-  margin-right: 20px;
-  margin-top: 20px; /* Añadido espacio respecto al encabezado */
-  /* Eliminar bordes redondeados */
-  border-radius: 0;
 }
 
-/* CATEGORÍAS - TÍTULO */
 .categorias h3 {
-  margin-top: 0;
+  margin-bottom: 10px;
   color: #f57c00;
-  font-size: 1.25rem;
-  font-weight: bold;
 }
 
-/* CATEGORÍAS - LISTA */
 .categorias ul {
   list-style: none;
-  padding: 0;
 }
 
 .categorias li {
-  margin-bottom: 10px;
+  padding: 8px 0;
   cursor: pointer;
   color: #f57c00;
   font-weight: bold;
-  transition: all 0.2s;
 }
 
 .categorias li:hover {
   text-decoration: underline;
-  background-color: #ffe0b2;
 }
-
 /* PRODUCTO DETALLE */
 #contenedor-producto {
   flex: 1;
@@ -224,20 +260,27 @@ button.enviar-comentario {
 /* FOOTER */
 .footer {
   background-color: #ef6c00;
-  color: white;  /* Asegura que el texto del pie de página sea blanco */
+  color: white;
   text-align: center;
-  padding: 15px 20px;
+  padding: 15px 0;
   margin-top: 30px;
 }
 
-/* Asegura que los enlaces dentro del pie de página sean blancos */
-.footer a {
-  color: white;  /* Hace que los enlaces sean blancos */
-  text-decoration: none; /* Opcional: Si quieres que los enlaces no tengan subrayado */
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
 }
 
-.footer a:hover {
-  text-decoration: underline; /* Si quieres que los enlaces tengan subrayado al pasar el mouse */
+.footer-links a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.footer-links a:hover {
+  text-decoration: underline;
 }
 
 /* RESPONSIVE */
