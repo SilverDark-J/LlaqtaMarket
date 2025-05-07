@@ -8,21 +8,21 @@ function menuDeslizable() {
 }
 
 const productos = [
-    { nombre: "Zapatillas Urbanas", categoria: "Calzado", imagen: "media/zapatillas.jpg", precio: 120 },
-    { nombre: "Polera Casual", categoria: "Ropa", imagen: "media/polera.jpg", precio: 85 },
-    { nombre: "Auriculares Bluetooth", categoria: "Electrónica", imagen: "media/auriculares.jpg", precio: 150 },
-    { nombre: "Gorro de Lana", categoria: "Ropa", imagen: "media/gorro.jpg", precio: 25 },
-    { nombre: "Smartwatch Fit", categoria: "Electrónica", imagen: "media/smartwatch.jpg", precio: 210 },
-    { nombre: "Mochila Escolar", categoria: "Ropa", imagen: "media/mochila.jpg", precio: 65 },
-    { nombre: "Sandalias Verano", categoria: "Calzado", imagen: "media/sandalias.jpg", precio: 35 },
-    { nombre: "Camisa Formal", categoria: "Ropa", imagen: "media/camisa.jpg", precio: 95 },
-    { nombre: "Mouse Inalámbrico", categoria: "Electrónica", imagen: "media/mouse.jpg", precio: 45 },
-    { nombre: "Cargador Rápido", categoria: "Electrónica", imagen: "media/cargador.jpg", precio: 60 },
-    { nombre: "Olla Arrocera", categoria: "Hogar", imagen: "media/olla.jpg", precio: 180 },
-    { nombre: "Muñeca Bebé", categoria: "Juguetería", imagen: "media/muñeca.jpg", precio: 70 },
-    { nombre: "Maquillaje Facial", categoria: "Belleza", imagen: "media/maquillaje.jpg", precio: 50 },
-    { nombre: "Balón de Fútbol", categoria: "Deportes", imagen: "media/balon.jpg", precio: 70 },
-    { nombre: "Libro de Cocina", categoria: "Libros", imagen: "media/libro.jpg", precio: 40 }
+    { nombre: "Zapatillas Urbanas", categoria: "Calzado", imagen: "productos/zapatillas_urbanas.png", precio: 120 },
+    { nombre: "Polera Casual", categoria: "Ropa", imagen: "productos/polera_casual.jpg", precio: 85 },
+    { nombre: "Auriculares Bluetooth", categoria: "Electrónica", imagen: "productos/auriculares.png", precio: 150 },
+    { nombre: "Gorro de Lana", categoria: "Ropa", imagen: "productos/gorro_lana.jpg", precio: 25 },
+    { nombre: "Smartwatch Fit", categoria: "Electrónica", imagen: "productos/smartwatch.jpg", precio: 210 },
+    { nombre: "Mochila Escolar", categoria: "Ropa", imagen: "productos/mochila_escolar.jpg", precio: 65 },
+    { nombre: "Sandalias Verano", categoria: "Calzado", imagen: "productos/sandalias_verano.jpg", precio: 35 },
+    { nombre: "Camisa Formal", categoria: "Ropa", imagen: "productos/camisa_formal.jpg", precio: 95 },
+    { nombre: "Mouse Inalámbrico", categoria: "Electrónica", imagen: "productos/mouse_inhalambrico.jpg", precio: 45 },
+    { nombre: "Cargador Rápido", categoria: "Electrónica", imagen: "productos/cargador_rapido.jpg", precio: 60 },
+    { nombre: "Olla Arrocera", categoria: "Hogar", imagen: "productos/olla_arrocera.jpg", precio: 180 },
+    { nombre: "Muñeca Bebé", categoria: "Juguetería", imagen: "productos/muneca_bebe.jpg", precio: 70 },
+    { nombre: "Maquillaje Facial", categoria: "Belleza", imagen: "productos/maquillaje_facial.jpg", precio: 50 },
+    { nombre: "Balón de Fútbol", categoria: "Deportes", imagen: "productos/balon_futbol.jpg", precio: 70 },
+    { nombre: "Libro de Cocina", categoria: "Libros", imagen: "productos/libro_cocina.jpg", precio: 40 }
 ];
 
 const contenedor = document.getElementById("productosContainer");

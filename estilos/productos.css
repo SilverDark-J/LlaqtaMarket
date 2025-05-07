@@ -24,22 +24,35 @@ html, body {
   color: white;
   padding: 10px 20px;
   flex-wrap: wrap;
-}
-
-/* Parte izquierda del header */
-.header-izquierda {
-  display: flex;
-  align-items: center;
   gap: 15px;
 }
 
-/* Logo */
-.logo {
-  font-size: 1.5rem;
-  font-weight: bold;
+/* Agrupación izquierda */
+.header-izquierda {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
 }
 
-/* Menú desplegable */
+/* Logo con imagen */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: white;
+  text-decoration: none;
+}
+
+.logo-img {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+}
+
+/* Menú */
 .menu-container {
   position: relative;
 }
@@ -47,7 +60,7 @@ html, body {
 .menu-btn {
   background-color: white;
   color: #f57c00;
-  padding: 6px 12px;
+  padding: 5px 10px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -80,13 +93,13 @@ html, body {
 
 /* Buscador */
 .buscador input {
-  padding: 6px 12px;
+  padding: 5px 10px;
   border-radius: 20px;
   border: 1px solid #ccc;
-  width: 60rem;
+  width: 60rem;  
 }
 
-/* Parte derecha del header */
+/* Acciones a la derecha */
 .acciones {
   display: flex;
   align-items: center;
@@ -149,7 +162,7 @@ html, body {
 .productos {
   flex: 1;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 20px;
 }
 
@@ -161,14 +174,24 @@ html, body {
   box-shadow: 0 0 8px rgba(180, 120, 120, 0.1);
   text-align: center;
   transition: transform 0.2s;
+  width: 250px;
+  height: 280px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 280px;
 }
 
 .producto:hover {
   transform: translateY(-5px);
+}
+
+.producto img {
+  width: 100%;
+  height: 150px;
+  object-fit: fill;
+  border-radius: 8px;
+  margin-bottom: 10px;
 }
 
 .producto h3 {
