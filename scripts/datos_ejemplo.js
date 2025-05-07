@@ -112,7 +112,7 @@ const emprendedoresEjemplo = [
     apellido: "Gómez",
     nombre_emprendimiento: "EcoMarket",
     correo: "carlos@emprende.com",
-    contrasenia: "contrasenia123", // ejemplo de contraseña
+    contrasenia: "contrasenia123", 
     telefono: "989898989",
     direccion: "Pasaje Comercio 12",
     descripcion: "Venta de productos orgánicos",
@@ -124,7 +124,7 @@ const emprendedoresEjemplo = [
     apellido: "Lozano",
     nombre_emprendimiento: "Manos Peruanas",
     correo: "maria@tienda.com",
-    contrasenia: "mariaPass456", // ejemplo de contraseña
+    contrasenia: "mariaPass456", 
     telefono: "999888777",
     direccion: "Av. Central 45",
     descripcion: "Artesanías hechas a mano",
@@ -136,7 +136,7 @@ const emprendedoresEjemplo = [
     apellido: "Martínez",
     nombre_emprendimiento: "Sweet Treats",
     correo: "ana@sweettreats.com",
-    contrasenia: "anaPass789", // ejemplo de contraseña
+    contrasenia: "anaPass789", 
     telefono: "987654321",
     direccion: "Calle de las Flores 56",
     descripcion: "Venta de pasteles y postres personalizados",
@@ -148,7 +148,7 @@ const emprendedoresEjemplo = [
     apellido: "Pérez",
     nombre_emprendimiento: "TechSolutions",
     correo: "luis@techsolutions.com",
-    contrasenia: "luisPass321", // ejemplo de contraseña
+    contrasenia: "luisPass321", 
     telefono: "912345678",
     direccion: "Calle Río 34",
     descripcion: "Desarrollo de software para empresas",
@@ -160,7 +160,7 @@ const emprendedoresEjemplo = [
     apellido: "Ruiz",
     nombre_emprendimiento: "FitnessHub",
     correo: "pedro@fitnesshub.com",
-    contrasenia: "pedroFit2023", // ejemplo de contraseña
+    contrasenia: "pedroFit2023", 
     telefono: "933221233",
     direccion: "Av. del Sol 12",
     descripcion: "Gimnasio y centro de entrenamiento personalizado",
@@ -172,7 +172,7 @@ const emprendedoresEjemplo = [
     apellido: "Fernández",
     nombre_emprendimiento: "Arte & Deco",
     correo: "lucia@arteydeco.com",
-    contrasenia: "luciaDeco2023", // ejemplo de contraseña
+    contrasenia: "luciaDeco2023", 
     telefono: "933445566",
     direccion: "Calle Arte 18",
     descripcion: "Venta de productos decorativos hechos a mano",
@@ -184,7 +184,7 @@ const emprendedoresEjemplo = [
     apellido: "Vargas",
     nombre_emprendimiento: "GreenFoods",
     correo: "juan@greenfoods.com",
-    contrasenia: "juanFood456", // ejemplo de contraseña
+    contrasenia: "juanFood456", 
     telefono: "919283746",
     direccion: "Calle Verde 15",
     descripcion: "Comida saludable y orgánica a domicilio",
@@ -196,7 +196,7 @@ const emprendedoresEjemplo = [
     apellido: "Jiménez",
     nombre_emprendimiento: "HomeStyle",
     correo: "laura@homestyle.com",
-    contrasenia: "lauraHome123", // ejemplo de contraseña
+    contrasenia: "lauraHome123", 
     telefono: "965478521",
     direccion: "Calle Estilo 8",
     descripcion: "Muebles y decoración personalizada para hogares",
@@ -208,7 +208,7 @@ const emprendedoresEjemplo = [
     apellido: "Sánchez",
     nombre_emprendimiento: "Café del Valle",
     correo: "carlos@cafedelvalle.com",
-    contrasenia: "carlosCafé789", // ejemplo de contraseña
+    contrasenia: "carlosCafé789", 
     telefono: "992233445",
     direccion: "Av. de los Bosques 22",
     descripcion: "Café de especialidad y productos artesanales",
@@ -220,44 +220,17 @@ const emprendedoresEjemplo = [
     apellido: "García",
     nombre_emprendimiento: "Fashion Avenue",
     correo: "elena@fashionavenue.com",
-    contrasenia: "elenaFashion456", // ejemplo de contraseña
+    contrasenia: "elenaFashion456", 
     telefono: "991122334",
     direccion: "Calle Glamour 44",
     descripcion: "Venta de ropa y accesorios de moda",
     fecha_registro: "2022-08-05"
   }
 ];
-
-  
-  
-  // Datos de ejemplo para pedidos
-  const pedidosEjemplo = [
-    {
-      id: 101,
-      usuarioId: 1,
-      fecha: "2025-05-01",
-      total: 75.50,
-      productos: [
-        { nombre: "Mermelada", cantidad: 2, precio: 20 },
-        { nombre: "Pan integral", cantidad: 1, precio: 35.50 }
-      ]
-    },
-    {
-      id: 102,
-      usuarioId: 2,
-      fecha: "2025-05-02",
-      total: 60.00,
-      productos: [
-        { nombre: "Pulsera artesanal", cantidad: 1, precio: 30 },
-        { nombre: "Cuaderno reciclado", cantidad: 2, precio: 15 }
-      ]
-    }
-  ];
   
   // Guardar en localStorage
   localStorage.setItem("usuarios", JSON.stringify(usuariosEjemplo));
   localStorage.setItem("emprendedores", JSON.stringify(emprendedoresEjemplo));
-  localStorage.setItem("pedidos", JSON.stringify(pedidosEjemplo));
   
-  console.log("✅ Datos de ejemplo guardados en localStorage.");
+  console.log("Datos de ejemplo guardados en localStorage.");
   

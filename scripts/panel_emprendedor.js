@@ -27,7 +27,6 @@ function mostrarSeccion(id) {
   }
 }
 
-
 function cerrarSesion() {
   alert("Sesión cerrada");
   window.location.href = "index.html";
@@ -112,6 +111,14 @@ function cargarProductoParaEditar() {
   document.getElementById("descripcionProducto").value = producto.descripcion;
 }
 
+function togglePassword() {
+  const input = document.getElementById("configContrasena");
+  const button = document.querySelector(".toggle-pass");
+  const isHidden = input.type === "password";
+  input.type = isHidden ? "text" : "password";
+  button.textContent = isHidden ? "🙈" : "👁";
+}
+
 function guardarConfiguracion(event) {
   event.preventDefault();
 
@@ -153,8 +160,27 @@ function cargarConfiguracion() {
   }
 }
 
-// Ejecutar al cargar la página
+// Verificar si ya hay un emprendedor en localStorage, si no, cargar uno de ejemplo
 document.addEventListener("DOMContentLoaded", () => {
-  mostrarSeccion('productos'); // ← esto hace que cargue "Mis Productos" al iniciar
-  cargarConfiguracion();
+  if (!localStorage.getItem("datosEmprendedor")) {
+    // Asegúrate de que emprendedoresEjemplo esté disponible en este archivo
+    const emprendedorEjemplo = emprendedoresEjemplo[0]; // Cambia el índice si quieres otro emprendedor
+
+    const datos = {
+      nombre: emprendedorEjemplo.nombre,
+      apellido: emprendedorEjemplo.apellido,
+      emprendimiento: emprendedorEjemplo.nombre_emprendimiento,
+      correo: emprendedorEjemplo.correo,
+      contrasena: emprendedorEjemplo.contrasenia,
+      telefono: emprendedorEjemplo.telefono,
+      direccion: emprendedorEjemplo.direccion,
+      descripcion: emprendedorEjemplo.descripcion,
+      fechaRegistro: emprendedorEjemplo.fecha_registro
+    };
+
+    localStorage.setItem("datosEmprendedor", JSON.stringify(datos));
+  }
+
+  mostrarSeccion("configuracion");
+  cargarConfiguracion(); // Aquí llamamos a cargarConfiguracion
 });

@@ -8,7 +8,7 @@
 body, html {
   height: 100%;
   font-family: 'Segoe UI', sans-serif;
-  background-color: #fff8f0;
+  background-color: #fff3e0;
   color: #333;
 }
 
@@ -106,14 +106,31 @@ main section h2 {
 
 
 /* ================= Contenido Principal ================= */
+/* Contenido principal */
 #contenidoPrincipal {
   flex: 1;
-  padding: 30px;
+  padding: 30px;  
   overflow-y: auto;
-  background-color: #ffffff;
-}
+  display: flex;
+  justify-content: center; /* Centra el contenido verticalmente */
+} 
 
 /* ================= Productos Grid ================= */
+.contenedor-mis-productos{
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  width: 100%;
+}
+
+.contenedor-mis-productos h2 {
+  margin-bottom: 20px;
+  color: #f57c00;
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+
 .productos-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -200,17 +217,40 @@ form button {
   transition: background-color 0.3s;
 }
 
+
 form button:hover {
   background-color: #ef6c00;
 }
 
 /* ================= Agregar Productos ================= */
-.formulario-agregar {
-  max-width: 600px;
+.contenedor-agregar-producto{
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  align-items: center;
+  width: 100%;
 }
+
+.contenedor-agregar-producto h2 {
+  margin-bottom: 20px;
+  color: #f57c00;
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.formulario-agregar {
+  max-width: 600px;
+  width: 100%;
+  margin: 0 auto; /* Centrado horizontal */
+  background-color: #fffaf3;
+  display: flex;
+  flex-direction: column;
+  padding: 32px 40px;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  gap: 20px;
+  font-family: 'Segoe UI', sans-serif;
+}
+
 
 .formulario-agregar .campo {
   display: flex;
@@ -248,27 +288,45 @@ form button:hover {
 /* ================= Agregar Productos ================= */
 
 /* ================= Configuración ================= */
+/* Contenedor centrado para el formulario y el título */
+.contenedor-configuracion{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.contenedor-configuracion h2 {
+  margin-bottom: 20px;
+  color: #f57c00;
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+/* Formulario de configuración */
 .formulario-configuracion {
   max-width: 650px;
   background-color: #fffaf3;  
+  padding: 24px 32px;
   border-radius: 12px;
   box-shadow: 0 4px 16px rgba(0,0,0,0.05);
   display: flex;
   flex-direction: column;
   gap: 18px;
 }
-
+  
 .formulario-configuracion .campo {
   display: flex;
+  padding: 10px; /* Aumenta el padding para mayor espacio */
   align-items: center;
   gap: 15px;
 }
-
+  
 .formulario-configuracion label {
   width: 200px;
   font-weight: bold;
 }
-
+  
 .formulario-configuracion input,
 .formulario-configuracion textarea {
   flex: 1;
@@ -278,13 +336,13 @@ form button:hover {
   border: 1px solid #ccc;
   background-color: #fff;
 }
-
+  
 .formulario-configuracion input[disabled] {
   background-color: #f0f0f0;
   color: #777;
   cursor: not-allowed;
 }
-
+  
 .formulario-configuracion button {
   align-self: flex-end;
   padding: 12px 24px;
@@ -296,7 +354,42 @@ form button:hover {
   cursor: pointer;
   transition: background-color 0.3s;
 }
-
+  
 .formulario-configuracion button:hover {
   background-color: #ef6c00;
 }
+
+/* Estilo para el input con botón mostrar contraseña */
+.input-password {
+  position: relative;
+}
+
+.input-password input {
+  width: 100%;
+  padding-right: 35px;
+}
+
+form .toggle-pass {
+  all: unset; /* Borra todos los estilos por defecto o heredados */
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  transform: translateY(-50%);
+  font-size: 16px;
+  cursor: pointer;
+  color: #666; /* o el color que prefieras */
+}
+
+form .toggle-pass:hover {
+  all: unset;
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  transform: translateY(-50%);
+  font-size: 16px;
+  cursor: pointer;
+  color: #666;
+}
+
+
+
