@@ -25,8 +25,6 @@
       <ul>
         <li onclick="mostrarSeccion('productos')">Mis Productos</li>
         <li onclick="mostrarSeccion('agregar')">Agregar Producto</li>
-        <!-- <li onclick="mostrarSeccion('estadisticas')">Estadísticas</li> -->
-        <!-- <li onclick="mostrarSeccion('pedidos')">Pedidos Recibidos</li> -->
         <li onclick="mostrarSeccion('configuracion')">Configuración</li>
         <li onclick="cerrarSesion()">Cerrar Sesión</li>
       </ul>
@@ -41,16 +39,6 @@
 
   <template id="productos">
     <section class="contenedor-mis-productos">
-      <h2>Mis Productos</h2>
-      <div id="listaMisProductos" class="productos-grid">
-        <!-- Los productos se insertarán dinámicamente aquí -->
-      </div>
-    </section>
-  </template>
-  
-
-  <template id="productos">
-    <section>
       <h2>Mis Productos</h2>
       <div id="listaMisProductos" class="productos-grid">
         <!-- Los productos se insertarán dinámicamente aquí -->
@@ -80,11 +68,11 @@
             <option value="Ropa">Ropa</option>
             <option value="Calzado">Calzado</option>
             <option value="Electrónica">Electrónica</option>
-            <option value="Electrónica">Hogar</option>
-            <option value="Electrónica">Juguetería</option>
-            <option value="Electrónica">Belleza</option>
-            <option value="Electrónica">Deportes</option>
-            <option value="Electrónica">Libros</option>
+            <option value="Hogar">Hogar</option>
+            <option value="Juguetería">Juguetería</option>
+            <option value="Belleza">Belleza</option>
+            <option value="Deportes">Deportes</option>
+            <option value="Libros">Libros</option>
           </select>
         </div>
   
@@ -95,7 +83,8 @@
   
         <div class="campo">
           <label for="imagenProducto">Imagen:</label>
-          <input type="file" id="imagenProducto" accept="image/*" />
+          <input type="file" id="imagenProducto" multiple>
+          <div id="previewImagenes"></div>
         </div>
   
         <button type="submit">Guardar</button>

@@ -285,6 +285,17 @@ form button:hover {
   background-color: #ef6c00;
 }
 
+#previewImagenes img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  margin: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+
+
 /* ================= Agregar Productos ================= */
 
 /* ================= Configuración ================= */
