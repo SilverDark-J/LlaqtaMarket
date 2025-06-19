@@ -1,35 +1,55 @@
 let indiceEditar = null;
 
 function mostrarSeccion(id) {
-  // Actualiza contenido
   const plantilla = document.getElementById(id);
   const contenedor = document.getElementById("contenidoPrincipal");
   contenedor.innerHTML = "";
   contenedor.appendChild(plantilla.content.cloneNode(true));
 
-  // Lógica específica por sección
   if (id === "productos") {
     mostrarMisProductos();
   }
+
   if (id === "agregar" && indiceEditar !== null) {
     cargarProductoParaEditar();
   }
+
   if (id === "configuracion") {
     cargarConfiguracion();
   }
 
-  // ✅ Marcar como activo en el sidebar
   const items = document.querySelectorAll(".sidebar li");
   items.forEach(li => li.classList.remove("activo"));
   const itemActivo = Array.from(items).find(li => li.getAttribute("onclick")?.includes(id));
   if (itemActivo) {
     itemActivo.classList.add("activo");
   }
+
+  if (id === "agregar") {
+    const input = document.getElementById("imagenProducto");
+    input.addEventListener("change", previsualizarImagenes);
+  }
 }
 
 function cerrarSesion() {
   alert("Sesión cerrada");
   window.location.href = "index.html";
+}
+
+function previsualizarImagenes() {
+  const input = document.getElementById("imagenProducto");
+  const preview = document.getElementById("previewImagenes");
+  preview.innerHTML = "";
+
+  Array.from(input.files).forEach(file => {
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      const img = document.createElement("img");
+      img.src = e.target.result;
+      preview.appendChild(img);
+    };
+    reader.readAsDataURL(file); // Convierte a base64
+  });
 }
 
 function guardarProducto(event) {
@@ -40,33 +60,40 @@ function guardarProducto(event) {
   const categoria = document.getElementById("categoriaProducto").value;
   const descripcion = document.getElementById("descripcionProducto").value;
   const imagenInput = document.getElementById("imagenProducto");
-  const imagen = imagenInput.files[0] ? URL.createObjectURL(imagenInput.files[0]) : "";
 
   const productos = JSON.parse(localStorage.getItem("misProductos")) || [];
 
-  const nuevoProducto = { nombre, precio, categoria, descripcion, imagen };
+  const leerImagenes = Array.from(imagenInput.files).map(file => {
+    return new Promise(resolve => {
+      const reader = new FileReader();
+      reader.onload = e => resolve(e.target.result);
+      reader.readAsDataURL(file);
+    });
+  });
 
-  if (indiceEditar !== null) {
-    // Si está en modo edición
-    if (!imagen) {
-      nuevoProducto.imagen = productos[indiceEditar].imagen;
+  Promise.all(leerImagenes).then(imagenesBase64 => {
+    const nuevoProducto = { nombre, precio, categoria, descripcion, imagenes: imagenesBase64 };
+
+    if (indiceEditar !== null) {
+      if (imagenesBase64.length === 0) {
+        nuevoProducto.imagenes = productos[indiceEditar].imagenes;
+      }
+      productos[indiceEditar] = nuevoProducto;
+      indiceEditar = null;
+      alert("Producto editado correctamente");
+    } else {
+      productos.push(nuevoProducto);
+      alert("Producto guardado correctamente");
     }
-    productos[indiceEditar] = nuevoProducto;
-    indiceEditar = null;
-    alert("Producto editado correctamente");
-  } else {
-    productos.push(nuevoProducto);
-    alert("Producto guardado correctamente");
-  }
 
-  localStorage.setItem("misProductos", JSON.stringify(productos));
-  mostrarSeccion('productos');
+    localStorage.setItem("misProductos", JSON.stringify(productos));
+    mostrarSeccion("productos");
+  });
 }
 
 function mostrarMisProductos() {
   const productos = JSON.parse(localStorage.getItem("misProductos")) || [];
   const contenedor = document.getElementById("listaMisProductos");
-
   if (!contenedor) return;
 
   contenedor.innerHTML = "";
@@ -75,8 +102,12 @@ function mostrarMisProductos() {
     const tarjeta = document.createElement("div");
     tarjeta.className = "tarjeta-producto";
 
+    const imagenesHTML = prod.imagenes
+      .map(src => `<img src="${src}" alt="${prod.nombre}">`)
+      .join("");
+
     tarjeta.innerHTML = `
-      <img src="${prod.imagen}" alt="${prod.nombre}" />
+      <div class="imagenes-producto">${imagenesHTML}</div>
       <h3>${prod.nombre}</h3>
       <p>Categoría: ${prod.categoria}</p>
       <p>S/ ${prod.precio.toFixed(2)}</p>
@@ -97,7 +128,7 @@ function eliminarProducto(index) {
 
 function editarProducto(index) {
   indiceEditar = index;
-  mostrarSeccion('agregar');
+  mostrarSeccion("agregar");
 }
 
 function cargarProductoParaEditar() {
@@ -109,6 +140,14 @@ function cargarProductoParaEditar() {
   document.getElementById("precioProducto").value = producto.precio;
   document.getElementById("categoriaProducto").value = producto.categoria;
   document.getElementById("descripcionProducto").value = producto.descripcion;
+
+  const preview = document.getElementById("previewImagenes");
+  preview.innerHTML = "";
+  producto.imagenes.forEach(src => {
+    const img = document.createElement("img");
+    img.src = src;
+    preview.appendChild(img);
+  });
 }
 
 function togglePassword() {
@@ -134,8 +173,6 @@ function guardarConfiguracion(event) {
   };
 
   localStorage.setItem("datosEmprendedor", JSON.stringify(datos));
-
-  // ✅ Actualizar el nombre del emprendimiento en el header
   document.querySelector(".nombre-emprendimiento").textContent = datos.emprendimiento;
 
   alert("Configuración guardada correctamente.");
@@ -154,18 +191,14 @@ function cargarConfiguracion() {
   document.getElementById("configDireccion").value = datos.direccion || "";
   document.getElementById("configDescripcion").value = datos.descripcion || "";
 
-  // Mostrar también el nombre en el header al cargar
   if (datos.emprendimiento) {
     document.querySelector(".nombre-emprendimiento").textContent = datos.emprendimiento;
   }
 }
 
-// Verificar si ya hay un emprendedor en localStorage, si no, cargar uno de ejemplo
 document.addEventListener("DOMContentLoaded", () => {
   if (!localStorage.getItem("datosEmprendedor")) {
-    // Asegúrate de que emprendedoresEjemplo esté disponible en este archivo
-    const emprendedorEjemplo = emprendedoresEjemplo[0]; // Cambia el índice si quieres otro emprendedor
-
+    const emprendedorEjemplo = emprendedoresEjemplo[0];
     const datos = {
       nombre: emprendedorEjemplo.nombre,
       apellido: emprendedorEjemplo.apellido,
@@ -177,10 +210,9 @@ document.addEventListener("DOMContentLoaded", () => {
       descripcion: emprendedorEjemplo.descripcion,
       fechaRegistro: emprendedorEjemplo.fecha_registro
     };
-
     localStorage.setItem("datosEmprendedor", JSON.stringify(datos));
   }
 
   mostrarSeccion("configuracion");
-  cargarConfiguracion(); // Aquí llamamos a cargarConfiguracion
+  cargarConfiguracion();
 });
