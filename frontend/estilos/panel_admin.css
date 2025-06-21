@@ -5,9 +5,10 @@
   box-sizing: border-box;
 }
 
-body, html {
+body,
+html {
   height: 100%;
-  font-family: 'Segoe UI', sans-serif;
+  font-family: "Segoe UI", sans-serif;
   background-color: #fff3e0;
 }
 
@@ -244,7 +245,6 @@ main section h2 {
   border-color: transparent transparent #ffe1b0 transparent;
 }
 
-
 /* ========== MODAL DE EDICIÓN DE USUARIO ========== */
 dialog#modalEditarUsuario {
   position: fixed;
@@ -258,7 +258,7 @@ dialog#modalEditarUsuario {
   max-width: 400px;
   background-color: #fff3e0;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-  font-family: 'Segoe UI', sans-serif;
+  font-family: "Segoe UI", sans-serif;
   z-index: 1000;
 }
 
@@ -368,7 +368,6 @@ dialog#modalEditarUsuario {
   text-decoration: underline;
 }
 
-
 /* ========== MODAL DE EDICIÓN DE EMPRENDEDOR ========== */
 dialog#modalEditarEmprendedor {
   position: fixed;
@@ -382,7 +381,7 @@ dialog#modalEditarEmprendedor {
   max-width: 400px;
   background-color: #fff3e0;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-  font-family: 'Segoe UI', sans-serif;
+  font-family: "Segoe UI", sans-serif;
   z-index: 1000;
 }
 

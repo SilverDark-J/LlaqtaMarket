@@ -8,11 +8,13 @@ function mostrarSeccion(id) {
     cargarUsuarios();
   } else if (id === "emprendedores") {
     cargarEmprendedores();
-  } 
+  }
 
   const items = document.querySelectorAll(".sidebar li");
-  items.forEach(li => li.classList.remove("activo"));
-  const itemActivo = Array.from(items).find(li => li.getAttribute("onclick")?.includes(id));
+  items.forEach((li) => li.classList.remove("activo"));
+  const itemActivo = Array.from(items).find((li) =>
+    li.getAttribute("onclick")?.includes(id)
+  );
   if (itemActivo) {
     itemActivo.classList.add("activo");
   }
@@ -45,7 +47,7 @@ function cargarUsuarios() {
         <button class="acciones-btn" onclick="mostrarOpciones(event, ${usuario.id_usuario})">⋮</button>
       </td>
     `;
-    
+
     contenedor.appendChild(tr);
   });
 }
@@ -55,8 +57,8 @@ function mostrarOpciones(event, id_usuario) {
   event.stopPropagation(); // Evitar que el clic cierre el menú al hacer clic en el botón
 
   // Verificar si ya existe un menú desplegable, si es así, eliminarlo
-  const menusActivos = document.querySelectorAll('.menu-acciones');
-  menusActivos.forEach(menu => menu.remove());
+  const menusActivos = document.querySelectorAll(".menu-acciones");
+  menusActivos.forEach((menu) => menu.remove());
 
   // Crear un menú desplegable con las opciones
   const menu = document.createElement("div");
@@ -73,13 +75,12 @@ function mostrarOpciones(event, id_usuario) {
   button.parentNode.appendChild(menu);
 }
 
-
 // FUNCIÓN PARA EDITAR A LOS USUARIOS
 
 // Abrir modal con datos del usuario
 function editarUsuario(id_usuario) {
   const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
-  const usuario = usuarios.find(u => u.id_usuario === id_usuario);
+  const usuario = usuarios.find((u) => u.id_usuario === id_usuario);
   if (!usuario) return alert("Usuario no encontrado");
 
   // Llenar campos del formulario
@@ -96,27 +97,30 @@ function editarUsuario(id_usuario) {
 }
 
 // Guardar cambios del usuario
-document.getElementById("formEditarUsuario").addEventListener("submit", function (e) {
-  e.preventDefault();
+document
+  .getElementById("formEditarUsuario")
+  .addEventListener("submit", function (e) {
+    e.preventDefault();
 
-  const id = parseInt(document.getElementById("edit-id_usuario").value);
-  const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+    const id = parseInt(document.getElementById("edit-id_usuario").value);
+    const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
 
-  const index = usuarios.findIndex(u => u.id_usuario === id);
-  if (index === -1) return alert("Usuario no encontrado");
+    const index = usuarios.findIndex((u) => u.id_usuario === id);
+    if (index === -1) return alert("Usuario no encontrado");
 
-  usuarios[index].nombres = document.getElementById("edit-nombres").value;
-  usuarios[index].apellidos = document.getElementById("edit-apellidos").value;
-  usuarios[index].correo = document.getElementById("edit-correo").value;
-  usuarios[index].contrasenia = document.getElementById("edit-contrasenia").value;
-  usuarios[index].direccion = document.getElementById("edit-direccion").value;
-  usuarios[index].telefono = document.getElementById("edit-telefono").value;
+    usuarios[index].nombres = document.getElementById("edit-nombres").value;
+    usuarios[index].apellidos = document.getElementById("edit-apellidos").value;
+    usuarios[index].correo = document.getElementById("edit-correo").value;
+    usuarios[index].contrasenia =
+      document.getElementById("edit-contrasenia").value;
+    usuarios[index].direccion = document.getElementById("edit-direccion").value;
+    usuarios[index].telefono = document.getElementById("edit-telefono").value;
 
-  localStorage.setItem("usuarios", JSON.stringify(usuarios));
-  cerrarModal();
-  cargarUsuarios();
-  alert("Usuario actualizado correctamente.");
-});
+    localStorage.setItem("usuarios", JSON.stringify(usuarios));
+    cerrarModal();
+    cargarUsuarios();
+    alert("Usuario actualizado correctamente.");
+  });
 
 function cerrarModal() {
   document.getElementById("modalEditarUsuario").close();
@@ -129,7 +133,6 @@ function togglePassword() {
   input.type = isHidden ? "text" : "password";
   button.textContent = isHidden ? "🙈" : "👁";
 }
-
 
 // Función para bloquear usuario
 function bloquearUsuario(id_usuario) {
@@ -156,7 +159,9 @@ function cargarEmprendedores() {
       <td>${emp.telefono}</td>
       <td>${new Date(emp.fecha_registro).toLocaleDateString()}</td>
       <td>
-        <button class="acciones-btn" onclick="mostrarOpcionesEmprendedor(event, ${emp.id_emprendedor})">⋮</button>
+        <button class="acciones-btn" onclick="mostrarOpcionesEmprendedor(event, ${
+          emp.id_emprendedor
+        })">⋮</button>
       </td>
     `;
     contenedor.appendChild(tr);
@@ -168,8 +173,8 @@ function mostrarOpcionesEmprendedor(event, id_emprendedor) {
   event.stopPropagation(); // Evitar que el clic cierre el menú al hacer clic en el botón
 
   // Verificar si ya existe un menú desplegable, si es así, eliminarlo
-  const menusActivos = document.querySelectorAll('.menu-acciones');
-  menusActivos.forEach(menu => menu.remove());
+  const menusActivos = document.querySelectorAll(".menu-acciones");
+  menusActivos.forEach((menu) => menu.remove());
 
   // Crear un menú desplegable con las opciones
   const menu = document.createElement("div");
@@ -189,14 +194,18 @@ function mostrarOpcionesEmprendedor(event, id_emprendedor) {
 // Abrir modal con datos del emprendedor
 function editarEmprendedor(id_emprendedor) {
   const emprendedores = JSON.parse(localStorage.getItem("emprendedores")) || [];
-  const emprendedor = emprendedores.find(emp => emp.id_emprendedor === id_emprendedor);
+  const emprendedor = emprendedores.find(
+    (emp) => emp.id_emprendedor === id_emprendedor
+  );
   if (!emprendedor) return alert("Emprendedor no encontrado");
 
   // Llenar campos del formulario
-  document.getElementById("edit-id_emprendedor").value = emprendedor.id_emprendedor;
+  document.getElementById("edit-id_emprendedor").value =
+    emprendedor.id_emprendedor;
   document.getElementById("edit-nombre").value = emprendedor.nombre;
   document.getElementById("edit-apellido").value = emprendedor.apellido;
-  document.getElementById("edit-nombre_emprendimiento").value = emprendedor.nombre_emprendimiento;
+  document.getElementById("edit-nombre_emprendimiento").value =
+    emprendedor.nombre_emprendimiento;
   document.getElementById("edit-correo").value = emprendedor.correo;
   document.getElementById("edit-contrasenia").value = emprendedor.contrasenia;
   document.getElementById("edit-telefono").value = emprendedor.telefono;
@@ -208,29 +217,39 @@ function editarEmprendedor(id_emprendedor) {
 }
 
 // Guardar cambios del emprendedor
-document.getElementById("formEditarEmprendedor").addEventListener("submit", function (e) {
-  e.preventDefault();
+document
+  .getElementById("formEditarEmprendedor")
+  .addEventListener("submit", function (e) {
+    e.preventDefault();
 
-  const id = parseInt(document.getElementById("edit-id_emprendedor").value);
-  const emprendedores = JSON.parse(localStorage.getItem("emprendedores")) || [];
+    const id = parseInt(document.getElementById("edit-id_emprendedor").value);
+    const emprendedores =
+      JSON.parse(localStorage.getItem("emprendedores")) || [];
 
-  const index = emprendedores.findIndex(emp => emp.id_emprendedor === id);
-  if (index === -1) return alert("Emprendedor no encontrado");
+    const index = emprendedores.findIndex((emp) => emp.id_emprendedor === id);
+    if (index === -1) return alert("Emprendedor no encontrado");
 
-  emprendedores[index].nombre = document.getElementById("edit-nombre").value;
-  emprendedores[index].apellido = document.getElementById("edit-apellido").value;
-  emprendedores[index].nombre_emprendimiento = document.getElementById("edit-nombre_emprendimiento").value;
-  emprendedores[index].correo = document.getElementById("edit-correo").value;
-  emprendedores[index].contrasenia = document.getElementById("edit-contrasenia").value;
-  emprendedores[index].telefono = document.getElementById("edit-telefono").value;
-  emprendedores[index].direccion = document.getElementById("edit-direccion").value;
-  emprendedores[index].descripcion = document.getElementById("edit-descripcion").value;
+    emprendedores[index].nombre = document.getElementById("edit-nombre").value;
+    emprendedores[index].apellido =
+      document.getElementById("edit-apellido").value;
+    emprendedores[index].nombre_emprendimiento = document.getElementById(
+      "edit-nombre_emprendimiento"
+    ).value;
+    emprendedores[index].correo = document.getElementById("edit-correo").value;
+    emprendedores[index].contrasenia =
+      document.getElementById("edit-contrasenia").value;
+    emprendedores[index].telefono =
+      document.getElementById("edit-telefono").value;
+    emprendedores[index].direccion =
+      document.getElementById("edit-direccion").value;
+    emprendedores[index].descripcion =
+      document.getElementById("edit-descripcion").value;
 
-  localStorage.setItem("emprendedores", JSON.stringify(emprendedores));
-  cerrarModal();
-  cargarEmprendedores();
-  alert("Emprendedor actualizado correctamente.");
-});
+    localStorage.setItem("emprendedores", JSON.stringify(emprendedores));
+    cerrarModal();
+    cargarEmprendedores();
+    alert("Emprendedor actualizado correctamente.");
+  });
 
 function cerrarModal() {
   document.getElementById("modalEditarEmprendedor").close();
@@ -241,10 +260,7 @@ document.addEventListener("DOMContentLoaded", () => {
   mostrarSeccion("emprendedores");
 });
 
-
-
 // ====================== FUNCIONALIDADES CON LOS EMPRENDEDORES ======================
-
 
 // Al cargar la página, mostrar usuarios por defecto
 document.addEventListener("DOMContentLoaded", () => {
@@ -253,10 +269,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Cerrar el menú si se hace clic fuera
 document.addEventListener("click", (event) => {
-  const menusActivos = document.querySelectorAll('.menu-acciones');
-  menusActivos.forEach(menu => {
+  const menusActivos = document.querySelectorAll(".menu-acciones");
+  menusActivos.forEach((menu) => {
     // Verifica si el clic está fuera del menú y del botón de acciones
-    if (!menu.contains(event.target) && !event.target.closest('.acciones-btn')) {
+    if (
+      !menu.contains(event.target) &&
+      !event.target.closest(".acciones-btn")
+    ) {
       menu.remove();
     }
   });

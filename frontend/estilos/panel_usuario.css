@@ -1,33 +1,34 @@
 /* Reset y base */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-body, html {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body,
+html {
   height: 100%;
-  font-family: 'Segoe UI', sans-serif;
+  font-family: "Segoe UI", sans-serif;
   background-color: #fff3e0;
 }
-  
+
 main section h2 {
-    margin-bottom: 20px; /* opcional para separar del contenido */
-  }
+  margin-bottom: 20px; /* opcional para separar del contenido */
+}
 
 /* Header */
 .header {
-    background-color: #f57c00;
-    color: white;
-    padding: 15px 25px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 1.1rem;
-    font-weight: bold;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  }
-  
+  background-color: #f57c00;
+  color: white;
+  padding: 15px 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.1rem;
+  font-weight: bold;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
 .logo {
   display: flex;
   align-items: center;
@@ -35,13 +36,13 @@ main section h2 {
   font-weight: bold;
   gap: 10px; /* espacio entre imagen y texto */
 }
-  
+
 .logo-img {
   height: 40px;
   width: auto;
   border-radius: 4px; /* opcional: para esquinas redondeadas */
 }
-  
+
 .nombre-usuario {
   position: absolute;
   left: 50%;
@@ -49,7 +50,7 @@ main section h2 {
   font-size: 1.2rem;
   font-weight: bold;
 }
-  
+
 .ir-productos {
   background-color: white;
   color: #f57c00;
@@ -60,17 +61,17 @@ main section h2 {
   cursor: pointer;
   transition: background-color 0.3s;
 }
-  
+
 .cerrar-sesion:hover {
   background-color: #ffe0b2;
 }
-  
+
 /* Layout */
 .contenedor {
   display: flex;
   height: calc(100vh - 60px);
 }
-  
+
 /* Sidebar */
 .sidebar {
   width: 240px;
@@ -78,11 +79,11 @@ main section h2 {
   padding: 25px 20px;
   border-right: 1px solid #ffccbc;
 }
-  
+
 .sidebar ul {
   list-style: none;
 }
-  
+
 .sidebar li {
   padding: 12px 15px;
   cursor: pointer;
@@ -91,24 +92,24 @@ main section h2 {
   border-radius: 8px;
   transition: background-color 0.3s ease;
 }
-  
+
 .sidebar li:hover {
   background-color: #fff3e0;
 }
 
 .sidebar li.activo {
   background-color: #fff3e0; /* mismo color que hover */
-} 
+}
 
 /* Contenido principal */
 #contenidoPrincipal {
   flex: 1;
-  padding: 30px;  
+  padding: 30px;
   overflow-y: auto;
   display: flex;
   justify-content: center; /* Centra el contenido verticalmente */
-} 
-  
+}
+
 .tarjeta-producto {
   background-color: #fff8e1;
   padding: 15px;
@@ -117,7 +118,7 @@ main section h2 {
   border: 2px solid #f2b85b;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
 }
- 
+
 .tarjeta-producto img {
   width: 100%;
   height: 150px;
@@ -125,7 +126,7 @@ main section h2 {
   border-radius: 6px;
   margin-bottom: 10px;
 }
-  
+
 /* Contenedor centrado para el formulario y el título */
 .contenedor-configuracion {
   display: flex;
@@ -144,26 +145,26 @@ main section h2 {
 /* Formulario de configuración */
 .formulario-configuracion {
   max-width: 650px;
-  background-color: #fffaf3;  
+  background-color: #fffaf3;
   padding: 24px 32px;
   border-radius: 12px;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: column;
   gap: 18px;
 }
-  
+
 .formulario-configuracion .campo {
   display: flex;
   align-items: center;
   gap: 15px;
 }
-  
+
 .formulario-configuracion label {
   width: 200px;
   font-weight: bold;
 }
-  
+
 .formulario-configuracion input,
 .formulario-configuracion textarea {
   flex: 1;
@@ -173,13 +174,13 @@ main section h2 {
   border: 1px solid #ccc;
   background-color: #fff;
 }
-  
+
 .formulario-configuracion input[disabled] {
   background-color: #f0f0f0;
   color: #777;
   cursor: not-allowed;
 }
-  
+
 .formulario-configuracion button {
   align-self: flex-end;
   padding: 12px 24px;
@@ -191,7 +192,7 @@ main section h2 {
   cursor: pointer;
   transition: background-color 0.3s;
 }
-  
+
 .formulario-configuracion button:hover {
   background-color: #ef6c00;
 }

@@ -8,7 +8,7 @@ const usuariosEjemplo = [
     contrasenia: "contraseña123",
     direccion: "Av. Lima 123",
     telefono: "987654321",
-    fecha_registro: "2024-05-01"
+    fecha_registro: "2024-05-01",
   },
   {
     id_usuario: 2,
@@ -18,7 +18,7 @@ const usuariosEjemplo = [
     contrasenia: "contraseña456",
     direccion: "Calle Sol 456",
     telefono: "912345678",
-    fecha_registro: "2024-05-02"
+    fecha_registro: "2024-05-02",
   },
   {
     id_usuario: 3,
@@ -28,7 +28,7 @@ const usuariosEjemplo = [
     contrasenia: "clave789",
     direccion: "Jr. Arequipa 321",
     telefono: "901234567",
-    fecha_registro: "2024-05-03"
+    fecha_registro: "2024-05-03",
   },
   {
     id_usuario: 4,
@@ -38,7 +38,7 @@ const usuariosEjemplo = [
     contrasenia: "miClaveSegura",
     direccion: "Av. Los Olivos 888",
     telefono: "923456789",
-    fecha_registro: "2024-05-04"
+    fecha_registro: "2024-05-04",
   },
   {
     id_usuario: 5,
@@ -48,7 +48,7 @@ const usuariosEjemplo = [
     contrasenia: "password123",
     direccion: "Calle Luna 101",
     telefono: "934567890",
-    fecha_registro: "2024-05-05"
+    fecha_registro: "2024-05-05",
   },
   {
     id_usuario: 6,
@@ -58,7 +58,7 @@ const usuariosEjemplo = [
     contrasenia: "contrasenia2024",
     direccion: "Av. Perú 202",
     telefono: "945678901",
-    fecha_registro: "2024-05-06"
+    fecha_registro: "2024-05-06",
   },
   {
     id_usuario: 7,
@@ -68,7 +68,7 @@ const usuariosEjemplo = [
     contrasenia: "clave321",
     direccion: "Calle Mar 56",
     telefono: "956789012",
-    fecha_registro: "2024-05-07"
+    fecha_registro: "2024-05-07",
   },
   {
     id_usuario: 8,
@@ -78,7 +78,7 @@ const usuariosEjemplo = [
     contrasenia: "pass456",
     direccion: "Jr. Sol 777",
     telefono: "967890123",
-    fecha_registro: "2024-05-08"
+    fecha_registro: "2024-05-08",
   },
   {
     id_usuario: 9,
@@ -88,7 +88,7 @@ const usuariosEjemplo = [
     contrasenia: "miclave123",
     direccion: "Av. Amazonas 33",
     telefono: "978901234",
-    fecha_registro: "2024-05-09"
+    fecha_registro: "2024-05-09",
   },
   {
     id_usuario: 10,
@@ -98,12 +98,10 @@ const usuariosEjemplo = [
     contrasenia: "segura2024",
     direccion: "Calle Central 19",
     telefono: "989012345",
-    fecha_registro: "2024-05-10"
-  }
+    fecha_registro: "2024-05-10",
+  },
 ];
 
-
-  
 // Datos de ejemplo para emprendedores
 const emprendedoresEjemplo = [
   {
@@ -112,11 +110,11 @@ const emprendedoresEjemplo = [
     apellido: "Gómez",
     nombre_emprendimiento: "EcoMarket",
     correo: "carlos@emprende.com",
-    contrasenia: "contrasenia123", 
+    contrasenia: "contrasenia123",
     telefono: "989898989",
     direccion: "Pasaje Comercio 12",
     descripcion: "Venta de productos orgánicos",
-    fecha_registro: "2022-05-10"
+    fecha_registro: "2022-05-10",
   },
   {
     id_emprendedor: 2,
@@ -124,11 +122,11 @@ const emprendedoresEjemplo = [
     apellido: "Lozano",
     nombre_emprendimiento: "Manos Peruanas",
     correo: "maria@tienda.com",
-    contrasenia: "mariaPass456", 
+    contrasenia: "mariaPass456",
     telefono: "999888777",
     direccion: "Av. Central 45",
     descripcion: "Artesanías hechas a mano",
-    fecha_registro: "2024-05-10"
+    fecha_registro: "2024-05-10",
   },
   {
     id_emprendedor: 3,
@@ -136,11 +134,11 @@ const emprendedoresEjemplo = [
     apellido: "Martínez",
     nombre_emprendimiento: "Sweet Treats",
     correo: "ana@sweettreats.com",
-    contrasenia: "anaPass789", 
+    contrasenia: "anaPass789",
     telefono: "987654321",
     direccion: "Calle de las Flores 56",
     descripcion: "Venta de pasteles y postres personalizados",
-    fecha_registro: "2023-07-15"
+    fecha_registro: "2023-07-15",
   },
   {
     id_emprendedor: 4,
@@ -148,11 +146,11 @@ const emprendedoresEjemplo = [
     apellido: "Pérez",
     nombre_emprendimiento: "TechSolutions",
     correo: "luis@techsolutions.com",
-    contrasenia: "luisPass321", 
+    contrasenia: "luisPass321",
     telefono: "912345678",
     direccion: "Calle Río 34",
     descripcion: "Desarrollo de software para empresas",
-    fecha_registro: "2022-11-22"
+    fecha_registro: "2022-11-22",
   },
   {
     id_emprendedor: 5,
@@ -160,11 +158,11 @@ const emprendedoresEjemplo = [
     apellido: "Ruiz",
     nombre_emprendimiento: "FitnessHub",
     correo: "pedro@fitnesshub.com",
-    contrasenia: "pedroFit2023", 
+    contrasenia: "pedroFit2023",
     telefono: "933221233",
     direccion: "Av. del Sol 12",
     descripcion: "Gimnasio y centro de entrenamiento personalizado",
-    fecha_registro: "2023-02-18"
+    fecha_registro: "2023-02-18",
   },
   {
     id_emprendedor: 6,
@@ -172,11 +170,11 @@ const emprendedoresEjemplo = [
     apellido: "Fernández",
     nombre_emprendimiento: "Arte & Deco",
     correo: "lucia@arteydeco.com",
-    contrasenia: "luciaDeco2023", 
+    contrasenia: "luciaDeco2023",
     telefono: "933445566",
     direccion: "Calle Arte 18",
     descripcion: "Venta de productos decorativos hechos a mano",
-    fecha_registro: "2023-06-20"
+    fecha_registro: "2023-06-20",
   },
   {
     id_emprendedor: 7,
@@ -184,11 +182,11 @@ const emprendedoresEjemplo = [
     apellido: "Vargas",
     nombre_emprendimiento: "GreenFoods",
     correo: "juan@greenfoods.com",
-    contrasenia: "juanFood456", 
+    contrasenia: "juanFood456",
     telefono: "919283746",
     direccion: "Calle Verde 15",
     descripcion: "Comida saludable y orgánica a domicilio",
-    fecha_registro: "2024-03-12"
+    fecha_registro: "2024-03-12",
   },
   {
     id_emprendedor: 8,
@@ -196,11 +194,11 @@ const emprendedoresEjemplo = [
     apellido: "Jiménez",
     nombre_emprendimiento: "HomeStyle",
     correo: "laura@homestyle.com",
-    contrasenia: "lauraHome123", 
+    contrasenia: "lauraHome123",
     telefono: "965478521",
     direccion: "Calle Estilo 8",
     descripcion: "Muebles y decoración personalizada para hogares",
-    fecha_registro: "2022-09-30"
+    fecha_registro: "2022-09-30",
   },
   {
     id_emprendedor: 9,
@@ -208,11 +206,11 @@ const emprendedoresEjemplo = [
     apellido: "Sánchez",
     nombre_emprendimiento: "Café del Valle",
     correo: "carlos@cafedelvalle.com",
-    contrasenia: "carlosCafé789", 
+    contrasenia: "carlosCafé789",
     telefono: "992233445",
     direccion: "Av. de los Bosques 22",
     descripcion: "Café de especialidad y productos artesanales",
-    fecha_registro: "2023-01-25"
+    fecha_registro: "2023-01-25",
   },
   {
     id_emprendedor: 10,
@@ -220,17 +218,16 @@ const emprendedoresEjemplo = [
     apellido: "García",
     nombre_emprendimiento: "Fashion Avenue",
     correo: "elena@fashionavenue.com",
-    contrasenia: "elenaFashion456", 
+    contrasenia: "elenaFashion456",
     telefono: "991122334",
     direccion: "Calle Glamour 44",
     descripcion: "Venta de ropa y accesorios de moda",
-    fecha_registro: "2022-08-05"
-  }
+    fecha_registro: "2022-08-05",
+  },
 ];
-  
-  // Guardar en localStorage
-  localStorage.setItem("usuarios", JSON.stringify(usuariosEjemplo));
-  localStorage.setItem("emprendedores", JSON.stringify(emprendedoresEjemplo));
-  
-  console.log("Datos de ejemplo guardados en localStorage.");
-  
+
+// Guardar en localStorage
+localStorage.setItem("usuarios", JSON.stringify(usuariosEjemplo));
+localStorage.setItem("emprendedores", JSON.stringify(emprendedoresEjemplo));
+
+console.log("Datos de ejemplo guardados en localStorage.");

@@ -6,13 +6,15 @@ function mostrarSeccion(id) {
 
   if (id === "misPedidos") {
     cargarPedidos();
-  } else  if (id === "configuracion") {
+  } else if (id === "configuracion") {
     cargarConfiguracionUsuario();
   }
 
   const items = document.querySelectorAll(".sidebar li");
-  items.forEach(li => li.classList.remove("activo"));
-  const itemActivo = Array.from(items).find(li => li.getAttribute("onclick")?.includes(id));
+  items.forEach((li) => li.classList.remove("activo"));
+  const itemActivo = Array.from(items).find((li) =>
+    li.getAttribute("onclick")?.includes(id)
+  );
   if (itemActivo) {
     itemActivo.classList.add("activo");
   }
@@ -27,7 +29,7 @@ function cargarPedidos() {
   const lista = document.getElementById("listaPedidos");
   if (!lista) return;
 
-  lista.innerHTML = "<p>No tienes pedidos aún.</p>"; 
+  lista.innerHTML = "<p>No tienes pedidos aún.</p>";
 }
 
 function guardarConfiguracionUsuario(event) {
@@ -40,7 +42,7 @@ function guardarConfiguracionUsuario(event) {
     contrasena: document.getElementById("usuarioContrasena").value,
     direccion: document.getElementById("usuarioDireccion").value,
     telefono: document.getElementById("usuarioTelefono").value,
-    fechaRegistro: document.getElementById("usuarioFechaRegistro").value
+    fechaRegistro: document.getElementById("usuarioFechaRegistro").value,
   };
 
   localStorage.setItem("datosUsuario", JSON.stringify(datos));
@@ -57,10 +59,13 @@ function cargarConfiguracionUsuario() {
   document.getElementById("usuarioContrasena").value = datos.contrasena || "";
   document.getElementById("usuarioDireccion").value = datos.direccion || "";
   document.getElementById("usuarioTelefono").value = datos.telefono || "";
-  document.getElementById("usuarioFechaRegistro").value = datos.fechaRegistro || "";
+  document.getElementById("usuarioFechaRegistro").value =
+    datos.fechaRegistro || "";
 
   // Actualizar nombre en el header
-  document.querySelector(".nombre-usuario").textContent = `Bienvenido, ${datos.nombres}`;
+  document.querySelector(
+    ".nombre-usuario"
+  ).textContent = `Bienvenido, ${datos.nombres}`;
 }
 
 // Verificar si ya hay un usuario en localStorage, si no, cargar uno de ejemplo
@@ -76,7 +81,7 @@ document.addEventListener("DOMContentLoaded", () => {
       contrasena: usuarioEjemplo.contrasenia,
       direccion: usuarioEjemplo.direccion,
       telefono: usuarioEjemplo.telefono,
-      fechaRegistro: usuarioEjemplo.fecha_registro
+      fechaRegistro: usuarioEjemplo.fecha_registro,
     };
 
     localStorage.setItem("datosUsuario", JSON.stringify(datos));

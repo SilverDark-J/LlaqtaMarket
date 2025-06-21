@@ -1,7 +1,7 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const form = document.querySelector('form');
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.querySelector("form");
 
-  form.addEventListener('submit', function (e) {
+  form.addEventListener("submit", function (e) {
     e.preventDefault(); // Prevenir envío real
 
     const nombre = form.elements[0].value.trim();
@@ -34,8 +34,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Validación de contraseña (mínimo 8 caracteres, debe tener letras, números y uno de los caracteres especiales permitidos)
-    if (!contraseña || contraseña.length < 8 || !validarContraseña(contraseña)) {
-      alert("La contraseña debe tener al menos 8 caracteres, incluir letras, números y uno de los siguientes caracteres especiales: punto, coma, guion o guion bajo.");
+    if (
+      !contraseña ||
+      contraseña.length < 8 ||
+      !validarContraseña(contraseña)
+    ) {
+      alert(
+        "La contraseña debe tener al menos 8 caracteres, incluir letras, números y uno de los siguientes caracteres especiales: punto, coma, guion o guion bajo."
+      );
       return;
     }
 

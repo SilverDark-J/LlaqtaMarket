@@ -19,8 +19,10 @@ function mostrarSeccion(id) {
   }
 
   const items = document.querySelectorAll(".sidebar li");
-  items.forEach(li => li.classList.remove("activo"));
-  const itemActivo = Array.from(items).find(li => li.getAttribute("onclick")?.includes(id));
+  items.forEach((li) => li.classList.remove("activo"));
+  const itemActivo = Array.from(items).find((li) =>
+    li.getAttribute("onclick")?.includes(id)
+  );
   if (itemActivo) {
     itemActivo.classList.add("activo");
   }
@@ -41,7 +43,7 @@ function previsualizarImagenes() {
   const preview = document.getElementById("previewImagenes");
   preview.innerHTML = "";
 
-  Array.from(input.files).forEach(file => {
+  Array.from(input.files).forEach((file) => {
     const reader = new FileReader();
     reader.onload = function (e) {
       const img = document.createElement("img");
@@ -63,16 +65,22 @@ function guardarProducto(event) {
 
   const productos = JSON.parse(localStorage.getItem("misProductos")) || [];
 
-  const leerImagenes = Array.from(imagenInput.files).map(file => {
-    return new Promise(resolve => {
+  const leerImagenes = Array.from(imagenInput.files).map((file) => {
+    return new Promise((resolve) => {
       const reader = new FileReader();
-      reader.onload = e => resolve(e.target.result);
+      reader.onload = (e) => resolve(e.target.result);
       reader.readAsDataURL(file);
     });
   });
 
-  Promise.all(leerImagenes).then(imagenesBase64 => {
-    const nuevoProducto = { nombre, precio, categoria, descripcion, imagenes: imagenesBase64 };
+  Promise.all(leerImagenes).then((imagenesBase64) => {
+    const nuevoProducto = {
+      nombre,
+      precio,
+      categoria,
+      descripcion,
+      imagenes: imagenesBase64,
+    };
 
     if (indiceEditar !== null) {
       if (imagenesBase64.length === 0) {
@@ -103,7 +111,7 @@ function mostrarMisProductos() {
     tarjeta.className = "tarjeta-producto";
 
     const imagenesHTML = prod.imagenes
-      .map(src => `<img src="${src}" alt="${prod.nombre}">`)
+      .map((src) => `<img src="${src}" alt="${prod.nombre}">`)
       .join("");
 
     tarjeta.innerHTML = `
@@ -143,7 +151,7 @@ function cargarProductoParaEditar() {
 
   const preview = document.getElementById("previewImagenes");
   preview.innerHTML = "";
-  producto.imagenes.forEach(src => {
+  producto.imagenes.forEach((src) => {
     const img = document.createElement("img");
     img.src = src;
     preview.appendChild(img);
@@ -169,11 +177,12 @@ function guardarConfiguracion(event) {
     contrasena: document.getElementById("configContrasena").value,
     telefono: document.getElementById("configTelefono").value,
     direccion: document.getElementById("configDireccion").value,
-    descripcion: document.getElementById("configDescripcion").value
+    descripcion: document.getElementById("configDescripcion").value,
   };
 
   localStorage.setItem("datosEmprendedor", JSON.stringify(datos));
-  document.querySelector(".nombre-emprendimiento").textContent = datos.emprendimiento;
+  document.querySelector(".nombre-emprendimiento").textContent =
+    datos.emprendimiento;
 
   alert("Configuración guardada correctamente.");
 }
@@ -184,7 +193,8 @@ function cargarConfiguracion() {
 
   document.getElementById("configNombre").value = datos.nombre || "";
   document.getElementById("configApellido").value = datos.apellido || "";
-  document.getElementById("configNombreEmprendimiento").value = datos.emprendimiento || "";
+  document.getElementById("configNombreEmprendimiento").value =
+    datos.emprendimiento || "";
   document.getElementById("configCorreo").value = datos.correo || "";
   document.getElementById("configContrasena").value = datos.contrasena || "";
   document.getElementById("configTelefono").value = datos.telefono || "";
@@ -192,7 +202,8 @@ function cargarConfiguracion() {
   document.getElementById("configDescripcion").value = datos.descripcion || "";
 
   if (datos.emprendimiento) {
-    document.querySelector(".nombre-emprendimiento").textContent = datos.emprendimiento;
+    document.querySelector(".nombre-emprendimiento").textContent =
+      datos.emprendimiento;
   }
 }
 
@@ -208,7 +219,7 @@ document.addEventListener("DOMContentLoaded", () => {
       telefono: emprendedorEjemplo.telefono,
       direccion: emprendedorEjemplo.direccion,
       descripcion: emprendedorEjemplo.descripcion,
-      fechaRegistro: emprendedorEjemplo.fecha_registro
+      fechaRegistro: emprendedorEjemplo.fecha_registro,
     };
     localStorage.setItem("datosEmprendedor", JSON.stringify(datos));
   }
