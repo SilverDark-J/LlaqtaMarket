@@ -1,4 +1,4 @@
-const producto = { 
+const producto = {
   nombre: "Casaca Hypnotic Mujer Pipe",
   precioRegular: 129.0,
   precioOferta: 79.95,
@@ -10,18 +10,25 @@ const producto = {
   tipo: "Casaca",
   cuidados:
     "Lavar en agua fría, no usar secadora, no usar lejía, plancha tibia, lavar por separado.",
-  imagen: "https://mamamountainperu.com/wp-content/uploads/abrigo-de-montana-y-nieve-impermeable-hombre-quechua-sh100-x-warm-_27_.webp"
+  imagen:
+    "https://mamamountainperu.com/wp-content/uploads/abrigo-de-montana-y-nieve-impermeable-hombre-quechua-sh100-x-warm-_27_.webp",
 };
 
 const contenedor = document.getElementById("contenedor-producto");
 
 contenedor.innerHTML = `
   <div class="producto-detalle">
-    <img src="${producto.imagen}" alt="${producto.nombre}" class="producto-img" />
+    <img src="${producto.imagen}" alt="${
+  producto.nombre
+}" class="producto-img" />
     <div class="producto-info">
       <h2 class="producto-nombre">${producto.nombre}</h2>
-      <p><strong>Precio Regular:</strong> <del>S/ ${producto.precioRegular.toFixed(2)}</del></p>
-      <p><strong>Precio Online:</strong> <span class="precio-oferta">S/ ${producto.precioOferta.toFixed(2)}</span></p>
+      <p><strong>Precio Regular:</strong> <del>S/ ${producto.precioRegular.toFixed(
+        2
+      )}</del></p>
+      <p><strong>Precio Online:</strong> <span class="precio-oferta">S/ ${producto.precioOferta.toFixed(
+        2
+      )}</span></p>
       <p><strong>Color:</strong> ${producto.color}</p>
       <p><strong>Modelo:</strong> ${producto.modelo}</p>
       <p><strong>Cierre:</strong> ${producto.cierre}</p>
@@ -98,7 +105,7 @@ function menuDeslizable() {
 // Preparado para filtrar por categoría (si usas productos en esta página)
 function filtrarPorCategoria(categoria) {
   const productos = JSON.parse(localStorage.getItem("productos") || "[]");
-  const filtrados = productos.filter(p => p.categoria === categoria);
+  const filtrados = productos.filter((p) => p.categoria === categoria);
   localStorage.setItem("productosFiltrados", JSON.stringify(filtrados));
   window.location.href = "index.html"; // Cambia esta línea según la página de productos
 }

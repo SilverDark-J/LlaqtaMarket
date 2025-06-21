@@ -6,12 +6,12 @@
 }
 
 body {
-  font-family: 'Segoe UI', sans-serif;
+  font-family: "Segoe UI", sans-serif;
   background-color: #fff3e0;
   color: #333;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;  /* Asegura que el body ocupe todo el alto de la ventana */
+  min-height: 100vh; /* Asegura que el body ocupe todo el alto de la ventana */
 }
 
 /* =============== HEADER =================== */
@@ -91,12 +91,12 @@ body {
 }
 
 /* Buscador */
-  .buscador input {
-    padding: 5px 10px;
-    border-radius: 20px;
-    border: 1px solid #ccc;
-    width: 60rem;  
-  }
+.buscador input {
+  padding: 5px 10px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  width: 60rem;
+}
 
 /* Acciones a la derecha */
 .acciones {
@@ -238,7 +238,7 @@ textarea {
   padding: 10px;
   border-radius: 5px;
   resize: none;
-  font-family: 'Segoe UI', sans-serif;
+  font-family: "Segoe UI", sans-serif;
 }
 
 button.enviar-comentario {
@@ -323,16 +323,16 @@ button.enviar-comentario {
 /* Estilo para el menú despegable */
 .menu-opciones {
   display: none;
-    position: absolute;
-    top: 40px;
-    left: 0;
-    background-color: white;
-    color: #f57c00;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    flex-direction: column;
-    z-index: 100;
-    min-width: 120px;
+  position: absolute;
+  top: 40px;
+  left: 0;
+  background-color: white;
+  color: #f57c00;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  flex-direction: column;
+  z-index: 100;
+  min-width: 120px;
 }
 
 .menu-opciones a {

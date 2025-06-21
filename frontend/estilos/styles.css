@@ -4,14 +4,15 @@
   padding: 0;
   box-sizing: border-box;
 }
-  
+
 body {
-  font-family: 'Segoe UI', sans-serif;
+  font-family: "Segoe UI", sans-serif;
   background-color: #fff3e0;
   color: #333;
 }
 
-html, body {
+html,
+body {
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -19,7 +20,7 @@ html, body {
 main {
   flex: 1;
 }
-  
+
 /* =============== HEADER =================== */
 .header {
   display: flex;
@@ -97,12 +98,12 @@ main {
 }
 
 /* Buscador */
-  .buscador input {
-    padding: 5px 10px;
-    border-radius: 20px;
-    border: 1px solid #ccc;
-    width: 60rem;  
-  }
+.buscador input {
+  padding: 5px 10px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  width: 60rem;
+}
 
 /* Acciones a la derecha */
 .acciones {
@@ -126,94 +127,91 @@ main {
   filter: brightness(0) invert(1);
 }
 
-  
-  /* =============== CONTENIDO PRINCIPAL =================== */
-  .productos-recomendados {
-    padding: 30px 40px;
-    background-color: #fff3e0;
-  }
-  
-  .productos-recomendados h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #e65100;
-  }
-  
-  .grid-productos {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-    padding: 20px;
-  }
-  
-  .producto {
-    background-color: #fff;
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 0 0 8px rgba(180, 120, 120, 0.1);
-    text-align: center;
-    transition: transform 0.2s;
-    width: 250px;
-    height: 280px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-  
-  .producto img {
-    width: 100%;
-    height: 150px;
-    object-fit: fill;
-    border-radius: 8px;
-    margin-bottom: 10px;
-  }
-  
-  
-  .producto:hover {
-    transform: translateY(-5px);
-  }
-  
-  .producto h3 {
-    font-size: 1rem;
-    margin-bottom: 5px;
-    color: #333;
-  }
-  
-  .categoria {
-    font-size: 0.9rem;
-    color: #777;
-  }
-  
-  .precio {
-    font-weight: bold;
-    margin-top: 5px;
-    color: #d84315;
-  }
-  
-  /* =============== FOOTER =================== */
-  .footer {
-    background-color: #ef6c00;
-    color: white;
-    text-align: center;
-    padding: 15px 0;
-    margin-top: 30px;
-  }
-  
-  .footer-links {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    flex-wrap: wrap;
-  }
-  
-  .footer-links a {
-    color: white;
-    text-decoration: none;
-    font-weight: 500;
-  }
-  
-  .footer-links a:hover {
-    text-decoration: underline;
-  }
-  
+/* =============== CONTENIDO PRINCIPAL =================== */
+.productos-recomendados {
+  padding: 30px 40px;
+  background-color: #fff3e0;
+}
+
+.productos-recomendados h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #e65100;
+}
+
+.grid-productos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.producto {
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 0 8px rgba(180, 120, 120, 0.1);
+  text-align: center;
+  transition: transform 0.2s;
+  width: 250px;
+  height: 280px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.producto img {
+  width: 100%;
+  height: 150px;
+  object-fit: fill;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.producto:hover {
+  transform: translateY(-5px);
+}
+
+.producto h3 {
+  font-size: 1rem;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.categoria {
+  font-size: 0.9rem;
+  color: #777;
+}
+
+.precio {
+  font-weight: bold;
+  margin-top: 5px;
+  color: #d84315;
+}
+
+/* =============== FOOTER =================== */
+.footer {
+  background-color: #ef6c00;
+  color: white;
+  text-align: center;
+  padding: 15px 0;
+  margin-top: 30px;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.footer-links a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.footer-links a:hover {
+  text-decoration: underline;
+}

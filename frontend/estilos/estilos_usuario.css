@@ -5,7 +5,7 @@
 }
 
 body {
-  font-family: 'Segoe UI', sans-serif;
+  font-family: "Segoe UI", sans-serif;
   background-color: #fff3e0;
   height: 100vh;
   display: flex;
@@ -111,7 +111,8 @@ form button:hover {
 
 /*responsive*/
 @media (max-width: 768px) {
-  html, body {
+  html,
+  body {
     height: 100%;
     margin: 0;
     padding: 0;
@@ -135,7 +136,8 @@ form button:hover {
     background-color: #ffffff;
   }
 
-  .formulario, .imagen-lateral {
+  .formulario,
+  .imagen-lateral {
     width: 100%;
     padding: 30px 20px;
     text-align: center;
@@ -153,7 +155,8 @@ form button:hover {
     font-size: 14px;
   }
 
-  form input, form button {
+  form input,
+  form button {
     padding: 12px;
     font-size: 14px;
   }
