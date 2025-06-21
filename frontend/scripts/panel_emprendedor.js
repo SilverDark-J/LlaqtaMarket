@@ -43,7 +43,11 @@ function previsualizarImagenes() {
   const preview = document.getElementById("previewImagenes");
   preview.innerHTML = "";
 
+<<<<<<< HEAD
   Array.from(input.files).forEach((file) => {
+=======
+  Array.from(input.files).forEach(file => {
+>>>>>>> origin/pruebas
     const reader = new FileReader();
     reader.onload = function (e) {
       const img = document.createElement("img");
@@ -65,14 +69,22 @@ function guardarProducto(event) {
 
   const productos = JSON.parse(localStorage.getItem("misProductos")) || [];
 
+<<<<<<< HEAD
   const leerImagenes = Array.from(imagenInput.files).map((file) => {
     return new Promise((resolve) => {
       const reader = new FileReader();
       reader.onload = (e) => resolve(e.target.result);
+=======
+  const leerImagenes = Array.from(imagenInput.files).map(file => {
+    return new Promise(resolve => {
+      const reader = new FileReader();
+      reader.onload = e => resolve(e.target.result);
+>>>>>>> origin/pruebas
       reader.readAsDataURL(file);
     });
   });
 
+<<<<<<< HEAD
   Promise.all(leerImagenes).then((imagenesBase64) => {
     const nuevoProducto = {
       nombre,
@@ -81,6 +93,10 @@ function guardarProducto(event) {
       descripcion,
       imagenes: imagenesBase64,
     };
+=======
+  Promise.all(leerImagenes).then(imagenesBase64 => {
+    const nuevoProducto = { nombre, precio, categoria, descripcion, imagenes: imagenesBase64 };
+>>>>>>> origin/pruebas
 
     if (indiceEditar !== null) {
       if (imagenesBase64.length === 0) {
@@ -111,7 +127,11 @@ function mostrarMisProductos() {
     tarjeta.className = "tarjeta-producto";
 
     const imagenesHTML = prod.imagenes
+<<<<<<< HEAD
       .map((src) => `<img src="${src}" alt="${prod.nombre}">`)
+=======
+      .map(src => `<img src="${src}" alt="${prod.nombre}">`)
+>>>>>>> origin/pruebas
       .join("");
 
     tarjeta.innerHTML = `
@@ -151,7 +171,11 @@ function cargarProductoParaEditar() {
 
   const preview = document.getElementById("previewImagenes");
   preview.innerHTML = "";
+<<<<<<< HEAD
   producto.imagenes.forEach((src) => {
+=======
+  producto.imagenes.forEach(src => {
+>>>>>>> origin/pruebas
     const img = document.createElement("img");
     img.src = src;
     preview.appendChild(img);
@@ -181,8 +205,12 @@ function guardarConfiguracion(event) {
   };
 
   localStorage.setItem("datosEmprendedor", JSON.stringify(datos));
+<<<<<<< HEAD
   document.querySelector(".nombre-emprendimiento").textContent =
     datos.emprendimiento;
+=======
+  document.querySelector(".nombre-emprendimiento").textContent = datos.emprendimiento;
+>>>>>>> origin/pruebas
 
   alert("Configuración guardada correctamente.");
 }
