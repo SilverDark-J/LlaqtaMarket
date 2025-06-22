@@ -1,64 +1,46 @@
 document
   .getElementById("loginForm")
-  .addEventListener("submit", function (event) {
+  .addEventListener("submit", async function (event) {
     event.preventDefault();
 
-    const usuario = document.getElementById("usuario").value.trim();
+    const correo = document.getElementById("usuario").value.trim();
     const contrasena = document.getElementById("contrasena").value.trim();
 
-    // Simulación de base de datos con contraseñas que cumplen con las reglas de validación
-    const usuarios = [
-      {
-        tipo: "usuario",
-        email: "cliente@llaqtamarket.com",
-        password: "Cliente123.",
-      },
-      {
-        tipo: "emprendedor",
-        email: "emprendedor@llaqtamarket.com",
-        password: "Emprende123.",
-      },
-      { tipo: "admin", email: "admin@llaqtamarket.com", password: "Admin123." },
-    ];
-
-    // Validaciones básicas
-    if (!usuario || !contrasena) {
+    if (!correo || !contrasena) {
       alert("Por favor, complete todos los campos.");
       return;
     }
 
     const correoValido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!correoValido.test(usuario)) {
+    if (!correoValido.test(correo)) {
       alert("El correo electrónico no tiene un formato válido.");
       return;
     }
 
-    // Verificación de credenciales
-    const cuenta = usuarios.find((u) => u.email === usuario);
+    try {
+      const response = await fetch("http://localhost:3000/api/usuarios/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ correo: correo, contrasenia: contrasena }),
+      });
 
-    if (!cuenta) {
-      alert("El correo electrónico no está registrado.");
-      return;
-    }
+      const data = await response.json();
 
-    // Comparar la contraseña con la almacenada
-    if (cuenta.password !== contrasena) {
-      alert("La contraseña es incorrecta.");
-      return;
-    }
-
-    // Redirección según tipo de usuario
-    switch (cuenta.tipo) {
-      case "usuario":
-        window.location.href = "productos.html";
-        break;
-      case "emprendedor":
-        window.location.href = "panel_emprendedor.html";
-        break;
-      case "admin":
-        window.location.href = "panel_admin.html";
-        break;
-      default:
-        alert("Tipo de usuario no reconocido.");
+      if (response.ok) {
+        if (data.tipo_usuario === "cliente") {
+          window.location.href = "productos.html";
+        } else if (data.tipo_usuario === "emprendedor") {
+          window.location.href = "panel_emprendedor.html";
+        } else if (data.tipo_usuario === "administrador") {
+          window.location.href = "panel_admin.html";
+        } else {
+          alert("Tipo de usuario no reconocido.");
+        }
+      } else {
+        alert("❌ " + data.mensaje);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Error al conectar con el servidor");
     }
   });

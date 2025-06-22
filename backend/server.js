@@ -1,21 +1,16 @@
 const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
-const app = express();
+require("./db/conexion");
 
-// Middlewares
+const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Importar rutas
+// Rutas
 const usuariosRoutes = require("./routes/usuarios");
 app.use("/api/usuarios", usuariosRoutes);
 
-// Servir el frontend (opcional, si quieres que Node sirva también el frontend)
-const path = require("path");
-app.use(express.static(path.join(__dirname, "../frontend")));
-
-// Iniciar servidor
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Servidor escuchando en el puerto ${PORT}`);

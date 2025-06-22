@@ -14,10 +14,8 @@ exports.registrarUsuario = async (req, res) => {
   } = req.body;
 
   try {
-    // Primero hasheamos la contraseña
     const hash_contrasenia = await bcrypt.hash(contrasenia, 10);
 
-    // Insertamos en tabla Usuario
     const sqlUsuario = `
       INSERT INTO Usuario (nombres, apellidos, correo, hash_contrasenia, tipo_usuario, estado_usuario, fecha_registro)
       VALUES (?, ?, ?, ?, ?, 'activo', NOW())
@@ -63,4 +61,42 @@ exports.registrarUsuario = async (req, res) => {
     console.error("Error:", error);
     return res.status(500).json({ error: "Error en el servidor" });
   }
+};
+
+// ------------------------ LOGIN ------------------------
+
+exports.loginUsuario = (req, res) => {
+  const { correo, contrasenia } = req.body;
+
+  if (!correo || !contrasenia) {
+    return res.status(400).json({ mensaje: "Campos incompletos" });
+  }
+
+  const sql = `SELECT * FROM Usuario WHERE correo = ?`;
+
+  conexion.query(sql, [correo], async (err, resultados) => {
+    if (err) {
+      console.error("Error en la consulta:", err);
+      return res.status(500).json({ mensaje: "Error en el servidor" });
+    }
+
+    if (resultados.length === 0) {
+      return res.status(401).json({ mensaje: "Correo no registrado" });
+    }
+
+    const usuario = resultados[0];
+
+    const passwordCorrecta = await bcrypt.compare(
+      contrasenia,
+      usuario.hash_contrasenia
+    );
+    if (!passwordCorrecta) {
+      return res.status(401).json({ mensaje: "Contraseña incorrecta" });
+    }
+
+    return res.json({
+      mensaje: "Inicio de sesión exitoso",
+      tipo_usuario: usuario.tipo_usuario,
+    });
+  });
 };
