@@ -1,5 +1,6 @@
 let indiceEditar = null;
 
+// Mostrar secciones del menú
 function mostrarSeccion(id) {
   const plantilla = document.getElementById(id);
   const contenedor = document.getElementById("contenidoPrincipal");
@@ -9,11 +10,9 @@ function mostrarSeccion(id) {
   if (id === "productos") {
     mostrarMisProductos();
   }
-
   if (id === "agregar" && indiceEditar !== null) {
     cargarProductoParaEditar();
   }
-
   if (id === "configuracion") {
     cargarConfiguracion();
   }
@@ -23,9 +22,7 @@ function mostrarSeccion(id) {
   const itemActivo = Array.from(items).find((li) =>
     li.getAttribute("onclick")?.includes(id)
   );
-  if (itemActivo) {
-    itemActivo.classList.add("activo");
-  }
+  if (itemActivo) itemActivo.classList.add("activo");
 
   if (id === "agregar") {
     const input = document.getElementById("imagenProducto");
@@ -33,11 +30,14 @@ function mostrarSeccion(id) {
   }
 }
 
+// Cerrar sesión
 function cerrarSesion() {
-  alert("Sesión cerrada");
+  localStorage.removeItem("token");
+  localStorage.removeItem("tipo_usuario");
   window.location.href = "index.html";
 }
 
+// Previsualización de imágenes (solo para producto, local)
 function previsualizarImagenes() {
   const input = document.getElementById("imagenProducto");
   const preview = document.getElementById("previewImagenes");
@@ -50,9 +50,90 @@ function previsualizarImagenes() {
       img.src = e.target.result;
       preview.appendChild(img);
     };
-    reader.readAsDataURL(file); // Convierte a base64
+    reader.readAsDataURL(file);
   });
 }
+
+// Cargar datos de configuración del emprendedor desde la API
+async function cargarConfiguracion() {
+  const token = localStorage.getItem("token");
+  if (!token) {
+    alert("No hay sesión activa.");
+    window.location.href = "login.html";
+    return;
+  }
+
+  try {
+    const response = await fetch("http://localhost:3000/api/emprendedores", {
+      headers: {
+        Authorization: token,
+      },
+    });
+
+    if (!response.ok) throw new Error("Error al obtener datos");
+
+    const datos = await response.json();
+
+    document.getElementById("configNombre").value = datos.nombres || "";
+    document.getElementById("configApellido").value = datos.apellidos || "";
+    document.getElementById("configNombreEmprendimiento").value =
+      datos.nombre_emprendimiento || "";
+    document.getElementById("configCorreo").value = datos.correo || "";
+    document.getElementById("configContrasena").value = "";
+    document.getElementById("configTelefono").value = datos.telefono || "";
+    document.getElementById("configDireccion").value = datos.direccion || "";
+    document.getElementById("configDescripcion").value =
+      datos.descripcion || "";
+
+    document.querySelector(".nombre-emprendimiento").textContent =
+      datos.nombre_emprendimiento || "Emprendedor";
+  } catch (error) {
+    console.error("Error:", error);
+    alert("Error al cargar la configuración");
+  }
+}
+
+// Guardar cambios de configuración
+async function guardarConfiguracion(event) {
+  event.preventDefault();
+
+  const datosActualizados = {
+    nombres: document.getElementById("configNombre").value,
+    apellidos: document.getElementById("configApellido").value,
+    contrasenia: document.getElementById("configContrasena").value,
+    telefono: document.getElementById("configTelefono").value,
+    direccion: document.getElementById("configDireccion").value,
+    descripcion: document.getElementById("configDescripcion").value,
+    categoria: null, // (opcional: si en el futuro agregas categoría)
+    logo_url: null, // (opcional: si agregas subida de logos)
+  };
+
+  try {
+    const token = localStorage.getItem("token");
+
+    const response = await fetch("http://localhost:3000/api/emprendedores", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token,
+      },
+      body: JSON.stringify(datosActualizados),
+    });
+
+    if (response.ok) {
+      alert("Datos actualizados correctamente");
+      cargarConfiguracion();
+    } else {
+      const data = await response.json();
+      alert("Error al actualizar: " + (data.error || ""));
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    alert("Error de red al actualizar");
+  }
+}
+
+// ---- PARTE PRODUCTOS ---- (Mantenemos momentáneamente el manejo local de productos)
 
 function guardarProducto(event) {
   event.preventDefault();
@@ -166,64 +247,7 @@ function togglePassword() {
   button.textContent = isHidden ? "🙈" : "👁";
 }
 
-function guardarConfiguracion(event) {
-  event.preventDefault();
-
-  const datos = {
-    nombre: document.getElementById("configNombre").value,
-    apellido: document.getElementById("configApellido").value,
-    emprendimiento: document.getElementById("configNombreEmprendimiento").value,
-    correo: document.getElementById("configCorreo").value,
-    contrasena: document.getElementById("configContrasena").value,
-    telefono: document.getElementById("configTelefono").value,
-    direccion: document.getElementById("configDireccion").value,
-    descripcion: document.getElementById("configDescripcion").value,
-  };
-
-  localStorage.setItem("datosEmprendedor", JSON.stringify(datos));
-  document.querySelector(".nombre-emprendimiento").textContent =
-    datos.emprendimiento;
-
-  alert("Configuración guardada correctamente.");
-}
-
-function cargarConfiguracion() {
-  const datos = JSON.parse(localStorage.getItem("datosEmprendedor"));
-  if (!datos) return;
-
-  document.getElementById("configNombre").value = datos.nombre || "";
-  document.getElementById("configApellido").value = datos.apellido || "";
-  document.getElementById("configNombreEmprendimiento").value =
-    datos.emprendimiento || "";
-  document.getElementById("configCorreo").value = datos.correo || "";
-  document.getElementById("configContrasena").value = datos.contrasena || "";
-  document.getElementById("configTelefono").value = datos.telefono || "";
-  document.getElementById("configDireccion").value = datos.direccion || "";
-  document.getElementById("configDescripcion").value = datos.descripcion || "";
-
-  if (datos.emprendimiento) {
-    document.querySelector(".nombre-emprendimiento").textContent =
-      datos.emprendimiento;
-  }
-}
-
 document.addEventListener("DOMContentLoaded", () => {
-  if (!localStorage.getItem("datosEmprendedor")) {
-    const emprendedorEjemplo = emprendedoresEjemplo[0];
-    const datos = {
-      nombre: emprendedorEjemplo.nombre,
-      apellido: emprendedorEjemplo.apellido,
-      emprendimiento: emprendedorEjemplo.nombre_emprendimiento,
-      correo: emprendedorEjemplo.correo,
-      contrasena: emprendedorEjemplo.contrasenia,
-      telefono: emprendedorEjemplo.telefono,
-      direccion: emprendedorEjemplo.direccion,
-      descripcion: emprendedorEjemplo.descripcion,
-      fechaRegistro: emprendedorEjemplo.fecha_registro,
-    };
-    localStorage.setItem("datosEmprendedor", JSON.stringify(datos));
-  }
-
   mostrarSeccion("configuracion");
   cargarConfiguracion();
 });

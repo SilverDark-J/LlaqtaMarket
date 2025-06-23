@@ -7,9 +7,11 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Rutas
 const usuariosRoutes = require("./routes/usuarios");
+const emprendedoresRoutes = require("./routes/emprendedores");
+
 app.use("/api/usuarios", usuariosRoutes);
+app.use("/api/emprendedores", emprendedoresRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
