@@ -1,8 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.querySelector("form");
 
-  form.addEventListener("submit", function (e) {
-    e.preventDefault(); // Prevenir envío real
+  form.addEventListener("submit", async function (e) {
+    e.preventDefault();
 
     const nombre = form.elements[0].value.trim();
     const apellido = form.elements[1].value.trim();
@@ -21,19 +21,16 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    // Validación de nombre del emprendimiento (mínimo 3 caracteres)
     if (!nombreEmprendimiento || nombreEmprendimiento.length < 3) {
       alert("El nombre del emprendimiento debe tener al menos 3 caracteres.");
       return;
     }
 
-    // Validación de correo
     if (!correo || !validarCorreo(correo)) {
       alert("Ingrese un correo electrónico válido.");
       return;
     }
 
-    // Validación de contraseña (mínimo 8 caracteres, debe tener letras, números y uno de los caracteres especiales permitidos)
     if (
       !contraseña ||
       contraseña.length < 8 ||
@@ -45,17 +42,44 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    alert("✅ Registro exitoso. ¡Bienvenido a LlaqtaMarket!");
-    form.reset();
+    // Ahora enviamos al backend
+    try {
+      const response = await fetch(
+        "http://localhost:3000/api/usuarios/registro",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            nombres: nombre,
+            apellidos: apellido,
+            correo: correo,
+            contrasenia: contraseña,
+            tipo_usuario: "emprendedor",
+            nombre_emprendimiento: nombreEmprendimiento,
+          }),
+        }
+      );
+
+      const data = await response.json();
+
+      if (response.ok) {
+        alert("✅ Registro exitoso. ¡Bienvenido a LlaqtaMarket!");
+        form.reset();
+        window.location.href = "index.html";
+      } else {
+        alert("❌ Error: " + data.mensaje);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("❌ Error al conectar con el servidor");
+    }
   });
 
-  // Función para validar correo
   function validarCorreo(correo) {
     const regex = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
     return regex.test(correo);
   }
 
-  // Función para validar la contraseña
   function validarContraseña(contraseña) {
     const regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[.,_-])[A-Za-z\d.,_-]{8,}$/;
     return regex.test(contraseña);
