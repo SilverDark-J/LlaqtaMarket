@@ -43,7 +43,7 @@ main section h2 {
   border-radius: 4px; /* opcional: para esquinas redondeadas */
 }
 
-.nombre-usuario {
+.nombre-cliente {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);

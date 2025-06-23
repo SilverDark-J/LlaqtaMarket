@@ -1,5 +1,5 @@
 // Datos de ejemplo para usuarios
-const usuariosEjemplo = [
+const clientesEjemplo = [
   {
     id_usuario: 1,
     nombres: "Juan",
