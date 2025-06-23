@@ -35,7 +35,7 @@ async function cargarConfiguracionCliente() {
   }
 
   try {
-    const response = await fetch("http://localhost:3000/api/usuarios/cliente", {
+    const response = await fetch("http://localhost:3000/api/clientes", {
       headers: {
         Authorization: token,
       },

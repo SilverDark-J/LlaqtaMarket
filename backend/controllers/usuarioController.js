@@ -2,7 +2,7 @@ const conexion = require("../db/conexion");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-// REGISTRO
+// Registro general
 exports.registrarUsuario = async (req, res) => {
   const {
     nombres,
@@ -34,6 +34,7 @@ exports.registrarUsuario = async (req, res) => {
 
         const id_usuario = result.insertId;
 
+        // Según el tipo de usuario creamos registros en tablas hijas:
         if (tipo_usuario === "cliente") {
           const sqlCliente = `INSERT INTO Cliente (id_usuario, telefono, direccion) VALUES (?, ?, ?)`;
           conexion.query(sqlCliente, [
@@ -65,7 +66,7 @@ exports.registrarUsuario = async (req, res) => {
   }
 };
 
-// LOGIN (ahora genera el JWT)
+// Login general (para todos los usuarios)
 exports.loginUsuario = (req, res) => {
   const { correo, contrasenia } = req.body;
 
@@ -107,48 +108,4 @@ exports.loginUsuario = (req, res) => {
       tipo_usuario: usuario.tipo_usuario,
     });
   });
-};
-
-// Obtener datos de cliente (protegiendo la ruta con JWT)
-exports.obtenerUsuarioPorId = (req, res) => {
-  const id_usuario = req.usuario.id_usuario; // Extraído desde el token
-
-  const sql = `
-    SELECT u.nombres, u.apellidos, u.correo, u.fecha_registro, c.direccion, c.telefono 
-    FROM Usuario u 
-    JOIN Cliente c ON u.id_usuario = c.id_usuario 
-    WHERE u.id_usuario = ?
-  `;
-  conexion.query(sql, [id_usuario], (err, results) => {
-    if (err) return res.status(500).json({ error: "Error al obtener usuario" });
-    if (results.length === 0)
-      return res.status(404).json({ error: "Usuario no encontrado" });
-    res.json(results[0]);
-  });
-};
-
-// Actualizar datos de cliente (protegido por JWT)
-exports.actualizarUsuario = async (req, res) => {
-  const id_usuario = req.usuario.id_usuario; // Extraído del token
-
-  const { nombres, apellidos, direccion, telefono, contrasenia } = req.body;
-
-  try {
-    if (contrasenia) {
-      const hash = await bcrypt.hash(contrasenia, 10);
-      const sqlUpdateUsuario = `UPDATE Usuario SET nombres = ?, apellidos = ?, hash_contrasenia = ? WHERE id_usuario = ?`;
-      conexion.query(sqlUpdateUsuario, [nombres, apellidos, hash, id_usuario]);
-    } else {
-      const sqlUpdateUsuario = `UPDATE Usuario SET nombres = ?, apellidos = ? WHERE id_usuario = ?`;
-      conexion.query(sqlUpdateUsuario, [nombres, apellidos, id_usuario]);
-    }
-
-    const sqlUpdateCliente = `UPDATE Cliente SET direccion = ?, telefono = ? WHERE id_usuario = ?`;
-    conexion.query(sqlUpdateCliente, [direccion, telefono, id_usuario]);
-
-    res.json({ mensaje: "Datos actualizados correctamente" });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Error al actualizar usuario" });
-  }
 };

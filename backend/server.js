@@ -8,9 +8,11 @@ app.use(cors());
 app.use(express.json());
 
 const usuariosRoutes = require("./routes/usuarios");
+const clientesRoutes = require("./routes/clientes");
 const emprendedoresRoutes = require("./routes/emprendedores");
 
 app.use("/api/usuarios", usuariosRoutes);
+app.use("/api/clientes", clientesRoutes);
 app.use("/api/emprendedores", emprendedoresRoutes);
 
 const PORT = process.env.PORT || 3000;

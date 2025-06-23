@@ -51,7 +51,7 @@ exports.actualizarEmprendedor = async (req, res) => {
 
     const sqlEmprendedor = `
       UPDATE Emprendedor 
-      SET telefono = ?, direccion = ?, descripcion = ?, categoria = ?, logo_url = ? 
+      SET telefono = ?, direccion = ?, descripcion = ?, categoria = ?, logo_url = ?
       WHERE id_usuario = ?
     `;
     conexion.query(sqlEmprendedor, [
