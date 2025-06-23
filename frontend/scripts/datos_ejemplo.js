@@ -227,7 +227,7 @@ const emprendedoresEjemplo = [
 ];
 
 // Guardar en localStorage
-localStorage.setItem("usuarios", JSON.stringify(usuariosEjemplo));
+localStorage.setItem("usuarios", JSON.stringify(clientesEjemplo));
 localStorage.setItem("emprendedores", JSON.stringify(emprendedoresEjemplo));
 
 console.log("Datos de ejemplo guardados en localStorage.");
