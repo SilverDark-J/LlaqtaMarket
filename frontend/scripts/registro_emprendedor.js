@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (response.ok) {
         alert("✅ Registro exitoso. ¡Bienvenido a LlaqtaMarket!");
         form.reset();
-        window.location.href = "index.html";
+        window.location.href = "panel_emprendedor.html";
       } else {
         alert("❌ Error: " + data.mensaje);
       }

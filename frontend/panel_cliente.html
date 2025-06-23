@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Panel de Usuario</title>
-    <link rel="stylesheet" href="estilos/panel_usuario.css" />
+    <title>Panel de Cliente</title>
+    <link rel="stylesheet" href="estilos/panel_cliente.css" />
   </head>
   <body>
     <header class="header">
@@ -14,7 +14,7 @@
         </a>
         LlaqtaMarket
       </div>
-      <div class="nombre-usuario">Bienvenido,</div>
+      <div class="nombre-cliente">Bienvenido,</div>
       <button
         class="ir-productos"
         onclick="window.location.href='productos.html'"
@@ -60,51 +60,51 @@
       <section class="contenedor-configuracion">
         <h2>Configuración</h2>
         <form
-          onsubmit="guardarConfiguracionUsuario(event)"
+          onsubmit="guardarConfiguracionCliente(event)"
           class="formulario-configuracion"
         >
           <div class="campo">
-            <label for="usuarioNombre">Nombres:</label>
-            <input type="text" id="usuarioNombre" />
+            <label for="clienteNombre">Nombres:</label>
+            <input type="text" id="clienteNombre" />
           </div>
 
           <div class="campo">
-            <label for="usuarioApellido">Apellidos:</label>
-            <input type="text" id="usuarioApellido" />
+            <label for="clienteApellido">Apellidos:</label>
+            <input type="text" id="clienteApellido" />
           </div>
 
           <div class="campo">
-            <label for="usuarioCorreo">Correo:</label>
-            <input type="email" id="usuarioCorreo" disabled />
+            <label for="clienteCorreo">Correo:</label>
+            <input type="email" id="clienteCorreo" disabled />
           </div>
 
           <div class="campo">
-            <label for="usuarioContrasena">Contraseña:</label>
+            <label for="clienteContrasena">Contraseña:</label>
             <input
               type="password"
-              id="usuarioContrasena"
+              id="clienteContrasena"
               placeholder="••••••••"
               required
             />
           </div>
 
           <div class="campo">
-            <label for="usuarioDireccion">Dirección:</label>
+            <label for="clienteDireccion">Dirección:</label>
             <input
               type="text"
-              id="usuarioDireccion"
+              id="clienteDireccion"
               placeholder="Av. Central 123"
             />
           </div>
 
           <div class="campo">
-            <label for="usuarioTelefono">Teléfono:</label>
-            <input type="tel" id="usuarioTelefono" placeholder="987654321" />
+            <label for="clienteTelefono">Teléfono:</label>
+            <input type="tel" id="clienteTelefono" placeholder="987654321" />
           </div>
 
           <div class="campo">
-            <label for="usuarioFechaRegistro">Fecha de Registro:</label>
-            <input type="text" id="usuarioFechaRegistro" disabled />
+            <label for="clienteFechaRegistro">Fecha de Registro:</label>
+            <input type="text" id="clienteFechaRegistro" disabled />
           </div>
 
           <button type="submit">Actualizar</button>
@@ -113,6 +113,6 @@
     </template>
 
     <script src="scripts/datos_ejemplo.js"></script>
-    <script src="scripts/panel_usuario.js"></script>
+    <script src="scripts/panel_cliente.js"></script>
   </body>
 </html>
