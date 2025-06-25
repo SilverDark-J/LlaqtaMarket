@@ -134,50 +134,65 @@ async function guardarConfiguracion(event) {
 }
 
 // ---- PARTE PRODUCTOS ---- (Mantenemos momentáneamente el manejo local de productos)
+function obtenerIdEmprendedorDesdeToken(token) {
+  if (!token) return null;
+  const payload = JSON.parse(atob(token.split(".")[1]));
+  return payload.id_emprendedor;
+}
 
-function guardarProducto(event) {
+async function guardarProducto(event) {
   event.preventDefault();
 
-  const nombre = document.getElementById("nombreProducto").value;
-  const precio = parseFloat(document.getElementById("precioProducto").value);
-  const categoria = document.getElementById("categoriaProducto").value;
-  const descripcion = document.getElementById("descripcionProducto").value;
+  const token = localStorage.getItem("token");
+  const id_emprendedor = obtenerIdEmprendedorDesdeToken(token); // Este es importante
+  if (!id_emprendedor) {
+    alert("No se pudo obtener el ID del emprendedor.");
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append("nombre", document.getElementById("nombreProducto").value);
+  formData.append("precio", document.getElementById("precioProducto").value);
+  formData.append(
+    "categoria",
+    document.getElementById("categoriaProducto").value
+  );
+  formData.append(
+    "descripcion",
+    document.getElementById("descripcionProducto").value
+  );
+
   const imagenInput = document.getElementById("imagenProducto");
+  if (imagenInput.files.length > 0) {
+    formData.append("imagenProducto", imagenInput.files[0]);
+  } else {
+    alert("Debes seleccionar una imagen.");
+    return;
+  }
 
-  const productos = JSON.parse(localStorage.getItem("misProductos")) || [];
-
-  const leerImagenes = Array.from(imagenInput.files).map((file) => {
-    return new Promise((resolve) => {
-      const reader = new FileReader();
-      reader.onload = (e) => resolve(e.target.result);
-      reader.readAsDataURL(file);
-    });
-  });
-
-  Promise.all(leerImagenes).then((imagenesBase64) => {
-    const nuevoProducto = {
-      nombre,
-      precio,
-      categoria,
-      descripcion,
-      imagenes: imagenesBase64,
-    };
-
-    if (indiceEditar !== null) {
-      if (imagenesBase64.length === 0) {
-        nuevoProducto.imagenes = productos[indiceEditar].imagenes;
+  try {
+    const response = await fetch(
+      `http://localhost:3000/api/productos/${id_emprendedor}`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: token,
+        },
+        body: formData,
       }
-      productos[indiceEditar] = nuevoProducto;
-      indiceEditar = null;
-      alert("Producto editado correctamente");
-    } else {
-      productos.push(nuevoProducto);
-      alert("Producto guardado correctamente");
-    }
+    );
 
-    localStorage.setItem("misProductos", JSON.stringify(productos));
-    mostrarSeccion("productos");
-  });
+    if (response.ok) {
+      alert("Producto guardado correctamente");
+      mostrarSeccion("productos");
+    } else {
+      const data = await response.json();
+      alert("Error al guardar: " + (data.error || ""));
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    alert("Error al registrar el producto");
+  }
 }
 
 function mostrarMisProductos() {

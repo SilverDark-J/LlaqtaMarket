@@ -1,8 +1,9 @@
+// emprendedorController.js
 const conexion = require("../db/conexion");
 const bcrypt = require("bcrypt");
 
 // Obtener datos del emprendedor
-exports.obtenerEmprendedorPorId = (req, res) => {
+exports.obtenerEmprendedorPorId = async (req, res) => {
   const id_usuario = req.usuario.id_usuario;
 
   const sql = `
@@ -14,15 +15,18 @@ exports.obtenerEmprendedorPorId = (req, res) => {
     WHERE u.id_usuario = ?
   `;
 
-  conexion.query(sql, [id_usuario], (err, results) => {
-    if (err)
-      return res
-        .status(500)
-        .json({ error: "Error al obtener datos del emprendedor" });
-    if (results.length === 0)
+  try {
+    const [results] = await conexion.query(sql, [id_usuario]);
+
+    if (results.length === 0) {
       return res.status(404).json({ error: "Emprendedor no encontrado" });
+    }
+
     res.json(results[0]);
-  });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Error al obtener datos del emprendedor" });
+  }
 };
 
 // Actualizar datos del emprendedor
@@ -43,10 +47,10 @@ exports.actualizarEmprendedor = async (req, res) => {
     if (contrasenia) {
       const hash = await bcrypt.hash(contrasenia, 10);
       const sqlUsuario = `UPDATE Usuario SET nombres = ?, apellidos = ?, hash_contrasenia = ? WHERE id_usuario = ?`;
-      conexion.query(sqlUsuario, [nombres, apellidos, hash, id_usuario]);
+      await conexion.query(sqlUsuario, [nombres, apellidos, hash, id_usuario]);
     } else {
       const sqlUsuario = `UPDATE Usuario SET nombres = ?, apellidos = ? WHERE id_usuario = ?`;
-      conexion.query(sqlUsuario, [nombres, apellidos, id_usuario]);
+      await conexion.query(sqlUsuario, [nombres, apellidos, id_usuario]);
     }
 
     const sqlEmprendedor = `
@@ -54,7 +58,7 @@ exports.actualizarEmprendedor = async (req, res) => {
       SET telefono = ?, direccion = ?, descripcion = ?, categoria = ?, logo_url = ?
       WHERE id_usuario = ?
     `;
-    conexion.query(sqlEmprendedor, [
+    await conexion.query(sqlEmprendedor, [
       telefono,
       direccion,
       descripcion,

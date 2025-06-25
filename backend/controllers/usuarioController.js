@@ -23,43 +23,39 @@ exports.registrarUsuario = async (req, res) => {
       VALUES (?, ?, ?, ?, ?, 'activo', NOW())
     `;
 
-    conexion.query(
-      sqlUsuario,
-      [nombres, apellidos, correo, hash_contrasenia, tipo_usuario],
-      (err, result) => {
-        if (err) {
-          console.error("Error al insertar usuario:", err);
-          return res.status(500).json({ error: "Error al registrar usuario" });
-        }
+    const [result] = await conexion.query(sqlUsuario, [
+      nombres,
+      apellidos,
+      correo,
+      hash_contrasenia,
+      tipo_usuario,
+    ]);
 
-        const id_usuario = result.insertId;
+    const id_usuario = result.insertId;
 
-        // Según el tipo de usuario creamos registros en tablas hijas:
-        if (tipo_usuario === "cliente") {
-          const sqlCliente = `INSERT INTO Cliente (id_usuario, telefono, direccion) VALUES (?, ?, ?)`;
-          conexion.query(sqlCliente, [
-            id_usuario,
-            telefono || null,
-            direccion || null,
-          ]);
-        } else if (tipo_usuario === "emprendedor") {
-          const sqlEmprendedor = `
-            INSERT INTO Emprendedor (id_usuario, nombre_emprendimiento, descripcion, categoria, logo_url, telefono, direccion)
-            VALUES (?, ?, null, null, null, ?, ?)
-          `;
-          conexion.query(sqlEmprendedor, [
-            id_usuario,
-            nombre_emprendimiento,
-            telefono || null,
-            direccion || null,
-          ]);
-        }
+    if (tipo_usuario === "cliente") {
+      const sqlCliente = `INSERT INTO Cliente (id_usuario, telefono, direccion) VALUES (?, ?, ?)`;
+      await conexion.query(sqlCliente, [
+        id_usuario,
+        telefono || null,
+        direccion || null,
+      ]);
+    } else if (tipo_usuario === "emprendedor") {
+      const sqlEmprendedor = `
+        INSERT INTO Emprendedor (id_usuario, nombre_emprendimiento, descripcion, categoria, logo_url, telefono, direccion)
+        VALUES (?, ?, null, null, null, ?, ?)
+      `;
+      await conexion.query(sqlEmprendedor, [
+        id_usuario,
+        nombre_emprendimiento,
+        telefono || null,
+        direccion || null,
+      ]);
+    }
 
-        return res
-          .status(201)
-          .json({ mensaje: "Usuario registrado correctamente" });
-      }
-    );
+    return res
+      .status(201)
+      .json({ mensaje: "Usuario registrado correctamente" });
   } catch (error) {
     console.error("Error:", error);
     return res.status(500).json({ error: "Error en el servidor" });
@@ -67,20 +63,18 @@ exports.registrarUsuario = async (req, res) => {
 };
 
 // Login general (para todos los usuarios)
-exports.loginUsuario = (req, res) => {
+exports.loginUsuario = async (req, res) => {
   const { correo, contrasenia } = req.body;
 
   if (!correo || !contrasenia) {
     return res.status(400).json({ mensaje: "Campos incompletos" });
   }
 
-  const sql = `SELECT * FROM Usuario WHERE correo = ?`;
-
-  conexion.query(sql, [correo], async (err, resultados) => {
-    if (err) {
-      console.error("Error en la consulta:", err);
-      return res.status(500).json({ mensaje: "Error en el servidor" });
-    }
+  try {
+    const [resultados] = await conexion.query(
+      `SELECT * FROM Usuario WHERE correo = ?`,
+      [correo]
+    );
 
     if (resultados.length === 0) {
       return res.status(401).json({ mensaje: "Correo no registrado" });
@@ -91,21 +85,38 @@ exports.loginUsuario = (req, res) => {
       contrasenia,
       usuario.hash_contrasenia
     );
+
     if (!passwordCorrecta) {
       return res.status(401).json({ mensaje: "Contraseña incorrecta" });
     }
 
-    // Generamos el token JWT
-    const token = jwt.sign(
-      { id_usuario: usuario.id_usuario, tipo_usuario: usuario.tipo_usuario },
-      process.env.JWT_SECRET,
-      { expiresIn: "2h" }
-    );
+    let payload = {
+      id_usuario: usuario.id_usuario,
+      tipo_usuario: usuario.tipo_usuario,
+    };
+
+    if (usuario.tipo_usuario === "emprendedor") {
+      const [emprendedorData] = await conexion.query(
+        `SELECT id_emprendedor FROM Emprendedor WHERE id_usuario = ?`,
+        [usuario.id_usuario]
+      );
+
+      if (emprendedorData.length > 0) {
+        payload.id_emprendedor = emprendedorData[0].id_emprendedor;
+      }
+    }
+
+    const token = jwt.sign(payload, process.env.JWT_SECRET, {
+      expiresIn: "2h",
+    });
 
     return res.json({
       mensaje: "Inicio de sesión exitoso",
       token,
       tipo_usuario: usuario.tipo_usuario,
     });
-  });
+  } catch (error) {
+    console.error("Error en login:", error);
+    return res.status(500).json({ mensaje: "Error en el servidor" });
+  }
 };
