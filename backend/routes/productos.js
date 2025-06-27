@@ -11,4 +11,10 @@ router.post(
   productosController.registrarProducto
 );
 
+router.get(
+  "/:id_emprendedor",
+  auth.verificarToken,
+  productosController.listarProductosPorEmprendedor
+);
+
 module.exports = router;
