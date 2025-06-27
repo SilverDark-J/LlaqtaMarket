@@ -1,5 +1,6 @@
 let indiceEditar = null;
 
+// Mostrar secciones del menú
 function mostrarSeccion(id) {
   const plantilla = document.getElementById(id);
   const contenedor = document.getElementById("contenidoPrincipal");
@@ -9,11 +10,9 @@ function mostrarSeccion(id) {
   if (id === "productos") {
     mostrarMisProductos();
   }
-
   if (id === "agregar" && indiceEditar !== null) {
     cargarProductoParaEditar();
   }
-
   if (id === "configuracion") {
     cargarConfiguracion();
   }
@@ -23,9 +22,7 @@ function mostrarSeccion(id) {
   const itemActivo = Array.from(items).find((li) =>
     li.getAttribute("onclick")?.includes(id)
   );
-  if (itemActivo) {
-    itemActivo.classList.add("activo");
-  }
+  if (itemActivo) itemActivo.classList.add("activo");
 
   if (id === "agregar") {
     const input = document.getElementById("imagenProducto");
@@ -34,7 +31,8 @@ function mostrarSeccion(id) {
 }
 
 function cerrarSesion() {
-  alert("Sesión cerrada");
+  localStorage.removeItem("token");
+  localStorage.removeItem("tipo_usuario");
   window.location.href = "index.html";
 }
 
@@ -50,81 +48,202 @@ function previsualizarImagenes() {
       img.src = e.target.result;
       preview.appendChild(img);
     };
-    reader.readAsDataURL(file); // Convierte a base64
+    reader.readAsDataURL(file);
   });
 }
 
-function guardarProducto(event) {
+async function cargarConfiguracion() {
+  const token = localStorage.getItem("token");
+  if (!token) {
+    alert("No hay sesión activa.");
+    window.location.href = "login.html";
+    return;
+  }
+
+  try {
+    const response = await fetch("http://localhost:3000/api/emprendedores", {
+      headers: {
+        Authorization: token,
+      },
+    });
+
+    if (!response.ok) throw new Error("Error al obtener datos");
+
+    const datos = await response.json();
+
+    document.getElementById("configNombre").value = datos.nombres || "";
+    document.getElementById("configApellido").value = datos.apellidos || "";
+    document.getElementById("configNombreEmprendimiento").value =
+      datos.nombre_emprendimiento || "";
+    document.getElementById("configCorreo").value = datos.correo || "";
+    document.getElementById("configContrasena").value = "";
+    document.getElementById("configTelefono").value = datos.telefono || "";
+    document.getElementById("configDireccion").value = datos.direccion || "";
+    document.getElementById("configDescripcion").value =
+      datos.descripcion || "";
+
+    document.querySelector(".nombre-emprendimiento").textContent =
+      datos.nombre_emprendimiento || "Emprendedor";
+  } catch (error) {
+    console.error("Error:", error);
+    alert("Error al cargar la configuración");
+  }
+}
+
+async function guardarConfiguracion(event) {
   event.preventDefault();
 
-  const nombre = document.getElementById("nombreProducto").value;
-  const precio = parseFloat(document.getElementById("precioProducto").value);
-  const categoria = document.getElementById("categoriaProducto").value;
-  const descripcion = document.getElementById("descripcionProducto").value;
-  const imagenInput = document.getElementById("imagenProducto");
+  const datosActualizados = {
+    nombres: document.getElementById("configNombre").value,
+    apellidos: document.getElementById("configApellido").value,
+    contrasenia: document.getElementById("configContrasena").value,
+    telefono: document.getElementById("configTelefono").value,
+    direccion: document.getElementById("configDireccion").value,
+    descripcion: document.getElementById("configDescripcion").value,
+    categoria: null,
+    logo_url: null,
+  };
 
-  const productos = JSON.parse(localStorage.getItem("misProductos")) || [];
+  try {
+    const token = localStorage.getItem("token");
 
-  const leerImagenes = Array.from(imagenInput.files).map((file) => {
-    return new Promise((resolve) => {
-      const reader = new FileReader();
-      reader.onload = (e) => resolve(e.target.result);
-      reader.readAsDataURL(file);
+    const response = await fetch("http://localhost:3000/api/emprendedores", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token,
+      },
+      body: JSON.stringify(datosActualizados),
     });
-  });
 
-  Promise.all(leerImagenes).then((imagenesBase64) => {
-    const nuevoProducto = {
-      nombre,
-      precio,
-      categoria,
-      descripcion,
-      imagenes: imagenesBase64,
-    };
-
-    if (indiceEditar !== null) {
-      if (imagenesBase64.length === 0) {
-        nuevoProducto.imagenes = productos[indiceEditar].imagenes;
-      }
-      productos[indiceEditar] = nuevoProducto;
-      indiceEditar = null;
-      alert("Producto editado correctamente");
+    if (response.ok) {
+      alert("Datos actualizados correctamente");
+      cargarConfiguracion();
     } else {
-      productos.push(nuevoProducto);
-      alert("Producto guardado correctamente");
+      const data = await response.json();
+      alert("Error al actualizar: " + (data.error || ""));
     }
-
-    localStorage.setItem("misProductos", JSON.stringify(productos));
-    mostrarSeccion("productos");
-  });
+  } catch (error) {
+    console.error("Error:", error);
+    alert("Error de red al actualizar");
+  }
 }
 
-function mostrarMisProductos() {
-  const productos = JSON.parse(localStorage.getItem("misProductos")) || [];
-  const contenedor = document.getElementById("listaMisProductos");
-  if (!contenedor) return;
+function obtenerIdEmprendedorDesdeToken(token) {
+  if (!token) return null;
+  const payload = JSON.parse(atob(token.split(".")[1]));
+  return payload.id_emprendedor;
+}
 
-  contenedor.innerHTML = "";
+async function guardarProducto(event) {
+  event.preventDefault();
 
-  productos.forEach((prod, index) => {
-    const tarjeta = document.createElement("div");
-    tarjeta.className = "tarjeta-producto";
+  const token = localStorage.getItem("token");
+  const id_emprendedor = obtenerIdEmprendedorDesdeToken(token);
+  if (!id_emprendedor) {
+    alert("No se pudo obtener el ID del emprendedor.");
+    return;
+  }
 
-    const imagenesHTML = prod.imagenes
-      .map((src) => `<img src="${src}" alt="${prod.nombre}">`)
-      .join("");
+  const formData = new FormData();
+  formData.append("nombre", document.getElementById("nombreProducto").value);
+  formData.append("precio", document.getElementById("precioProducto").value);
+  formData.append(
+    "categoria",
+    document.getElementById("categoriaProducto").value
+  );
+  formData.append(
+    "descripcion",
+    document.getElementById("descripcionProducto").value
+  );
 
-    tarjeta.innerHTML = `
-      <div class="imagenes-producto">${imagenesHTML}</div>
-      <h3>${prod.nombre}</h3>
-      <p>Categoría: ${prod.categoria}</p>
-      <p>S/ ${prod.precio.toFixed(2)}</p>
-      <button onclick="editarProducto(${index})">✏️ Editar</button>
-      <button onclick="eliminarProducto(${index})">🗑️ Eliminar</button>
-    `;
+  const imagenInput = document.getElementById("imagenProducto");
+  if (imagenInput.files.length > 0) {
+    formData.append("imagenProducto", imagenInput.files[0]);
+  } else {
+    alert("Debes seleccionar una imagen.");
+    return;
+  }
 
-    contenedor.appendChild(tarjeta);
-  });
+  try {
+    const response = await fetch(
+      `http://localhost:3000/api/productos/${id_emprendedor}`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: token,
+        },
+        body: formData,
+      }
+    );
+
+    if (response.ok) {
+      alert("Producto guardado correctamente");
+      mostrarSeccion("productos");
+    } else {
+      const data = await response.json();
+      alert("Error al guardar: " + (data.error || ""));
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    alert("Error al registrar el producto");
+  }
+}
+
+async function mostrarMisProductos() {
+  const token = localStorage.getItem("token");
+  const id_emprendedor = obtenerIdEmprendedorDesdeToken(token);
+
+  if (!id_emprendedor) {
+    alert("No se pudo obtener el ID del emprendedor.");
+    return;
+  }
+
+  try {
+    const response = await fetch(
+      `http://localhost:3000/api/productos/${id_emprendedor}`,
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+
+    if (!response.ok) throw new Error("Error al obtener productos");
+
+    const productos = await response.json();
+    localStorage.setItem("misProductos", JSON.stringify(productos));
+
+    const contenedor = document.getElementById("listaMisProductos");
+    contenedor.innerHTML = "";
+
+    productos.forEach((prod, index) => {
+      const tarjeta = document.createElement("div");
+      tarjeta.className = "tarjeta-producto";
+
+      const categoriasFormateadas = prod.categorias
+        ? prod.categorias.split(",").join(", ")
+        : "Sin categoría";
+
+      tarjeta.innerHTML = `
+        <div class="imagenes-producto">
+          <img src="http://localhost:3000${prod.imagen_url}" alt="${
+        prod.nombre
+      }">
+        </div>
+        <h3>${prod.nombre}</h3>
+        <p>Categoría(s): ${categoriasFormateadas}</p>
+        <p>S/ ${parseFloat(prod.precio).toFixed(2)}</p>
+        <button onclick="editarProducto(${index})">✏️ Editar</button>
+        <button onclick="eliminarProducto(${index})">🗑️ Eliminar</button>
+      `;
+
+      contenedor.appendChild(tarjeta);
+    });
+  } catch (error) {
+    console.error("Error al mostrar productos:", error);
+    alert("No se pudieron cargar los productos");
+  }
 }
 
 function eliminarProducto(index) {
@@ -146,16 +265,14 @@ function cargarProductoParaEditar() {
   document.getElementById("tituloFormulario").textContent = "Editar Producto";
   document.getElementById("nombreProducto").value = producto.nombre;
   document.getElementById("precioProducto").value = producto.precio;
-  document.getElementById("categoriaProducto").value = producto.categoria;
+  document.getElementById("categoriaProducto").value = producto.categorias;
   document.getElementById("descripcionProducto").value = producto.descripcion;
 
   const preview = document.getElementById("previewImagenes");
   preview.innerHTML = "";
-  producto.imagenes.forEach((src) => {
-    const img = document.createElement("img");
-    img.src = src;
-    preview.appendChild(img);
-  });
+  const img = document.createElement("img");
+  img.src = `http://localhost:3000${producto.imagen_url}`;
+  preview.appendChild(img);
 }
 
 function togglePassword() {
@@ -166,64 +283,7 @@ function togglePassword() {
   button.textContent = isHidden ? "🙈" : "👁";
 }
 
-function guardarConfiguracion(event) {
-  event.preventDefault();
-
-  const datos = {
-    nombre: document.getElementById("configNombre").value,
-    apellido: document.getElementById("configApellido").value,
-    emprendimiento: document.getElementById("configNombreEmprendimiento").value,
-    correo: document.getElementById("configCorreo").value,
-    contrasena: document.getElementById("configContrasena").value,
-    telefono: document.getElementById("configTelefono").value,
-    direccion: document.getElementById("configDireccion").value,
-    descripcion: document.getElementById("configDescripcion").value,
-  };
-
-  localStorage.setItem("datosEmprendedor", JSON.stringify(datos));
-  document.querySelector(".nombre-emprendimiento").textContent =
-    datos.emprendimiento;
-
-  alert("Configuración guardada correctamente.");
-}
-
-function cargarConfiguracion() {
-  const datos = JSON.parse(localStorage.getItem("datosEmprendedor"));
-  if (!datos) return;
-
-  document.getElementById("configNombre").value = datos.nombre || "";
-  document.getElementById("configApellido").value = datos.apellido || "";
-  document.getElementById("configNombreEmprendimiento").value =
-    datos.emprendimiento || "";
-  document.getElementById("configCorreo").value = datos.correo || "";
-  document.getElementById("configContrasena").value = datos.contrasena || "";
-  document.getElementById("configTelefono").value = datos.telefono || "";
-  document.getElementById("configDireccion").value = datos.direccion || "";
-  document.getElementById("configDescripcion").value = datos.descripcion || "";
-
-  if (datos.emprendimiento) {
-    document.querySelector(".nombre-emprendimiento").textContent =
-      datos.emprendimiento;
-  }
-}
-
 document.addEventListener("DOMContentLoaded", () => {
-  if (!localStorage.getItem("datosEmprendedor")) {
-    const emprendedorEjemplo = emprendedoresEjemplo[0];
-    const datos = {
-      nombre: emprendedorEjemplo.nombre,
-      apellido: emprendedorEjemplo.apellido,
-      emprendimiento: emprendedorEjemplo.nombre_emprendimiento,
-      correo: emprendedorEjemplo.correo,
-      contrasena: emprendedorEjemplo.contrasenia,
-      telefono: emprendedorEjemplo.telefono,
-      direccion: emprendedorEjemplo.direccion,
-      descripcion: emprendedorEjemplo.descripcion,
-      fechaRegistro: emprendedorEjemplo.fecha_registro,
-    };
-    localStorage.setItem("datosEmprendedor", JSON.stringify(datos));
-  }
-
   mostrarSeccion("configuracion");
   cargarConfiguracion();
 });

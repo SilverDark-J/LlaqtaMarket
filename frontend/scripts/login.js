@@ -27,8 +27,12 @@ document
       const data = await response.json();
 
       if (response.ok) {
+        // Guardamos el token en el localStorage
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("tipo_usuario", data.tipo_usuario);
+
         if (data.tipo_usuario === "cliente") {
-          window.location.href = "productos.html";
+          window.location.href = "panel_cliente.html";
         } else if (data.tipo_usuario === "emprendedor") {
           window.location.href = "panel_emprendedor.html";
         } else if (data.tipo_usuario === "administrador") {

@@ -2,10 +2,8 @@ const express = require("express");
 const router = express.Router();
 const usuariosController = require("../controllers/usuarioController");
 
-// Registro
+// Registro y login públicos
 router.post("/registro", usuariosController.registrarUsuario);
-
-// Login
 router.post("/login", usuariosController.loginUsuario);
 
 module.exports = router;
