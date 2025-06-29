@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Panel Emprendedor</title>
+    <link rel="stylesheet" href="estilos/panel_emprendedor.css" />
+  </head>
+  <body>
+    <!-- HEADER -->
+    <header class="header">
+      <div class="logo">
+        <a href="productos.html" target="_blank">
+          <img src="media/logo2.jpg" alt="Logo" class="logo-img" />
+        </a>
+        LlaqtaMarket
+      </div>
+      <div class="nombre-emprendimiento"></div>
+      <button class="cerrar-sesion" onclick="window.location.href='index.html'">
+        X
+      </button>
+    </header>
+
+    <div class="contenedor">
+      <aside class="sidebar">
+        <ul>
+          <li onclick="mostrarSeccion('productos')">Mis Productos</li>
+          <li onclick="mostrarSeccion('agregar')">Agregar Producto</li>
+          <li onclick="mostrarSeccion('configuracion')">Configuración</li>
+          <li onclick="cerrarSesion()">Cerrar Sesión</li>
+        </ul>
+      </aside>
+
+      <main id="contenidoPrincipal">
+        <!-- Aquí se inyectarán las plantillas -->
+      </main>
+    </div>
+
+    <!-- Templates ocultos -->
+
+    <template id="productos">
+      <section class="contenedor-mis-productos">
+        <h2>Mis Productos</h2>
+        <div id="listaMisProductos" class="productos-grid">
+          <!-- Los productos se insertarán dinámicamente aquí -->
+        </div>
+      </section>
+    </template>
+
+    <template id="agregar">
+      <section class="contenedor-agregar-producto">
+        <h2 id="tituloFormulario">Agregar Producto</h2>
+        <form onsubmit="guardarProducto(event)" class="formulario-agregar">
+          <div class="campo">
+            <label for="nombreProducto">Nombre del producto:</label>
+            <input type="text" id="nombreProducto" required />
+          </div>
+
+          <div class="campo">
+            <label for="precioProducto">Precio:</label>
+            <input type="number" id="precioProducto" required />
+          </div>
+
+          <div class="campo">
+            <label for="categoriaProducto">Categoría:</label>
+            <select id="categoriaProducto" required>
+              <option value="">Seleccione una categoría</option>
+              <option value="Ropa">Ropa</option>
+              <option value="Calzado">Calzado</option>
+              <option value="Electrónica">Electrónica</option>
+              <option value="Hogar">Hogar</option>
+              <option value="Juguetería">Juguetería</option>
+              <option value="Belleza">Belleza</option>
+              <option value="Deportes">Deportes</option>
+              <option value="Libros">Libros</option>
+            </select>
+          </div>
+
+          <div class="campo">
+            <label for="descripcionProducto">Descripción:</label>
+            <textarea id="descripcionProducto" rows="3"></textarea>
+          </div>
+
+          <div class="campo">
+            <label for="imagenProducto">Imagen:</label>
+            <input type="file" id="imagenProducto" multiple />
+            <div id="previewImagenes"></div>
+          </div>
+
+          <button type="submit">Guardar</button>
+        </form>
+      </section>
+    </template>
+
+    <template id="configuracion">
+      <section class="contenedor-configuracion">
+        <h2>Configuración</h2>
+        <form
+          onsubmit="guardarConfiguracion(event)"
+          class="formulario-configuracion"
+        >
+          <div class="campo">
+            <label for="configNombre">Nombre:</label>
+            <input type="text" id="configNombre" />
+          </div>
+
+          <div class="campo">
+            <label for="configApellido">Apellido:</label>
+            <input type="text" id="configApellido" />
+          </div>
+
+          <div class="campo">
+            <label for="configNombreEmprendimiento"
+              >Nombre del Emprendimiento:</label
+            >
+            <input type="text" id="configNombreEmprendimiento" disabled />
+          </div>
+
+          <div class="campo">
+            <label for="configCorreo">Correo electrónico:</label>
+            <input type="email" id="configCorreo" disabled />
+          </div>
+
+          <div class="campo">
+            <label for="configContrasena">Contraseña:</label>
+            <div class="input-password">
+              <input type="password" id="configContrasena" required />
+              <button
+                type="button"
+                class="toggle-pass"
+                onclick="togglePassword()"
+              >
+                👁
+              </button>
+            </div>
+          </div>
+
+          <div class="campo">
+            <label for="configTelefono">Teléfono de contacto:</label>
+            <input type="text" id="configTelefono" />
+          </div>
+
+          <div class="campo">
+            <label for="configDireccion">Dirección:</label>
+            <input type="text" id="configDireccion" />
+          </div>
+
+          <div class="campo">
+            <label for="configDescripcion"
+              >Descripción del emprendimiento:</label
+            >
+            <textarea id="configDescripcion"></textarea>
+          </div>
+
+          <button type="submit">Guardar Cambios</button>
+        </form>
+      </section>
+    </template>
+
+    <script src="scripts/datos_ejemplo.js" defer></script>
+    <script src="scripts/panel_emprendedor.js" defer></script>
+  </body>
+</html>

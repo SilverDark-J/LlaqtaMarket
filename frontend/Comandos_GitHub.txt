@@ -1,0 +1,55 @@
+########## COMANDOS PARA CLONAR EL REPOSITORIO Y CREAR/MODIFICAR/ELIMINAR RAMAS ##########
+
+# Clonar el repositorio desde la rama principal (main)
+git clone URL_DEL_REPO
+
+# Mostrar las ramas LOCALES
+git branch
+
+# Mostrar las ramas REMOTAS (en GitHub)
+git branch -r
+
+# Cambiar a una rama existente
+git checkout nombre-rama
+
+# Crear una nueva rama y cambiar a ella
+git checkout -b nueva-rama
+
+# Subir la nueva rama a GitHub y vincularla con la local
+git push -u origin nombre-rama
+
+# Eliminar una rama local (solo si fue creada por error)
+git branch -d nombre-rama
+
+# Eliminar una rama local a la fuerza (solo si fue creada por error)
+git branch -D nombre-rama
+
+# Eliminar una rama remota en GitHub (solo si fue subida por error)
+git push origin --delete nombre-rama
+
+
+########## COMANDOS BÁSICOS PARA SUBIR ARCHIVOS AL REPOSITORIO GITHUB ##########
+
+# Preparar TODOS los archivos modificados o nuevos
+git add .
+
+# Preparar archivos ESPECÍFICOS
+git add nombre-archivo
+git add archivo1 archivo2 archivo3
+
+# Crear un commit (obligatorio antes de subir)
+git commit -m "Tu mensaje descriptivo aquí"
+
+# Subir cambios al repositorio en una rama ESPECÍFICA
+git push origin nombre-rama
+
+# Mantener tu rama actualizada con lo último del repositorio (SOLO SI ALGUIEN MODIFICÓ UNA RAMA ESPECÍFICA)
+git pull origin nombre-rama
+
+
+########## BUENAS PRÁCTICAS ##########
+
+- Verifica siempre en qué rama estás con: git branch
+- Usa mensajes de commit claros y descriptivos
+- Haz push solo después de hacer commit
+- NUNCA trabajes directamente sobre la rama main
