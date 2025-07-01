@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/media/logo2.jpg";
 
-export default function HeaderCliente({ nombre }) {
+export default function Header({ nombreUsuario }) {
   const navigate = useNavigate();
 
   return (
@@ -12,7 +12,7 @@ export default function HeaderCliente({ nombre }) {
         </a>
         LlaqtaMarket
       </div>
-      <div className="nombre-cliente">Bienvenido, {nombre}</div>
+      <div className="nombre-cliente">Bienvenido, {nombreUsuario}</div>
       <button className="ir-productos" onClick={() => navigate("/productos")}>
         X
       </button>

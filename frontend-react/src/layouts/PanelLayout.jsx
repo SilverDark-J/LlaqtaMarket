@@ -1,5 +1,3 @@
-// layouts/PanelLayout.jsx
-
 import HeaderCliente from "../components/Header";
 import Sidebar from "../components/Sidebar";
 
@@ -7,17 +5,17 @@ export default function PanelLayout({
   children,
   nombreUsuario,
   onSeleccion,
-  opcionesSidebar,
-  seccionActual,
+  opciones,
+  opcionActiva,
 }) {
   return (
     <>
       <HeaderCliente nombre={nombreUsuario} />
       <div className="contenedor">
         <Sidebar
-          opciones={opcionesSidebar}
+          opciones={opciones}
           onSeleccion={onSeleccion}
-          opcionActiva={seccionActual}
+          opcionActiva={opcionActiva}
         />
         <main id="contenidoPrincipal">{children}</main>
       </div>
