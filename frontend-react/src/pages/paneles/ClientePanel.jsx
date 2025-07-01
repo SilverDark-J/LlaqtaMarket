@@ -1,31 +1,35 @@
-import { useState, useEffect } from "react";
-import HeaderCliente from "../../components/Header";
-import Sidebar from "../../components/Sidebar";
+import { useState } from "react";
+import PanelLayout from "../../layouts/PanelLayout";
 import "../../styles/panelCliente.css";
 
 export default function ClientePanel() {
   const [seccion, setSeccion] = useState("pedidos");
 
-  const handleSeleccion = (seccion) => {
-    if (seccion === "cerrar") {
+  const opcionesCliente = [
+    { id: "pedidos", nombre: "Mis Pedidos" },
+    { id: "config", nombre: "Configuración" },
+    { id: "cerrar", nombre: "Cerrar Sesión" },
+  ];
+
+  const handleSeleccion = (opcion) => {
+    if (opcion === "cerrar") {
       localStorage.clear();
       window.location.href = "/login";
     } else {
-      setSeccion(seccion);
+      setSeccion(opcion);
     }
   };
 
   return (
-    <>
-      <HeaderCliente nombre="Cliente" />
-      <div className="contenedor">
-        <Sidebar onSeleccion={handleSeleccion} />
-        <main id="contenidoPrincipal">
-          {seccion === "pedidos" && <MisPedidos />}
-          {seccion === "config" && <ConfiguracionCliente />}
-        </main>
-      </div>
-    </>
+    <PanelLayout
+      nombreUsuario="Cliente"
+      onSeleccion={handleSeleccion}
+      opcionesSidebar={opcionesCliente}
+      seccionActual={seccion}
+    >
+      {seccion === "pedidos" && <MisPedidos />}
+      {seccion === "config" && <ConfiguracionCliente />}
+    </PanelLayout>
   );
 }
 
@@ -41,8 +45,6 @@ function MisPedidos() {
 }
 
 function ConfiguracionCliente() {
-  // Puedes implementar useState para los campos de configuración
-
   return (
     <section className="contenedor-configuracion">
       <h2>Configuración</h2>

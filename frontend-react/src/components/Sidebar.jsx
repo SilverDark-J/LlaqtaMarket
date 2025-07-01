@@ -1,10 +1,16 @@
-export default function Sidebar({ onSeleccion }) {
+export default function Sidebar({ opciones = [], onSeleccion, opcionActiva }) {
   return (
     <aside className="sidebar">
       <ul>
-        <li onClick={() => onSeleccion("pedidos")}>Mis Pedidos</li>
-        <li onClick={() => onSeleccion("config")}>Configuración</li>
-        <li onClick={() => onSeleccion("cerrar")}>Cerrar Sesión</li>
+        {opciones.map((opcion) => (
+          <li
+            key={opcion.id}
+            className={opcionActiva === opcion.id ? "activo" : ""}
+            onClick={() => onSeleccion(opcion.id)}
+          >
+            {opcion.nombre}
+          </li>
+        ))}
       </ul>
     </aside>
   );
