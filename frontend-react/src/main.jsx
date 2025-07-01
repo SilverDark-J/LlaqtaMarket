@@ -1,4 +1,14 @@
-import { createRoot } from "react-dom/client";
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
 
-const root = createRoot(document.getElementById("root"));
-root.render("Hola k ase");
+import ClientePanel from "./pages/paneles/ClientePanel";
+import "./styles/panelCliente.css";
+
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <React.StrictMode>
+    <BrowserRouter>
+      <ClientePanel />
+    </BrowserRouter>
+  </React.StrictMode>
+);
