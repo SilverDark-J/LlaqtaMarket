@@ -24,8 +24,8 @@ export default function ClientePanel() {
     <PanelLayout
       nombreUsuario="Cliente"
       onSeleccion={handleSeleccion}
-      opcionesSidebar={opcionesCliente}
-      seccionActual={seccion}
+      opciones={opcionesCliente}
+      opcionActiva={seccion}
     >
       {seccion === "pedidos" && <MisPedidos />}
       {seccion === "config" && <ConfiguracionCliente />}

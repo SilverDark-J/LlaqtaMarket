@@ -9,7 +9,7 @@ import EmprendedorPanel from "./pages/paneles/EmprendedorPanel";
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
-      <EmprendedorPanel />
+      <ClientePanel />
     </BrowserRouter>
   </React.StrictMode>
 );
