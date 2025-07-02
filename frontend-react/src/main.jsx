@@ -3,13 +3,16 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 
 import ClientePanel from "./pages/paneles/ClientePanel";
-import "./styles/panelCliente.css";
 import EmprendedorPanel from "./pages/paneles/EmprendedorPanel";
+import AdminPanel from "./pages/paneles/AdminPanel";
+import "./styles/panelCliente.css";
+import "./styles/panelEmprendedor.css";
+import "./styles/panelAdmin.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
-      <ClientePanel />
+      <AdminPanel />
     </BrowserRouter>
   </React.StrictMode>
 );
