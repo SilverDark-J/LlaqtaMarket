@@ -120,3 +120,19 @@ exports.loginUsuario = async (req, res) => {
     return res.status(500).json({ mensaje: "Error en el servidor" });
   }
 };
+
+exports.cambiarEstadoUsuario = async (req, res) => {
+  const { id_usuario } = req.params;
+  const { nuevo_estado } = req.body; // esperado: 'activo', 'bloqueado', 'eliminado'
+
+  try {
+    const sql = `UPDATE Usuario SET estado_usuario = ?, fecha_bloqueo = NOW() WHERE id_usuario = ?`;
+    await conexion.query(sql, [nuevo_estado, id_usuario]);
+    res.json({ mensaje: `Usuario ${nuevo_estado}` });
+  } catch (error) {
+    console.error(error);
+    res
+      .status(500)
+      .json({ mensaje: "Error al actualizar el estado del usuario" });
+  }
+};

@@ -1,11 +1,14 @@
+const API_URL = "http://localhost:3000/api";
+const token = localStorage.getItem("token");
+
 function mostrarSeccion(id) {
   const plantilla = document.getElementById(id);
   const contenedor = document.getElementById("contenidoPrincipal");
   contenedor.innerHTML = "";
   contenedor.appendChild(plantilla.content.cloneNode(true));
 
-  if (id === "usuarios") {
-    cargarUsuarios();
+  if (id === "clientes") {
+    cargarClientes();
   } else if (id === "emprendedores") {
     cargarEmprendedores();
   }
@@ -21,257 +24,277 @@ function mostrarSeccion(id) {
 }
 
 function cerrarSesion() {
+  localStorage.removeItem("token");
   window.location.href = "index.html";
 }
 
-// ====================== FUNCIONALIDADES CON LOS USUARIOS ======================
+// ====================== FUNCIONALIDADES CON LOS CLIENTES ======================
 
-// Cargar usuarios
-function cargarUsuarios() {
-  const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
-  const contenedor = document.getElementById("listaUsuarios");
-  contenedor.innerHTML = "";
+async function cargarClientes() {
+  try {
+    const res = await fetch(`${API_URL}/clientes/todos`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    const clientes = await res.json();
+    const contenedor = document.getElementById("listaClientes");
+    contenedor.innerHTML = "";
 
-  usuarios.forEach((usuario) => {
-    const tr = document.createElement("tr");
+    if (!Array.isArray(clientes)) throw new Error("Respuesta inválida");
 
-    // Crear celdas con los datos del usuario
-    tr.innerHTML = `
-      <td>${usuario.id_usuario}</td>
-      <td>${usuario.nombres}</td>
-      <td>${usuario.apellidos}</td>
-      <td>${usuario.correo}</td>
-      <td>${usuario.telefono}</td>
-      <td>${usuario.fecha_registro}</td>
-      <td>
-        <button class="acciones-btn" onclick="mostrarOpciones(event, ${usuario.id_usuario})">⋮</button>
-      </td>
-    `;
-
-    contenedor.appendChild(tr);
-  });
+    clientes.forEach((cliente) => {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${cliente.id_cliente}</td>
+        <td>${cliente.nombres}</td>
+        <td>${cliente.apellidos}</td>
+        <td>${cliente.correo}</td>
+        <td>${cliente.telefono}</td>
+        <td>${new Date(cliente.fecha_registro).toLocaleDateString()}</td>
+        <td>
+          <button class="acciones-btn" onclick="mostrarOpciones(event, ${
+            cliente.id_cliente
+          }, 'cliente')">⋮</button>
+        </td>
+      `;
+      contenedor.appendChild(tr);
+    });
+  } catch (err) {
+    console.error("Error al cargar clientes:", err);
+  }
 }
 
-// Mostrar opciones (Editar, Bloquear, Ver Historial) cuando se hace clic en "⋮"
-function mostrarOpciones(event, id_usuario) {
-  event.stopPropagation(); // Evitar que el clic cierre el menú al hacer clic en el botón
+function mostrarOpciones(event, id, tipo) {
+  event.stopPropagation();
+  document.querySelectorAll(".menu-acciones").forEach((m) => m.remove());
 
-  // Verificar si ya existe un menú desplegable, si es así, eliminarlo
-  const menusActivos = document.querySelectorAll(".menu-acciones");
-  menusActivos.forEach((menu) => menu.remove());
-
-  // Crear un menú desplegable con las opciones
   const menu = document.createElement("div");
   menu.className = "menu-acciones";
   menu.innerHTML = `
     <ul>
-      <li onclick="editarUsuario(${id_usuario})">Editar</li>
-      <li onclick="bloquearUsuario(${id_usuario})">Bloquear</li>      
+      <li onclick="editar${capitalize(tipo)}(${id})">Editar</li>
+      <li onclick="bloquear${capitalize(tipo)}(${id})">Bloquear</li>
     </ul>
   `;
-
-  // Posicionar el menú en el lugar correcto (debajo del botón)
-  const button = event.target;
-  button.parentNode.appendChild(menu);
+  event.target.parentNode.appendChild(menu);
 }
 
-// FUNCIÓN PARA EDITAR A LOS USUARIOS
-
-// Abrir modal con datos del usuario
-function editarUsuario(id_usuario) {
-  const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
-  const usuario = usuarios.find((u) => u.id_usuario === id_usuario);
-  if (!usuario) return alert("Usuario no encontrado");
-
-  // Llenar campos del formulario
-  document.getElementById("edit-id_usuario").value = usuario.id_usuario;
-  document.getElementById("edit-nombres").value = usuario.nombres;
-  document.getElementById("edit-apellidos").value = usuario.apellidos;
-  document.getElementById("edit-correo").value = usuario.correo;
-  document.getElementById("edit-contrasenia").value = usuario.contrasenia;
-  document.getElementById("edit-direccion").value = usuario.direccion;
-  document.getElementById("edit-telefono").value = usuario.telefono;
-
-  // Mostrar el modal
-  document.getElementById("modalEditarUsuario").showModal();
+function capitalize(str) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
-// Guardar cambios del usuario
+async function editarCliente(id_cliente) {
+  try {
+    const res = await fetch(`${API_URL}/clientes/admin/${id_cliente}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    const cliente = await res.json();
+
+    document.getElementById("edit-id_cliente").value = id_cliente;
+    document.getElementById("edit-nombres").value = cliente.nombres;
+    document.getElementById("edit-apellidos").value = cliente.apellidos;
+    document.getElementById("edit-correo-cli").value = cliente.correo;
+    document.getElementById("edit-contrasenia-cli").value = "";
+    document.getElementById("edit-direccion-cli").value =
+      cliente.direccion || "";
+    document.getElementById("edit-telefono-cli").value = cliente.telefono;
+
+    document.getElementById("modalEditarCliente").showModal();
+  } catch (err) {
+    console.error("Error al obtener cliente:", err);
+  }
+}
+
 document
-  .getElementById("formEditarUsuario")
-  .addEventListener("submit", function (e) {
+  .getElementById("formEditarCliente")
+  .addEventListener("submit", async function (e) {
     e.preventDefault();
+    const cliente = {
+      id_cliente: document.getElementById("edit-id_cliente").value,
+      nombres: document.getElementById("edit-nombres").value,
+      apellidos: document.getElementById("edit-apellidos").value,
+      correo: document.getElementById("edit-correo-cli").value,
+      contrasenia: document.getElementById("edit-contrasenia-cli").value,
+      direccion: document.getElementById("edit-direccion-cli").value,
+      telefono: document.getElementById("edit-telefono-cli").value,
+    };
 
-    const id = parseInt(document.getElementById("edit-id_usuario").value);
-    const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
-
-    const index = usuarios.findIndex((u) => u.id_usuario === id);
-    if (index === -1) return alert("Usuario no encontrado");
-
-    usuarios[index].nombres = document.getElementById("edit-nombres").value;
-    usuarios[index].apellidos = document.getElementById("edit-apellidos").value;
-    usuarios[index].correo = document.getElementById("edit-correo").value;
-    usuarios[index].contrasenia =
-      document.getElementById("edit-contrasenia").value;
-    usuarios[index].direccion = document.getElementById("edit-direccion").value;
-    usuarios[index].telefono = document.getElementById("edit-telefono").value;
-
-    localStorage.setItem("usuarios", JSON.stringify(usuarios));
-    cerrarModal();
-    cargarUsuarios();
-    alert("Usuario actualizado correctamente.");
+    try {
+      const res = await fetch(
+        `${API_URL}/clientes/admin/${cliente.id_cliente}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(cliente),
+        }
+      );
+      await res.json();
+      cerrarModal();
+      cargarClientes();
+      alert("Cliente actualizado correctamente.");
+    } catch (err) {
+      console.error("Error al actualizar cliente:", err);
+    }
   });
 
-function cerrarModal() {
-  document.getElementById("modalEditarUsuario").close();
+async function bloquearCliente(id_cliente) {
+  try {
+    const res = await fetch(`${API_URL}/usuarios/${id_cliente}/estado`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ nuevo_estado: "bloqueado" }),
+    });
+    await res.json();
+    alert("Cliente bloqueado correctamente.");
+    cargarClientes();
+  } catch (err) {
+    console.error("Error al bloquear cliente:", err);
+  }
 }
 
-function togglePassword() {
-  const input = document.getElementById("edit-contrasenia");
-  const button = document.querySelector(".toggle-pass");
+function togglePassword(id, btn) {
+  const input = document.getElementById(id);
   const isHidden = input.type === "password";
   input.type = isHidden ? "text" : "password";
-  button.textContent = isHidden ? "🙈" : "👁";
+  btn.textContent = isHidden ? "🙈" : "👁";
 }
-
-// Función para bloquear usuario
-function bloquearUsuario(id_usuario) {
-  alert(`Bloquear usuario con ID: ${id_usuario}`);
-  // Aquí iría la lógica para bloquear al usuario (por ejemplo, cambiar su estado en la base de datos)
-}
-
-// ====================== FUNCIONALIDADES CON LOS EMPRENDEDORES ======================
-
-// Cargar emprendedores
-function cargarEmprendedores() {
-  const emprendedores = JSON.parse(localStorage.getItem("emprendedores")) || [];
-  const contenedor = document.getElementById("listaEmprendedores");
-  contenedor.innerHTML = "";
-
-  emprendedores.forEach((emp) => {
-    const tr = document.createElement("tr");
-    tr.innerHTML = `
-      <td>${emp.id_emprendedor}</td>
-      <td>${emp.nombre}</td>
-      <td>${emp.apellido}</td>
-      <td>${emp.nombre_emprendimiento}</td>
-      <td>${emp.correo}</td>
-      <td>${emp.telefono}</td>
-      <td>${new Date(emp.fecha_registro).toLocaleDateString()}</td>
-      <td>
-        <button class="acciones-btn" onclick="mostrarOpcionesEmprendedor(event, ${
-          emp.id_emprendedor
-        })">⋮</button>
-      </td>
-    `;
-    contenedor.appendChild(tr);
-  });
-}
-
-// Mostrar opciones (Editar) cuando se hace clic en "⋮" para un emprendedor
-function mostrarOpcionesEmprendedor(event, id_emprendedor) {
-  event.stopPropagation(); // Evitar que el clic cierre el menú al hacer clic en el botón
-
-  // Verificar si ya existe un menú desplegable, si es así, eliminarlo
-  const menusActivos = document.querySelectorAll(".menu-acciones");
-  menusActivos.forEach((menu) => menu.remove());
-
-  // Crear un menú desplegable con las opciones
-  const menu = document.createElement("div");
-  menu.className = "menu-acciones";
-  menu.innerHTML = `
-    <ul>
-      <li onclick="editarEmprendedor(${id_emprendedor})">Editar</li>
-      <li onclick="bloquearUsuario(${id_emprendedor})">Bloquear</li>
-    </ul>
-  `;
-
-  // Posicionar el menú en el lugar correcto (debajo del botón)
-  const button = event.target;
-  button.parentNode.appendChild(menu);
-}
-
-// Abrir modal con datos del emprendedor
-function editarEmprendedor(id_emprendedor) {
-  const emprendedores = JSON.parse(localStorage.getItem("emprendedores")) || [];
-  const emprendedor = emprendedores.find(
-    (emp) => emp.id_emprendedor === id_emprendedor
-  );
-  if (!emprendedor) return alert("Emprendedor no encontrado");
-
-  // Llenar campos del formulario
-  document.getElementById("edit-id_emprendedor").value =
-    emprendedor.id_emprendedor;
-  document.getElementById("edit-nombre").value = emprendedor.nombre;
-  document.getElementById("edit-apellido").value = emprendedor.apellido;
-  document.getElementById("edit-nombre_emprendimiento").value =
-    emprendedor.nombre_emprendimiento;
-  document.getElementById("edit-correo").value = emprendedor.correo;
-  document.getElementById("edit-contrasenia").value = emprendedor.contrasenia;
-  document.getElementById("edit-telefono").value = emprendedor.telefono;
-  document.getElementById("edit-direccion").value = emprendedor.direccion;
-  document.getElementById("edit-descripcion").value = emprendedor.descripcion;
-
-  // Mostrar el modal
-  document.getElementById("modalEditarEmprendedor").showModal();
-}
-
-// Guardar cambios del emprendedor
-document
-  .getElementById("formEditarEmprendedor")
-  .addEventListener("submit", function (e) {
-    e.preventDefault();
-
-    const id = parseInt(document.getElementById("edit-id_emprendedor").value);
-    const emprendedores =
-      JSON.parse(localStorage.getItem("emprendedores")) || [];
-
-    const index = emprendedores.findIndex((emp) => emp.id_emprendedor === id);
-    if (index === -1) return alert("Emprendedor no encontrado");
-
-    emprendedores[index].nombre = document.getElementById("edit-nombre").value;
-    emprendedores[index].apellido =
-      document.getElementById("edit-apellido").value;
-    emprendedores[index].nombre_emprendimiento = document.getElementById(
-      "edit-nombre_emprendimiento"
-    ).value;
-    emprendedores[index].correo = document.getElementById("edit-correo").value;
-    emprendedores[index].contrasenia =
-      document.getElementById("edit-contrasenia").value;
-    emprendedores[index].telefono =
-      document.getElementById("edit-telefono").value;
-    emprendedores[index].direccion =
-      document.getElementById("edit-direccion").value;
-    emprendedores[index].descripcion =
-      document.getElementById("edit-descripcion").value;
-
-    localStorage.setItem("emprendedores", JSON.stringify(emprendedores));
-    cerrarModal();
-    cargarEmprendedores();
-    alert("Emprendedor actualizado correctamente.");
-  });
 
 function cerrarModal() {
+  document.getElementById("modalEditarCliente").close();
   document.getElementById("modalEditarEmprendedor").close();
 }
 
-// Al cargar la página, mostrar emprendedores por defecto
-document.addEventListener("DOMContentLoaded", () => {
-  mostrarSeccion("emprendedores");
-});
-
 // ====================== FUNCIONALIDADES CON LOS EMPRENDEDORES ======================
 
-// Al cargar la página, mostrar usuarios por defecto
+async function cargarEmprendedores() {
+  try {
+    const res = await fetch(`${API_URL}/emprendedores/todos`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    const emprendedores = await res.json();
+    const contenedor = document.getElementById("listaEmprendedores");
+    contenedor.innerHTML = "";
+
+    if (!Array.isArray(emprendedores)) throw new Error("Respuesta inválida");
+
+    emprendedores.forEach((emp) => {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${emp.id_emprendedor}</td>
+        <td>${emp.nombres}</td>
+        <td>${emp.apellidos}</td>
+        <td>${emp.nombre_emprendimiento}</td>
+        <td>${emp.correo}</td>
+        <td>${emp.telefono}</td>
+        <td>${new Date(emp.fecha_registro).toLocaleDateString()}</td>
+        <td>
+          <button class="acciones-btn" onclick="mostrarOpciones(event, ${
+            emp.id_emprendedor
+          }, 'emprendedor')">⋮</button>
+        </td>
+      `;
+      contenedor.appendChild(tr);
+    });
+  } catch (err) {
+    console.error("Error al cargar emprendedores:", err);
+  }
+}
+
+async function editarEmprendedor(id_emprendedor) {
+  try {
+    const res = await fetch(
+      `${API_URL}/emprendedores/admin/${id_emprendedor}`,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+    const emprendedor = await res.json();
+
+    document.getElementById("edit-id_emprendedor").value = id_emprendedor;
+    document.getElementById("edit-nombre").value = emprendedor.nombres;
+    document.getElementById("edit-apellido").value = emprendedor.apellidos;
+    document.getElementById("edit-nombre_emprendimiento").value =
+      emprendedor.nombre_emprendimiento;
+    document.getElementById("edit-correo-empr").value = emprendedor.correo;
+    document.getElementById("edit-contrasenia-empr").value = "";
+    document.getElementById("edit-telefono-empr").value = emprendedor.telefono;
+    document.getElementById("edit-direccion-empr").value =
+      emprendedor.direccion || "";
+    document.getElementById("edit-descripcion").value =
+      emprendedor.descripcion || "";
+
+    document.getElementById("modalEditarEmprendedor").showModal();
+  } catch (err) {
+    console.error("Error al obtener emprendedor:", err);
+  }
+}
+
+document
+  .getElementById("formEditarEmprendedor")
+  .addEventListener("submit", async function (e) {
+    e.preventDefault();
+    const emprendedor = {
+      id_emprendedor: document.getElementById("edit-id_emprendedor").value,
+      nombres: document.getElementById("edit-nombre").value,
+      apellidos: document.getElementById("edit-apellido").value,
+      correo: document.getElementById("edit-correo-empr").value,
+      contrasenia: document.getElementById("edit-contrasenia-empr").value,
+      nombre_emprendimiento: document.getElementById(
+        "edit-nombre_emprendimiento"
+      ).value,
+      telefono: document.getElementById("edit-telefono-empr").value,
+      direccion: document.getElementById("edit-direccion-empr").value,
+      descripcion: document.getElementById("edit-descripcion").value,
+    };
+
+    try {
+      const res = await fetch(
+        `${API_URL}/emprendedores/admin/${emprendedor.id_emprendedor}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(emprendedor),
+        }
+      );
+      await res.json();
+      cerrarModal();
+      cargarEmprendedores();
+      alert("Emprendedor actualizado correctamente.");
+    } catch (err) {
+      console.error("Error al actualizar emprendedor:", err);
+    }
+  });
+
+async function bloquearEmprendedor(id_emprendedor) {
+  try {
+    const res = await fetch(`${API_URL}/usuarios/${id_emprendedor}/estado`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ nuevo_estado: "bloqueado" }),
+    });
+    await res.json();
+    alert("Emprendedor bloqueado correctamente.");
+    cargarEmprendedores();
+  } catch (err) {
+    console.error("Error al bloquear emprendedor:", err);
+  }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
-  mostrarSeccion("usuarios");
+  mostrarSeccion("clientes");
 });
 
-// Cerrar el menú si se hace clic fuera
 document.addEventListener("click", (event) => {
-  const menusActivos = document.querySelectorAll(".menu-acciones");
-  menusActivos.forEach((menu) => {
-    // Verifica si el clic está fuera del menú y del botón de acciones
+  document.querySelectorAll(".menu-acciones").forEach((menu) => {
     if (
       !menu.contains(event.target) &&
       !event.target.closest(".acciones-btn")

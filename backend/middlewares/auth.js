@@ -5,9 +5,14 @@ if (!JWT_SECRET) {
 }
 
 exports.verificarToken = (req, res, next) => {
-  const token = req.header("Authorization");
-  if (!token) {
+  const authHeader = req.header("Authorization");
+  if (!authHeader) {
     return res.status(401).json({ mensaje: "Token no proporcionado" });
+  }
+
+  const token = authHeader.split(" ")[1]; // ← extrae solo el token
+  if (!token) {
+    return res.status(401).json({ mensaje: "Token mal formado" });
   }
 
   try {

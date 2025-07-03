@@ -6,16 +6,13 @@
     <title>Panel de Administrador</title>
     <link rel="stylesheet" href="estilos/panel_admin.css" />
     <style>
-      /* Estilo para el input con botón mostrar contraseña */
       .input-password {
         position: relative;
       }
-
       .input-password input {
         width: 100%;
         padding-right: 35px;
       }
-
       .toggle-pass {
         position: absolute;
         top: 50%;
@@ -26,18 +23,15 @@
         font-size: 16px;
         cursor: pointer;
       }
-
-      dialog#modalEditarUsuario {
+      dialog {
         padding: 20px;
         border: none;
         border-radius: 10px;
         box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
       }
-
       dialog::backdrop {
         background: rgba(0, 0, 0, 0.4);
       }
-
       .acciones-modal {
         margin-top: 20px;
         display: flex;
@@ -46,7 +40,6 @@
       }
     </style>
   </head>
-
   <body>
     <header class="header">
       <div class="logo">
@@ -55,31 +48,28 @@
         </a>
         LlaqtaMarket Admin
       </div>
-      <div class="nombre-usuario">Administrador</div>
+      <div class="nombre-cliente">Administrador</div>
     </header>
 
     <div class="contenedor">
       <aside class="sidebar">
         <ul>
-          <li onclick="mostrarSeccion('usuarios')">Usuarios</li>
+          <li onclick="mostrarSeccion('clientes')">Clientes</li>
           <li onclick="mostrarSeccion('emprendedores')">Emprendedores</li>
           <li onclick="cerrarSesion()">Cerrar Sesión</li>
         </ul>
       </aside>
 
-      <main id="contenidoPrincipal">
-        <!-- Secciones dinámicas -->
-      </main>
+      <main id="contenidoPrincipal"></main>
     </div>
 
-    <!-- Plantillas -->
-    <template id="usuarios">
+    <template id="clientes">
       <section>
-        <h2>Gestión de Usuarios</h2>
-        <table id="tablaUsuarios">
+        <h2>Gestión de Clientes</h2>
+        <table id="tablaClientes">
           <thead>
             <tr>
-              <th>ID Usuario</th>
+              <th>ID Cliente</th>
               <th>Nombres</th>
               <th>Apellidos</th>
               <th>Correo</th>
@@ -88,9 +78,7 @@
               <th>Acciones</th>
             </tr>
           </thead>
-          <tbody id="listaUsuarios">
-            <!-- Los usuarios se cargarán dinámicamente aquí -->
-          </tbody>
+          <tbody id="listaClientes"></tbody>
         </table>
       </section>
     </template>
@@ -111,14 +99,11 @@
               <th>Acciones</th>
             </tr>
           </thead>
-          <tbody id="listaEmprendedores">
-            <!-- Los emprendedores se cargarán dinámicamente aquí -->
-          </tbody>
+          <tbody id="listaEmprendedores"></tbody>
         </table>
       </section>
     </template>
 
-    <!-- Modal de edición de emprendedor -->
     <dialog id="modalEditarEmprendedor">
       <h3>Editar Emprendedor</h3>
       <form id="formEditarEmprendedor">
@@ -135,22 +120,26 @@
         >
         <input type="text" id="edit-nombre_emprendimiento" required />
 
-        <label for="edit-correo">Correo</label>
-        <input type="email" id="edit-correo" required />
+        <label for="edit-correo-empr">Correo</label>
+        <input type="email" id="edit-correo-empr" required />
 
-        <label for="edit-contrasenia">Contraseña:</label>
+        <label for="edit-contrasenia-empr">Contraseña:</label>
         <div class="input-password">
-          <input type="password" id="edit-contrasenia" required />
-          <button type="button" class="toggle-pass" onclick="togglePassword()">
+          <input type="password" id="edit-contrasenia-empr" required />
+          <button
+            type="button"
+            class="toggle-pass"
+            onclick="togglePassword('edit-contrasenia-empr', this)"
+          >
             👁
           </button>
         </div>
 
-        <label for="edit-telefono">Teléfono</label>
-        <input type="text" id="edit-telefono" required />
+        <label for="edit-telefono-empr">Teléfono</label>
+        <input type="text" id="edit-telefono-empr" required />
 
-        <label for="edit-direccion">Dirección</label>
-        <input type="text" id="edit-direccion" required />
+        <label for="edit-direccion-empr">Dirección</label>
+        <input type="text" id="edit-direccion-empr" required />
 
         <label for="edit-descripcion">Descripción</label>
         <textarea id="edit-descripcion" required></textarea>
@@ -162,11 +151,10 @@
       </form>
     </dialog>
 
-    <!-- Modal para editar usuario -->
-    <dialog id="modalEditarUsuario">
-      <form method="dialog" id="formEditarUsuario">
-        <h3>Editar Usuario</h3>
-        <input type="hidden" id="edit-id_usuario" />
+    <dialog id="modalEditarCliente">
+      <form method="dialog" id="formEditarCliente">
+        <h3>Editar Cliente</h3>
+        <input type="hidden" id="edit-id_cliente" />
 
         <label for="edit-nombres">Nombres:</label>
         <input type="text" id="edit-nombres" required />
@@ -174,22 +162,26 @@
         <label for="edit-apellidos">Apellidos:</label>
         <input type="text" id="edit-apellidos" required />
 
-        <label for="edit-correo">Correo:</label>
-        <input type="email" id="edit-correo" required />
+        <label for="edit-correo-cli">Correo:</label>
+        <input type="email" id="edit-correo-cli" required />
 
-        <label for="edit-contrasenia">Contraseña:</label>
+        <label for="edit-contrasenia-cli">Contraseña:</label>
         <div class="input-password">
-          <input type="password" id="edit-contrasenia" required />
-          <button type="button" class="toggle-pass" onclick="togglePassword()">
+          <input type="password" id="edit-contrasenia-cli" required />
+          <button
+            type="button"
+            class="toggle-pass"
+            onclick="togglePassword('edit-contrasenia-cli', this)"
+          >
             👁
           </button>
         </div>
 
-        <label for="edit-direccion">Dirección:</label>
-        <input type="text" id="edit-direccion" required />
+        <label for="edit-direccion-cli">Dirección:</label>
+        <input type="text" id="edit-direccion-cli" required />
 
-        <label for="edit-telefono">Teléfono:</label>
-        <input type="text" id="edit-telefono" required />
+        <label for="edit-telefono-cli">Teléfono:</label>
+        <input type="text" id="edit-telefono-cli" required />
 
         <div class="acciones-modal">
           <button type="submit">Guardar</button>

@@ -1,7 +1,7 @@
-// Datos de ejemplo para usuarios
+// Datos de ejemplo para clientes
 const clientesEjemplo = [
   {
-    id_usuario: 1,
+    id_cliente: 1,
     nombres: "Juan",
     apellidos: "Pérez",
     correo: "juan@example.com",
@@ -11,7 +11,7 @@ const clientesEjemplo = [
     fecha_registro: "2024-05-01",
   },
   {
-    id_usuario: 2,
+    id_cliente: 2,
     nombres: "Lucía",
     apellidos: "Ramírez",
     correo: "lucia@example.com",
@@ -21,7 +21,7 @@ const clientesEjemplo = [
     fecha_registro: "2024-05-02",
   },
   {
-    id_usuario: 3,
+    id_cliente: 3,
     nombres: "Carlos",
     apellidos: "Gómez",
     correo: "carlos@example.com",
@@ -31,7 +31,7 @@ const clientesEjemplo = [
     fecha_registro: "2024-05-03",
   },
   {
-    id_usuario: 4,
+    id_cliente: 4,
     nombres: "Ana",
     apellidos: "Torres",
     correo: "ana@example.com",
@@ -41,7 +41,7 @@ const clientesEjemplo = [
     fecha_registro: "2024-05-04",
   },
   {
-    id_usuario: 5,
+    id_cliente: 5,
     nombres: "Luis",
     apellidos: "Fernández",
     correo: "luis@example.com",
@@ -51,7 +51,7 @@ const clientesEjemplo = [
     fecha_registro: "2024-05-05",
   },
   {
-    id_usuario: 6,
+    id_cliente: 6,
     nombres: "María",
     apellidos: "Quispe",
     correo: "maria@example.com",
@@ -61,7 +61,7 @@ const clientesEjemplo = [
     fecha_registro: "2024-05-06",
   },
   {
-    id_usuario: 7,
+    id_cliente: 7,
     nombres: "José",
     apellidos: "Sánchez",
     correo: "jose@example.com",
@@ -71,7 +71,7 @@ const clientesEjemplo = [
     fecha_registro: "2024-05-07",
   },
   {
-    id_usuario: 8,
+    id_cliente: 8,
     nombres: "Elena",
     apellidos: "Mendoza",
     correo: "elena@example.com",
@@ -81,7 +81,7 @@ const clientesEjemplo = [
     fecha_registro: "2024-05-08",
   },
   {
-    id_usuario: 9,
+    id_cliente: 9,
     nombres: "Miguel",
     apellidos: "Rojas",
     correo: "miguel@example.com",
@@ -91,7 +91,7 @@ const clientesEjemplo = [
     fecha_registro: "2024-05-09",
   },
   {
-    id_usuario: 10,
+    id_cliente: 10,
     nombres: "Camila",
     apellidos: "Zapata",
     correo: "camila@example.com",
@@ -227,7 +227,7 @@ const emprendedoresEjemplo = [
 ];
 
 // Guardar en localStorage
-localStorage.setItem("usuarios", JSON.stringify(clientesEjemplo));
+localStorage.setItem("clientes", JSON.stringify(clientesEjemplo));
 localStorage.setItem("emprendedores", JSON.stringify(emprendedoresEjemplo));
 
 console.log("Datos de ejemplo guardados en localStorage.");
