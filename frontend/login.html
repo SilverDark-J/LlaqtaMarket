@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Iniciar Sesión | LlaqtaMarket</title>
     <link rel="stylesheet" href="estilos/login.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+/>
+
   </head>
   <body>
     <div class="login-container">
@@ -31,15 +34,20 @@
                 placeholder="Correo electrónico"
                 required
               />
+              <span class="error-text" id="error-usuario"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group input-password-wrapper">
               <input
                 type="password"
                 id="contrasena"
                 placeholder="Contraseña"
                 required
               />
+              <span class="toggle-password-icon" onclick="togglePassword()">
+                <i id="toggleIcon" class="fa-solid fa-eye"></i>
+              </span>
             </div>
+            <span class="error-text" id="error-contrasena"></span>
             <button type="submit" class="login-btn">Iniciar Sesión</button>
           </form>
           <div class="register-link">

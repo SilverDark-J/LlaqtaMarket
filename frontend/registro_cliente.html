@@ -1,54 +1,55 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Registro - LlaqtaMarket</title>
-    <link rel="stylesheet" href="estilos/estilos_cliente.css" />
-  </head>
-  <body>
-    <div class="registro-contenedor">
-      <!-- Lado izquierdo con nombre de la empresa y logo -->
-      <div class="formulario">
-        <!-- Contenedor para nombre y logo -->
-        <div class="empresa-info">
-          <div class="logo">
-            <img src="media/logo2.jpg" alt="Logo LlaqtaMarket" />
-          </div>
-          <div class="nombre-empresa">
-            <h1>LlaqtaMarket</h1>
-          </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Registro - LlaqtaMarket</title>
+  <link rel="stylesheet" href="estilos/estilos_cliente.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body>
+  <div class="registro-contenedor">
+    <div class="formulario">
+      <div class="empresa-info">
+        <div class="logo">
+          <img src="media/logo2.jpg" alt="Logo LlaqtaMarket"/>
         </div>
-        <h2>Registro Cliente</h2>
-        <form id="formRegistro">
-          <input
-            type="text"
-            id="nombres"
-            placeholder="Ingrese su nombre"
-            required
-          />
-          <input
-            type="text"
-            id="apellidos"
-            placeholder="Ingrese su apellido"
-            required
-          />
-          <input type="email" id="correo" placeholder="Correo" required />
-          <input
-            type="password"
-            id="contrasenia"
-            placeholder="Contraseña"
-            required
-          />
-          <button type="submit">REGISTRARSE</button>
-        </form>
+        <div class="nombre-empresa">
+          <h1>LlaqtaMarket</h1>
+        </div>
       </div>
 
-      <!-- Lado derecho con imagen lateral -->
-      <div class="imagen-lateral">
-        <img src="media/registro_cliente.jpg" alt="Registro LlaqtaMarket" />
-      </div>
+      <h2>Registro Cliente</h2>
+      <form id="formRegistro" novalidate>
+        <input type="text" name="nombres" id="nombres" placeholder="Ingrese su nombre"/>
+        <span class="error-text" id="error-nombres"></span>
+
+        <input type="text" name="apellidos" id="apellidos" placeholder="Ingrese su apellido"/>
+        <span class="error-text" id="error-apellidos"></span>
+
+        <input type="email" name="correo" id="correo" placeholder="Correo"/>
+        <span class="error-text" id="error-correo"></span>
+
+        <div class="input-password-wrapper">
+          <input type="password" name="contrasenia" id="contrasenia" placeholder="Contraseña"/>
+          <span class="toggle-password-icon" onclick="togglePassword()">
+            <i id="toggleIcon" class="fa-solid fa-eye"></i>
+          </span>
+        </div>
+        <span class="error-text" id="error-contrasenia"></span>
+
+        <button type="submit">REGISTRARSE</button>
+      </form>
+
+      <p class="texto-login">
+        <a href="login.html">¿Ya tienes una cuenta?</a>
+      </p>
     </div>
-  </body>
+    <div class="imagen-lateral">
+      <img src="media/registro_cliente.jpg" alt="Registro LlaqtaMarket"/>
+    </div>
+  </div>
+
   <script src="scripts/registro_cliente.js"></script>
+</body>
 </html>

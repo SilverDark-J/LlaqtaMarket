@@ -14,19 +14,19 @@ html, body {
   padding: 20px;
 }
 
-/* Contenedor principal */
 .registro-contenedor {
   display: flex;
+  flex-direction: row;
   width: 100%;
   max-width: 900px;
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
   background-color: #ffffff;
-  flex-direction: row;
+  flex-shrink: 1;
 }
 
-/* Lado Izquierdo - Formulario */
+/* Lado izquierdo */
 .formulario {
   flex: 1;
   padding: 40px;
@@ -40,7 +40,9 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 8px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  text-align: center;
 }
 
 .logo {
@@ -69,6 +71,8 @@ html, body {
 form {
   width: 100%;
   max-width: 350px;
+  display: flex;
+  flex-direction: column;
 }
 
 form input {
@@ -111,7 +115,7 @@ form button:hover {
   text-decoration: underline;
 }
 
-/* Lado Derecho - Imagen */
+/* Lado derecho */
 .imagen-lateral {
   flex: 1;
   background-color: #f57c00;
@@ -146,30 +150,26 @@ form button:hover {
   margin-bottom: 10px;
   margin-left: 4px;
 }
-
+/* ✅ Agrupa input de contraseña y botón de mostrar */
 .input-password-wrapper {
   position: relative;
   width: 100%;
-  margin-bottom: 0; /* Quitamos el margen inferior aquí */
+  margin-bottom: 12px;
 }
 
-.input-password-wrapper input {
-  width: 100%;
-  padding: 14px 42px 14px 14px; /* espacio para el icono */
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 15px;
-  box-sizing: border-box;
-}
-
+/* ✅ Botón mostrar/ocultar contraseña */
 .toggle-password-icon {
   position: absolute;
+  top: 50%;
   right: 14px;
-  top: 30%;
   transform: translateY(-50%);
   cursor: pointer;
+  font-size: 14px;
   color: #888;
-  font-size: 16px;
+  background: transparent;
+  border: none;
+  font-weight: 500;
+  padding: 2px 4px;
   user-select: none;
 }
 
@@ -177,37 +177,30 @@ form button:hover {
 .toggle-password-icon:hover {
   color: #333;
 }
-input[type="password"]::-ms-reveal,
-input[type="password"]::-ms-clear {
-  display: none;
-}
 
-input[type="password"]::-webkit-credentials-auto-fill-button,
-input[type="password"]::-webkit-textfield-decoration-container {
-  display: none !important;
-}
-
-/* Responsive: pantallas menores a 768px */
+/* Responsivo */
 @media (max-width: 768px) {
-  html, body {
-    flex-direction: column;
-    padding: 20px;
+  .toggle-password-icon {
+    font-size: 13px;
+    right: 12px;
+  }
+}
+
+/* Responsive completo */
+@media (max-width: 768px) {
+  html,
+  body {
+    padding: 10px;
   }
 
   .registro-contenedor {
     flex-direction: column;
-    max-width: 500px;
-  }
-
-  .formulario,
-  .imagen-lateral {
     width: 100%;
-    padding: 30px 20px;
-    text-align: center;
+    max-width: 450px;
   }
 
-  .imagen-lateral img {
-    max-width: 220px;
+  .formulario {
+    padding: 30px 20px;
   }
 
   .formulario h1 {
@@ -215,13 +208,21 @@ input[type="password"]::-webkit-textfield-decoration-container {
   }
 
   .formulario h2 {
-    font-size: 20px;
+    font-size: 18px;
   }
 
   form input,
   form button {
     padding: 12px;
     font-size: 14px;
+  }
+
+  .imagen-lateral {
+    padding: 20px 10px;
+  }
+
+  .imagen-lateral img {
+    max-width: 200px;
   }
 
   .logo img {
@@ -231,18 +232,26 @@ input[type="password"]::-webkit-textfield-decoration-container {
   .texto-login {
     font-size: 13px;
   }
-}
-@media (max-width: 768px) {
+
+  /* 📱 Ajuste responsive para errores */
   .error-text {
-    font-size: 0.7em;
+    font-size: 0.7rem;
     margin-left: 2px;
-    margin-top: -6px;
+    margin-bottom: 8px;
   }
 }
 
 @media (max-width: 480px) {
+  .formulario h2 {
+    font-size: 1.2rem;
+  }
+
+  form input,
+  form button {
+    font-size: 0.9rem;
+  }
+
   .error-text {
-    font-size: 0.65em;
-    margin-left: 2px;
+    font-size: 0.65rem;
   }
 }

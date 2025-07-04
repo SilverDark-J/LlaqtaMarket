@@ -3,16 +3,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const inputs = form.querySelectorAll("input");
   const boton = form.querySelector("button");
 
-  // Inserta spans de error si no existen
+  const errores = {};
+
+  // Agrega elementos para mostrar errores
   inputs.forEach((input) => {
-    if (
-      !input.nextElementSibling ||
-      !input.nextElementSibling.classList.contains("error-text")
-    ) {
-      const spanError = document.createElement("span");
-      spanError.classList.add("error-text");
-      input.parentNode.insertBefore(spanError, input.nextSibling);
-    }
+    const spanError = document.createElement("span");
+    spanError.classList.add("error-text");
+    input.parentNode.insertBefore(spanError, input.nextSibling);
 
     input.addEventListener("blur", () => validarCampo(input));
     input.addEventListener("input", () => validarCampo(input));
@@ -32,9 +29,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function validarCampo(input) {
     const value = input.value.trim();
-    const placeholder = input.placeholder.toLowerCase();
+    const placeholder = input.placeholder;
 
-    if (placeholder.includes("nombre") && !placeholder.includes("emprendimiento") && value.length < 3) {
+    if (placeholder.includes("nombre") && value.length < 3) {
       mostrarError(input, "Debe tener al menos 3 caracteres.");
       return false;
     }
@@ -44,20 +41,20 @@ document.addEventListener("DOMContentLoaded", () => {
       return false;
     }
 
-    if (placeholder.includes("emprendimiento") && value.length < 3) {
+    if (placeholder.includes("Emprendimiento") && value.length < 3) {
       mostrarError(input, "Debe tener al menos 3 caracteres.");
       return false;
     }
 
-    if (placeholder.includes("correo") && !validarCorreo(value)) {
+    if (placeholder.includes("Correo") && !validarCorreo(value)) {
       mostrarError(input, "Correo inválido.");
       return false;
     }
 
-    if (placeholder.includes("contraseña") && !validarContrasenia(value)) {
+    if (placeholder.includes("Contraseña") && !validarContrasenia(value)) {
       mostrarError(
         input,
-        "Mínimo 8 caracteres, una mayúscula, una minúscula, un número y un símbolo (.,_-)."
+        "Mínimo 8 caracteres, una mayúscula, una minúscula, un número y un símbolo (.,-_)."
       );
       return false;
     }
@@ -69,7 +66,11 @@ document.addEventListener("DOMContentLoaded", () => {
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    const valido = Array.from(inputs).every(validarCampo);
+    let valido = true;
+    inputs.forEach((input) => {
+      if (!validarCampo(input)) valido = false;
+    });
+
     if (!valido) {
       alert("Corrige los errores antes de enviar.");
       return;
@@ -120,75 +121,8 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function validarContrasenia(contrasenia) {
-    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[.,_-])[A-Za-z\d.,_-]{8,}$/;
+    const regex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[.,_-])[A-Za-z\d.,_-]{8,}$/;
     return regex.test(contrasenia);
   }
-
 });
-
-// Validación de formulario completo
-function validarFormularioCompleto() {
-  let esValido = true;
-  campos.forEach((campo) => {
-    const valido = validarCampo(campo);
-    if (!valido) esValido = false;
-  });
-  return esValido;
-}
-
-// Validación individual
-function validarCampo(id) {
-  const valor = document.getElementById(id).value.trim();
-  const error = document.getElementById("error-" + id);
-  const input = document.getElementById(id);
-  let mensaje = "";
-
-  if (id === "nombres" || id === "apellidos") {
-    if (valor.length < 3) mensaje = "Debe tener al menos 3 caracteres.";
-  }
-
-  if (id === "correo") {
-    const regexCorreo = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
-    if (!regexCorreo.test(valor)) mensaje = "Correo inválido.";
-  }
-
-  if (id === "contrasenia") {
-    const regexContrasenia =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[.,_-])[A-Za-z\d.,_-]{8,}$/;
-    if (!regexContrasenia.test(valor)) {
-      mensaje =
-        "Mínimo 8 caracteres, 1 mayúscula, 1 minúscula, 1 número y 1 símbolo (.,_-).";
-    }
-  }
-
-  if (mensaje) {
-    error.textContent = mensaje;
-    input.classList.add("input-error");
-    input.classList.remove("input-ok");
-    return false;
-  } else {
-    error.textContent = "";
-    input.classList.remove("input-error");
-    input.classList.add("input-ok");
-    return true;
-  }
-}
-
-// Eventos en vivo: blur e input
-campos.forEach((campo) => {
-  const input = document.getElementById(campo);
-  input.addEventListener("blur", () => validarCampo(campo));
-  input.addEventListener("input", () => validarCampo(campo));
-});
-
-// Mostrar/ocultar contraseña
-function togglePassword() {
-  const passwordInput = document.getElementById("contrasenia");
-  const toggleIcon = document.getElementById("toggleIcon");
-
-  const isPassword = passwordInput.type === "password";
-  passwordInput.type = isPassword ? "text" : "password";
-  toggleIcon.className = isPassword
-    ? "fa-solid fa-eye-slash"
-    : "fa-solid fa-eye";
-}
