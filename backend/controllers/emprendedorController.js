@@ -145,6 +145,18 @@ exports.actualizarEmprendedorComoAdmin = async (req, res) => {
 
     const id_usuario = row.id_usuario;
 
+    // Verificar si el nuevo correo ya existe en otro usuario
+    const [[correoExistente]] = await conexion.query(
+      `SELECT id_usuario FROM Usuario WHERE correo = ? AND id_usuario != ?`,
+      [correo, id_usuario]
+    );
+
+    if (correoExistente) {
+      return res
+        .status(400)
+        .json({ error: "El correo ya está en uso por otro usuario" });
+    }
+
     // Actualizar datos del usuario
     if (contrasenia) {
       const hash = await bcrypt.hash(contrasenia, 10);

@@ -2,11 +2,11 @@ const bcrypt = require("bcrypt");
 const conexion = require("./db/conexion"); // ya es un pool con promesas
 
 async function crearAdmin() {
-  const nombres = "admin1";
+  const nombres = "admin2";
   const apellidos = "";
   const dni = null;
-  const correo = "admin1@a.a";
-  const contrasenia = "Admin1.";
+  const correo = "admin2@a.a";
+  const contrasenia = "Admin2.";
   const tipo_usuario = "administrador";
 
   try {

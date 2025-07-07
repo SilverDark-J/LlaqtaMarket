@@ -110,7 +110,19 @@ exports.actualizarClienteComoAdmin = async (req, res) => {
 
     const id_usuario = cliente.id_usuario;
 
-    // 2. Actualizar datos en Usuario
+    // 2. Verificar si el nuevo correo ya existe en otro usuario
+    const [[correoExistente]] = await conexion.query(
+      `SELECT id_usuario FROM Usuario WHERE correo = ? AND id_usuario != ?`,
+      [correo, id_usuario]
+    );
+
+    if (correoExistente) {
+      return res
+        .status(400)
+        .json({ error: "El correo ya está en uso por otro usuario" });
+    }
+
+    // 3. Actualizar datos en Usuario
     if (contrasenia) {
       const hash = await bcrypt.hash(contrasenia, 10);
       await conexion.query(
@@ -124,7 +136,7 @@ exports.actualizarClienteComoAdmin = async (req, res) => {
       );
     }
 
-    // 3. Actualizar datos en Cliente
+    // 4. Actualizar datos en Cliente
     await conexion.query(
       `UPDATE Cliente SET direccion = ?, telefono = ? WHERE id_usuario = ?`,
       [direccion, telefono, id_usuario]

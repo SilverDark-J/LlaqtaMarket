@@ -119,18 +119,27 @@ document
     };
 
     try {
-      const res = await fetch(
-        `${API_URL}/clientes/admin/${cliente.id_cliente}`,
-        {
+      let res, data;
+      try {
+        res = await fetch(`${API_URL}/clientes/admin/${cliente.id_cliente}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify(cliente),
-        }
-      );
-      await res.json();
+        });
+        data = await res.json();
+      } catch (err) {
+        console.error("Error de red o al parsear respuesta:", err);
+        alert("Error inesperado. Intenta nuevamente.");
+        return;
+      }
+
+      if (!res.ok) {
+        alert(data.error || "Ocurrió un error al actualizar el cliente.");
+        return;
+      }
       cerrarModal();
       cargarClientes();
       alert("Cliente actualizado correctamente.");
@@ -252,18 +261,30 @@ document
     };
 
     try {
-      const res = await fetch(
-        `${API_URL}/emprendedores/admin/${emprendedor.id_emprendedor}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify(emprendedor),
-        }
-      );
-      await res.json();
+      let res, data;
+      try {
+        res = await fetch(
+          `${API_URL}/emprendedores/admin/${emprendedor.id_emprendedor}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify(emprendedor),
+          }
+        );
+        data = await res.json();
+      } catch (err) {
+        console.error("Error de red o al parsear respuesta:", err);
+        alert("Error inesperado. Intenta nuevamente.");
+        return;
+      }
+
+      if (!res.ok) {
+        alert(data.error || "Ocurrió un error al actualizar el emprendedor.");
+        return;
+      }
       cerrarModal();
       cargarEmprendedores();
       alert("Emprendedor actualizado correctamente.");
