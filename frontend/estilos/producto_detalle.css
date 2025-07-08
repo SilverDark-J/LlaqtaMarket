@@ -11,10 +11,10 @@ body {
   color: #333;
   display: flex;
   flex-direction: column;
-  min-height: 100vh; /* Asegura que el body ocupe todo el alto de la ventana */
+  min-height: 100vh;
 }
 
-/* =============== HEADER =================== */
+/* HEADER */
 .header {
   display: flex;
   justify-content: space-between;
@@ -26,15 +26,15 @@ body {
   gap: 15px;
 }
 
-/* Agrupación izquierda */
 .header-izquierda {
   display: flex;
   align-items: center;
-  flex-wrap: wrap;
+  flex: 1;
   gap: 15px;
+  min-width: 0;
+  flex-wrap: wrap;
 }
 
-/* Logo con imagen */
 .logo {
   display: flex;
   align-items: center;
@@ -51,7 +51,6 @@ body {
   object-fit: cover;
 }
 
-/* Menú */
 .menu-container {
   position: relative;
 }
@@ -59,7 +58,7 @@ body {
 .menu-btn {
   background-color: white;
   color: #f57c00;
-  padding: 5px 10px;
+  padding: 6px 12px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -90,15 +89,22 @@ body {
   background-color: #ffe0b2;
 }
 
-/* Buscador */
+.menu-opciones.show {
+  display: flex;
+}
+
+.buscador {
+  flex: 1;
+  min-width: 150px;
+}
+
 .buscador input {
+  width: 100%;
   padding: 5px 10px;
   border-radius: 20px;
   border: 1px solid #ccc;
-  width: 60rem;
 }
 
-/* Acciones a la derecha */
 .acciones {
   display: flex;
   align-items: center;
@@ -130,7 +136,7 @@ body {
   flex: 1;
 }
 
-/* Aside de categorías */
+/* Aside */
 .categorias {
   width: 200px;
   background-color: #ffe0b2;
@@ -156,12 +162,16 @@ body {
 .categorias li:hover {
   text-decoration: underline;
 }
+
 /* PRODUCTO DETALLE */
 #contenedor-producto {
   flex: 1;
-  padding: 20px;
+  padding: 20px 0;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  width: 100%;
 }
 
 .producto-detalle {
@@ -174,6 +184,7 @@ body {
   width: 100%;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   gap: 20px;
+  flex-wrap: wrap;
 }
 
 .producto-img {
@@ -205,11 +216,12 @@ body {
 
 /* COMENTARIOS */
 .comentarios {
-  margin: 40px auto 20px;
-  max-width: 700px;
+  width: 100%;
+  max-width: 900px;
   background: white;
   padding: 15px;
-  border-radius: 8px;
+  border-radius: 10px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
 }
 
 .comentarios h3 {
@@ -257,6 +269,7 @@ button.enviar-comentario {
   padding-top: 10px;
   border-top: 1px solid #ccc;
 }
+
 /* FOOTER */
 .footer {
   background-color: #ef6c00;
@@ -283,69 +296,53 @@ button.enviar-comentario {
   text-decoration: underline;
 }
 
-/* RESPONSIVE */
+/* ===================== RESPONSIVE ===================== */
 @media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .header-izquierda {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    gap: 10px;
+  }
+
+  .buscador {
+    width: 100%;
+  }
+
+  .acciones {
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 10px;
+    gap: 10px;
+  }
+
   .contenido {
     flex-direction: column;
+    padding: 15px;
+    gap: 15px;
   }
 
   .categorias {
     width: 100%;
-    margin-top: 10px;
   }
 
-  .encabezado {
+  .producto-detalle {
     flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
+    align-items: center;
+    padding: 15px;
   }
 
-  .acciones {
-    margin-left: 0;
+  .producto-img {
+    width: 100%;
+    max-width: 300px;
   }
 
-  .estrellas span {
-    font-size: 30px;
+  .comentarios {
+    padding: 15px;
   }
-}
-
-/* Estilo para el botón del menú */
-.menu-btn {
-  background-color: white;
-  color: #f57c00;
-  padding: 6px 12px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-/* Estilo para el menú despegable */
-.menu-opciones {
-  display: none;
-  position: absolute;
-  top: 40px;
-  left: 0;
-  background-color: white;
-  color: #f57c00;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  flex-direction: column;
-  z-index: 100;
-  min-width: 120px;
-}
-
-.menu-opciones a {
-  padding: 10px;
-  text-decoration: none;
-  color: #f57c00;
-}
-
-.menu-opciones a:hover {
-  background-color: #ffe0b2;
-}
-
-/* Mostrar el menú cuando el botón sea presionado */
-.menu-opciones.show {
-  display: flex;
 }
