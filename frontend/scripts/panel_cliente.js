@@ -37,7 +37,7 @@ async function cargarConfiguracionCliente() {
   try {
     const response = await fetch("http://localhost:3000/api/clientes", {
       headers: {
-        Authorization: token,
+        Authorization: `Bearer ${token}`,
       },
     });
 
@@ -84,11 +84,11 @@ async function guardarConfiguracionCliente(event) {
   };
 
   try {
-    const response = await fetch("http://localhost:3000/api/usuarios/cliente", {
+    const response = await fetch("http://localhost:3000/api/clientes", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        Authorization: token,
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(datosActualizados),
     });

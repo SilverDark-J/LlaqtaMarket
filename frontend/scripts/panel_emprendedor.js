@@ -63,7 +63,7 @@ async function cargarConfiguracion() {
   try {
     const response = await fetch("http://localhost:3000/api/emprendedores", {
       headers: {
-        Authorization: token,
+        Authorization: `Bearer ${token}`,
       },
     });
 
@@ -111,7 +111,7 @@ async function guardarConfiguracion(event) {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        Authorization: token,
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(datosActualizados),
     });
@@ -171,7 +171,7 @@ async function guardarProducto(event) {
       {
         method: "POST",
         headers: {
-          Authorization: token,
+          Authorization: `Bearer ${token}`,
         },
         body: formData,
       }
@@ -204,7 +204,7 @@ async function mostrarMisProductos() {
       `http://localhost:3000/api/productos/${id_emprendedor}`,
       {
         headers: {
-          Authorization: token,
+          Authorization: `Bearer ${token}`,
         },
       }
     );

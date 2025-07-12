@@ -1,0 +1,11 @@
+{
+  "name": "llaqtamarket",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"cd backend && npx nodemon server.js\" \"cd frontend-react && npm run dev\""
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.0"
+  }
+}
