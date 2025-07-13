@@ -1,0 +1,264 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #fff3e0;
+  padding-top: 80px; /* espacio para header fijo */
+}
+
+.encabezado {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: #f57c00;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 20px;
+  z-index: 1000;
+  border-radius: 0;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logo-img {
+  height: 40px;
+  width: auto;
+}
+
+.logo-text {
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+}
+
+.contador-productos {
+  font-size: 16px;
+}
+
+.carrito-container {
+  max-width: 1000px;
+  margin: auto;
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+}
+
+.titulo-carrito {
+  font-size: 35px;
+  color: #f57c00;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.tabla-carrito {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tabla-carrito th,
+.tabla-carrito td {
+  border-bottom: 1px solid #eee;
+  padding: 15px;
+  text-align: center;
+}
+
+.tabla-carrito img {
+  width: 80px;
+  border-radius: 8px;
+}
+
+.cantidad-control {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.cantidad-control button {
+  background-color: #f57c00;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.cantidad-control span {
+  font-size: 16px;
+  width: 30px;
+  display: inline-block;
+  text-align: center;
+}
+
+.resumen-carrito {
+  text-align: right;
+  margin-top: 20px;
+  font-size: 18px;
+}
+
+.botones {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.btn {
+  background-color: #f57c00;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn.seguir {
+  background-color: #8d6e63;
+}
+
+.eliminar-btn {
+  background-color: crimson;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.eliminar-btn:hover {
+  background-color: darkred;
+}
+
+/* ------------------- RESPONSIVE ------------------- */
+
+/* Laptops y tablets medianas */
+@media (max-width: 1024px) {
+  .carrito-container {
+    padding: 20px;
+  }
+
+  .titulo-carrito {
+    font-size: 28px;
+  }
+
+  .btn, .eliminar-btn {
+    font-size: 14px;
+    padding: 10px 16px;
+  }
+
+  .cantidad-control button {
+    padding: 4px 8px;
+    font-size: 14px;
+  }
+}
+
+/* Tablets pequeñas y móviles grandes */
+@media (max-width: 768px) {
+  .encabezado {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px;
+    gap: 10px;
+  }
+
+  .logo-text {
+    font-size: 18px;
+  }
+
+  .contador-productos {
+    font-size: 14px;
+  }
+
+  .tabla-carrito th,
+  .tabla-carrito td {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .tabla-carrito img {
+    width: 60px;
+  }
+
+  .resumen-carrito {
+    font-size: 16px;
+  }
+
+  .botones {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+/* Celulares */
+@media (max-width: 480px) {
+  .carrito-container {
+    padding: 15px;
+  }
+
+  .titulo-carrito {
+    font-size: 24px;
+  }
+
+  .tabla-carrito thead {
+    display: none;
+  }
+
+  .tabla-carrito tr {
+    display: block;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #eee;
+  }
+
+  .tabla-carrito td {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    text-align: left;
+    font-size: 14px;
+  }
+
+  .tabla-carrito td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    flex-basis: 50%;
+  }
+
+  .cantidad-control {
+    gap: 6px;
+  }
+
+  .cantidad-control button {
+    font-size: 12px;
+    padding: 4px 8px;
+  }
+
+  .cantidad-control span {
+    width: 25px;
+    font-size: 14px;
+  }
+
+  .btn,
+  .eliminar-btn {
+    font-size: 13px;
+    padding: 8px 12px;
+  }
+
+  .logo-text {
+    font-size: 16px;
+  }
+}

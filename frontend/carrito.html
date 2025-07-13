@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Carrito de Compras | LlaqtaMarket</title>
+  <link rel="stylesheet" href="estilos/carrito.css" />
+</head>
+<body>
+  <header class="encabezado">
+    <div class="logo-container">
+      <img src="media/logo2.jpg" alt="LlaqtaMarket" class="logo-img" />
+      <div class="logo-text">LlaqtaMarket</div>
+    </div>
+    <div class="contador-productos">
+      Productos seleccionados: <span id="cantidad-total">0</span>
+    </div>
+  </header>
+
+  <main class="carrito-container">
+    <h2 class="titulo-carrito">🛒 Mi Carrito</h2>
+
+    <table class="tabla-carrito">
+      <thead>
+        <tr>
+          <th>Producto</th>
+          <th>Precio</th>
+          <th>Cantidad</th>
+          <th>Total</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="cuerpo-tabla">
+        <!-- En JS, cada <td> debería tener su atributo data-label="Nombre de columna" -->
+      </tbody>
+    </table>
+
+    <div class="resumen-carrito">
+      <p><strong>Subtotal:</strong> S/ <span id="subtotal">0.00</span></p>
+      <div class="botones">
+        <a href="index.html" class="btn seguir">← Seguir comprando</a>
+        <button class="btn pagar">Continuar para pagar</button>
+      </div>
+    </div>
+  </main>
+
+  <script src="scripts/carrito.js"></script>
+</body>
+</html>
