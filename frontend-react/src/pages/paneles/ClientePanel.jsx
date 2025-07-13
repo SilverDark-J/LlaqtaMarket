@@ -1,9 +1,35 @@
-import { useState } from "react";
+// src/pages/paneles/ClientePanel.jsx
+import { useEffect, useState } from "react";
 import PanelLayout from "../../layouts/PanelLayout";
 import "../../styles/panelCliente.css";
+import MisPedidos from "./components/MisPedidos";
+import ConfiguracionCliente from "./components/ConfiguracionCliente";
 
 export default function ClientePanel() {
   const [seccion, setSeccion] = useState("pedidos");
+  const [nombreCliente, setNombreCliente] = useState("Cliente");
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      window.location.href = "/login";
+      return;
+    }
+
+    // Obtener nombre del cliente desde el backend
+    fetch("http://localhost:3000/api/clientes", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data?.nombres) setNombreCliente(data.nombres);
+      })
+      .catch(() => {
+        console.error("No se pudo obtener el cliente.");
+      });
+  }, []);
 
   const opcionesCliente = [
     { id: "pedidos", nombre: "Mis Pedidos" },
@@ -22,7 +48,7 @@ export default function ClientePanel() {
 
   return (
     <PanelLayout
-      nombreUsuario="Cliente"
+      nombreUsuario={nombreCliente}
       onSeleccion={handleSeleccion}
       opciones={opcionesCliente}
       opcionActiva={seccion}
@@ -30,63 +56,5 @@ export default function ClientePanel() {
       {seccion === "pedidos" && <MisPedidos />}
       {seccion === "config" && <ConfiguracionCliente />}
     </PanelLayout>
-  );
-}
-
-function MisPedidos() {
-  return (
-    <section>
-      <h2>Mis Pedidos</h2>
-      <div className="productos-grid">
-        {/* Aquí iría el mapeo de pedidos */}
-      </div>
-    </section>
-  );
-}
-
-function ConfiguracionCliente() {
-  return (
-    <section className="contenedor-configuracion">
-      <h2>Configuración</h2>
-      <form
-        className="formulario-configuracion"
-        onSubmit={(e) => e.preventDefault()}
-      >
-        <div className="campo">
-          <label htmlFor="clienteNombre">Nombres:</label>
-          <input type="text" id="clienteNombre" />
-        </div>
-        <div className="campo">
-          <label htmlFor="clienteApellido">Apellidos:</label>
-          <input type="text" id="clienteApellido" />
-        </div>
-        <div className="campo">
-          <label htmlFor="clienteCorreo">Correo:</label>
-          <input type="email" id="clienteCorreo" disabled />
-        </div>
-        <div className="campo">
-          <label htmlFor="clienteContrasena">Contraseña:</label>
-          <input
-            type="password"
-            id="clienteContrasena"
-            placeholder="••••••••"
-            required
-          />
-        </div>
-        <div className="campo">
-          <label htmlFor="clienteDireccion">Dirección:</label>
-          <input type="text" id="clienteDireccion" />
-        </div>
-        <div className="campo">
-          <label htmlFor="clienteTelefono">Teléfono:</label>
-          <input type="tel" id="clienteTelefono" />
-        </div>
-        <div className="campo">
-          <label htmlFor="clienteFechaRegistro">Fecha de Registro:</label>
-          <input type="text" id="clienteFechaRegistro" disabled />
-        </div>
-        <button type="submit">Actualizar</button>
-      </form>
-    </section>
   );
 }
