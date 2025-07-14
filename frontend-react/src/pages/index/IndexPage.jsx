@@ -83,7 +83,7 @@ const IndexPage = () => {
             <Link key={producto.id_producto} to={`/producto_detalle/${producto.id_producto}`}>
               <div className="producto">
                 <img
-                  src={`${import.meta.env.VITE_BACKEND_URL}${producto.imagen_url}`}
+                  src={`${import.meta.env.VITE_API_URL}${producto.imagen_url}`}
                   alt={producto.nombre}
                 />
                 <h3>{producto.nombre}</h3>
