@@ -17,4 +17,11 @@ router.get(
   productosController.listarProductosPorEmprendedor
 );
 
+// GET /api/productos -> Listar todos los productos disponibles públicamente
+router.get("/", productosController.listarProductosPublicos);
+
+// GET /api/productos/:id -> Obtener detalle de un producto
+router.get("/detalle/:id", productosController.obtenerProductoPorId);
+
+
 module.exports = router;

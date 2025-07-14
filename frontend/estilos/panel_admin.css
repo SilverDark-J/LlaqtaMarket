@@ -43,7 +43,7 @@ main section h2 {
   border-radius: 4px;
 }
 
-.nombre-usuario {
+.nombre-cliente {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
@@ -108,49 +108,49 @@ main section h2 {
   overflow-y: auto;
 }
 
-/* Tabla de usuarios */
-#tablaUsuarios {
+/* Tabla de cliente */
+#tablaClientes {
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
   font-size: 1rem;
 }
 
-#tablaUsuarios th,
-#tablaUsuarios td {
+#tablaClientes th,
+#tablaClientes td {
   padding: 12px;
   text-align: left;
   border: 1px solid #f2b85b;
 }
 
-#tablaUsuarios th {
+#tablaClientes th {
   background-color: #f57c00;
   color: white;
   font-weight: bold;
 }
 
-#tablaUsuarios tr:nth-child(even) {
+#tablaClientes tr:nth-child(even) {
   background-color: #f7f7f7;
 }
 
-#tablaUsuarios tr:hover {
+#tablaClientes tr:hover {
   background-color: #ffe0b2;
 }
 
 /* Opcional: añadir un borde más suave a la tabla */
-#tablaUsuarios td {
+#tablaClientes td {
   border: 1px solid #ffe1b0;
 }
 
 /* Estilos adicionales para los enlaces u opciones en la tabla */
-#tablaUsuarios td a {
+#tablaClientes td a {
   color: #f57c00;
   text-decoration: none;
   font-weight: bold;
 }
 
-#tablaUsuarios th:nth-child(1),
-#tablaUsuarios td:nth-child(1) {
+#tablaClientes th:nth-child(1),
+#tablaClientes td:nth-child(1) {
   width: 120px; /* o el valor que prefieras */
   max-width: 120px;
   white-space: nowrap;
@@ -158,7 +158,7 @@ main section h2 {
   text-overflow: ellipsis;
 }
 
-#tablaUsuarios td a:hover {
+#tablaClientes td a:hover {
   text-decoration: underline;
 }
 
@@ -245,8 +245,8 @@ main section h2 {
   border-color: transparent transparent #ffe1b0 transparent;
 }
 
-/* ========== MODAL DE EDICIÓN DE USUARIO ========== */
-dialog#modalEditarUsuario {
+/* ========== MODAL DE EDICIÓN DE CLIENTE ========== */
+dialog#modalEditarCliente {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -262,19 +262,19 @@ dialog#modalEditarUsuario {
   z-index: 1000;
 }
 
-#modalEditarUsuario h3 {
+#modalEditarCliente h3 {
   margin-bottom: 15px;
   color: #f57c00;
   font-size: 20px;
 }
 
-#modalEditarUsuario label {
+#modalEditarCliente label {
   display: block;
   margin-top: 10px;
   font-weight: 600;
 }
 
-#modalEditarUsuario input {
+#modalEditarCliente input {
   width: 100%;
   padding: 8px;
   border-radius: 6px;

@@ -1,0 +1,264 @@
+/* ============================== BASE ============================== */
+.panelAdminWrapper {
+  height: 100%;
+  font-family: "Segoe UI", sans-serif;
+  background-color: #fff3e0;
+}
+
+/* ============================== HEADER ============================== */
+.header {
+  background-color: #f57c00;
+  color: white;
+  padding: 15px 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.1rem;
+  font-weight: bold;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  gap: 10px;
+}
+
+.logoImg {
+  height: 40px;
+  width: auto;
+  border-radius: 4px;
+}
+
+.nombreCliente {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.cerrarSesion {
+  background-color: white;
+  color: #f57c00;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.cerrarSesion:hover {
+  background-color: #ffe0b2;
+}
+
+/* ============================== LAYOUT ============================== */
+.contenedor {
+  display: flex;
+  height: calc(100vh - 60px);
+}
+
+/* ============================== SIDEBAR ============================== */
+.sidebar {
+  width: 240px;
+  background-color: #ffe1b0;
+  padding: 25px 20px;
+  border-right: 1px solid #ffccbc;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar li {
+  padding: 12px 15px;
+  cursor: pointer;
+  color: #f57c00;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.sidebar li:hover,
+.sidebar li.activo {
+  background-color: #fff3e0;
+}
+
+/* ============================== CONTENIDO PRINCIPAL ============================== */
+.contenidoPrincipal {
+  flex: 1;
+  padding: 30px;
+  overflow-y: auto;
+}
+
+/* ============================== TABLAS ============================== */
+.tabla {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-size: 1rem;
+}
+
+.tabla th,
+.tabla td {
+  padding: 12px;
+  text-align: left;
+  border: 1px solid #f2b85b;
+}
+
+.tabla th {
+  background-color: #f57c00;
+  color: white;
+  font-weight: bold;
+}
+
+.tabla tr:nth-child(even) {
+  background-color: #f7f7f7;
+}
+
+.tabla tr:hover {
+  background-color: #ffe0b2;
+}
+
+.tabla td {
+  border: 1px solid #ffe1b0;
+}
+
+.tabla td a {
+  color: #f57c00;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.tabla td a:hover {
+  text-decoration: underline;
+}
+
+.tabla th:first-child,
+.tabla td:first-child {
+  width: 120px;
+  max-width: 120px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ============================== MODALES ============================== */
+.modalBackdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: #fff3e0;
+  padding: 25px 30px;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  z-index: 1001;
+}
+
+.modal h3 {
+  margin-bottom: 15px;
+  color: #f57c00;
+  font-size: 20px;
+}
+
+.modal label {
+  display: block;
+  margin-top: 10px;
+  font-weight: 600;
+}
+
+.modal input,
+.modal textarea {
+  width: 100%;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  margin-top: 5px;
+  font-size: 15px;
+  resize: vertical;
+}
+
+.modal textarea {
+  min-height: 100px;
+}
+
+.accionesModal {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  gap: 10px;
+}
+
+.accionesModal button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.accionesModal button[type="submit"] {
+  background-color: #f57c00;
+  color: white;
+}
+
+.accionesModal button[type="submit"]:hover {
+  background-color: #ef6c00;
+}
+
+.accionesModal button[type="button"] {
+  background-color: #e0e0e0;
+}
+
+.accionesModal button[type="button"]:hover {
+  background-color: #c2c2c2;
+}
+
+/* ============================== CONTRASEÑA VISUAL ============================== */
+.inputPassword {
+  position: relative;
+}
+
+.inputPassword input {
+  width: 100%;
+  padding-right: 35px;
+}
+
+.togglePass {
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* ============================== ANIMACIÓN ============================== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

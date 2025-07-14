@@ -113,10 +113,32 @@ exports.loginUsuario = async (req, res) => {
     return res.json({
       mensaje: "Inicio de sesión exitoso",
       token,
-      tipo_usuario: usuario.tipo_usuario,
+      usuario: {
+        id_usuario: usuario.id_usuario,
+        rol: usuario.tipo_usuario, // 👈 importante: usamos 'rol' en frontend
+        nombres: usuario.nombres,
+        apellidos: usuario.apellidos,
+        correo: usuario.correo,
+      },
     });
   } catch (error) {
     console.error("Error en login:", error);
     return res.status(500).json({ mensaje: "Error en el servidor" });
+  }
+};
+
+exports.cambiarEstadoUsuario = async (req, res) => {
+  const { id_usuario } = req.params;
+  const { nuevo_estado } = req.body; // esperado: 'activo', 'bloqueado', 'eliminado'
+
+  try {
+    const sql = `UPDATE Usuario SET estado_usuario = ?, fecha_bloqueo = NOW() WHERE id_usuario = ?`;
+    await conexion.query(sql, [nuevo_estado, id_usuario]);
+    res.json({ mensaje: `Usuario ${nuevo_estado}` });
+  } catch (error) {
+    console.error(error);
+    res
+      .status(500)
+      .json({ mensaje: "Error al actualizar el estado del usuario" });
   }
 };

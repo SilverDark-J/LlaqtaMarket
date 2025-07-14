@@ -1,4 +1,12 @@
-import { createRoot } from "react-dom/client";
+import React from "react";
+import ReactDOM from "react-dom/client";
+import AppRoutes from "./routes/AppRoutes";
+import { AuthProvider } from "./context/AuthContext"; // 👈 Asegúrate de importar
 
-const root = createRoot(document.getElementById("root"));
-root.render("Hola k ase");
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <React.StrictMode>
+    <AuthProvider>
+      <AppRoutes />
+    </AuthProvider>
+  </React.StrictMode>
+);

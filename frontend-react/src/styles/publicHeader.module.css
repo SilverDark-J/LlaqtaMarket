@@ -1,0 +1,161 @@
+.header {
+  background-color: #f57c00;
+  color: white;
+  padding: 10px 20px;
+}
+
+.headerContenido {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.headerIzquierda {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  gap: 15px;
+  min-width: 0;
+  flex-wrap: wrap;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: white;
+  text-decoration: none;
+}
+
+.logoImg {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+}
+
+.menuContainer {
+  position: relative;
+}
+
+.menuBtn {
+  background-color: white;
+  color: #f57c00;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.menuOpciones {
+  display: none;
+  position: absolute;
+  top: 40px;
+  left: 0;
+  background-color: white;
+  color: #f57c00;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  flex-direction: column;
+  z-index: 100;
+  min-width: 120px;
+}
+
+.menuOpciones a {
+  padding: 10px;
+  text-decoration: none;
+  color: #f57c00;
+}
+
+.menuOpciones a:hover {
+  background-color: #ffe0b2;
+}
+
+.buscador {
+  flex: 1;
+}
+
+.buscador input {
+  width: 100%;
+  padding: 6px 12px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+}
+
+.acciones {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  position: relative;
+}
+
+.acciones a {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+}
+
+.icono {
+  width: 24px;
+  height: 24px;
+  filter: brightness(0) invert(1);
+}
+
+.perfilLogueado {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  position: relative;
+  font-weight: bold;
+  color: white;
+}
+
+.menuOpcionesUsuario {
+  position: absolute;
+  top: 40px;
+  right: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  z-index: 100;
+  color: #f57c00;
+  min-width: 140px;
+}
+
+.menuOpcionesUsuario button {
+  background: none;
+  border: none;
+  color: #f57c00;
+  font-weight: bold;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  padding: 5px 0;
+}
+
+.menuOpcionesUsuario button:hover {
+  background-color: #ffe0b2;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .headerContenido {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .acciones {
+    margin-left: 0;
+  }
+}
