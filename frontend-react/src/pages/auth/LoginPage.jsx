@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import "../../styles/login.css"; // Asegúrate de tener estilos .input-error y .input-ok
+import styles from "../../styles/login.module.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
 const LoginPage = () => {
@@ -9,10 +9,7 @@ const LoginPage = () => {
   const [errores, setErrores] = useState({});
   const [mostrarContrasena, setMostrarContrasena] = useState(false);
   const [cargando, setCargando] = useState(false);
-  const [tocado, setTocado] = useState({
-    correo: false,
-    contrasena: false,
-  });
+  const [tocado, setTocado] = useState({ correo: false, contrasena: false });
 
   const correoRef = useRef(null);
   const contrasenaRef = useRef(null);
@@ -84,9 +81,6 @@ const LoginPage = () => {
     try {
       setCargando(true);
 
-      // Esto hace que usemos .env para desarrollo local o producción
-      // const response = await fetch("http://localhost:3000/api/usuarios/login", {
-
       const response = await fetch(
         `${import.meta.env.VITE_API_URL}/api/usuarios/login`,
         {
@@ -127,22 +121,22 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="login-container">
-      <div className="login-left">
-        <h1 className="logo">LlaqtaMarket</h1>
-        <p className="mensaje">Tu mercado local al alcance de un clic</p>
+    <div className={styles.loginContainer}>
+      <div className={styles.loginLeft}>
+        <h1 className={styles.logo}>LlaqtaMarket</h1>
+        <p className={styles.mensaje}>Tu mercado local al alcance de un clic</p>
         <img
           src="/src/assets/media/logo2.jpg"
           alt="Logo"
-          className="login-img"
+          className={styles.loginImg}
         />
       </div>
 
-      <div className="login-right">
-        <div className="login-box">
+      <div className={styles.loginRight}>
+        <div className={styles.loginBox}>
           <h2>Bienvenido</h2>
           <form onSubmit={handleLogin} noValidate>
-            <div className="form-group">
+            <div className={styles.formGroup}>
               <input
                 type="text"
                 placeholder="Correo electrónico"
@@ -153,17 +147,17 @@ const LoginPage = () => {
                 className={
                   tocado.correo
                     ? errores.correo
-                      ? "input-error"
-                      : "input-ok"
+                      ? styles.inputError
+                      : styles.inputOk
                     : ""
                 }
               />
               {errores.correo && (
-                <span className="error-text">{errores.correo}</span>
+                <span className={styles.errorText}>{errores.correo}</span>
               )}
             </div>
 
-            <div className="form-group input-password-wrapper">
+            <div className={`${styles.formGroup} ${styles.inputPasswordWrapper}`}>
               <input
                 type={mostrarContrasena ? "text" : "password"}
                 placeholder="Contraseña"
@@ -174,13 +168,13 @@ const LoginPage = () => {
                 className={
                   tocado.contrasena
                     ? errores.contrasena
-                      ? "input-error"
-                      : "input-ok"
+                      ? styles.inputError
+                      : styles.inputOk
                     : ""
                 }
               />
               <span
-                className="toggle-password-icon"
+                className={styles.togglePasswordIcon}
                 onClick={() => setMostrarContrasena(!mostrarContrasena)}
               >
                 <i
@@ -191,15 +185,15 @@ const LoginPage = () => {
               </span>
             </div>
             {errores.contrasena && (
-              <span className="error-text">{errores.contrasena}</span>
+              <span className={styles.errorText}>{errores.contrasena}</span>
             )}
 
-            <button type="submit" className="login-btn" disabled={cargando}>
+            <button type="submit" className={styles.loginBtn} disabled={cargando}>
               {cargando ? "Iniciando..." : "Iniciar Sesión"}
             </button>
           </form>
 
-          <div className="register-link">
+          <div className={styles.registerLink}>
             ¿No tienes cuenta? <br />
             <a href="/registro_cliente">Registrarse como Cliente</a> |{" "}
             <a href="/registro_emprendedor">Como Emprendedor</a>

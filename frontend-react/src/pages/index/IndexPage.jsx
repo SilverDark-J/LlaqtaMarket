@@ -1,6 +1,7 @@
+// ✅ Nuevo archivo: IndexPage.jsx actualizado con CSS modular
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import "../../styles/styles.css";
+import styles from "../../styles/indexPage.module.css";
 import logo from "../../assets/media/logo2.jpg";
 import iconoPerfil from "../../assets/media/I.png";
 import iconoCarrito from "../../assets/media/carrito.png";
@@ -18,7 +19,7 @@ const IndexPage = () => {
   const obtenerProductos = async () => {
     try {
       const data = await obtenerProductosPublicos();
-      setProductos(data.slice(0, 8)); // Mostrar solo los 8 primeros como recomendados
+      setProductos(data.slice(0, 8)); // Mostrar solo los 8 primeros
     } catch (error) {
       console.error("Error al obtener productos recomendados:", error);
     }
@@ -30,22 +31,22 @@ const IndexPage = () => {
 
   return (
     <div>
-      <header className="header">
-        <div className="header-contenido">
-          <div className="header-izquierda">
-            <div className="logo">
+      <header className={styles.header}>
+        <div className={styles.headerContenido}>
+          <div className={styles.headerIzquierda}>
+            <div className={styles.logo}>
               <Link to="/">
-                <img src={logo} alt="Logo" className="logo-img" />
+                <img src={logo} alt="Logo" className={styles.logoImg} />
               </Link>
               LlaqtaMarket
             </div>
 
-            <div className="menu-container">
-              <button onClick={() => setMostrarMenu(!mostrarMenu)} className="menu-btn">
+            <div className={styles.menuContainer}>
+              <button onClick={() => setMostrarMenu(!mostrarMenu)} className={styles.menuBtn}>
                 Menú
               </button>
               <div
-                className="menu-opciones"
+                className={styles.menuOpciones}
                 style={{ display: mostrarMenu ? "flex" : "none" }}
               >
                 {["Ropa", "Calzado", "Electrónica", "Hogar", "Juguetería", "Belleza", "Deportes", "Libros"].map(
@@ -58,45 +59,45 @@ const IndexPage = () => {
               </div>
             </div>
 
-            <div className="buscador">
+            <div className={styles.buscador}>
               <input type="text" placeholder="¿Qué estás buscando?" disabled />
             </div>
           </div>
 
-          <div className="acciones">
-            <Link to="/login" className="perfil">
-              <img src={iconoPerfil} alt="Perfil" className="icono" />
+          <div className={styles.acciones}>
+            <Link to="/login" className={styles.perfil}>
+              <img src={iconoPerfil} alt="Perfil" className={styles.icono} />
               <p>Iniciar Sesión</p>
             </Link>
-            <Link to="/productos" className="carrito">
-              <img src={iconoCarrito} alt="Carrito" className="icono" />
+            <Link to="/productos" className={styles.carrito}>
+              <img src={iconoCarrito} alt="Carrito" className={styles.icono} />
               <p>Carrito</p>
             </Link>
           </div>
         </div>
       </header>
 
-      <main className="productos-recomendados">
+      <main className={styles.productosRecomendados}>
         <h2>Productos Recomendados</h2>
-        <div className="grid-productos">
+        <div className={styles.gridProductos}>
           {productos.map((producto) => (
             <Link key={producto.id_producto} to={`/producto_detalle/${producto.id_producto}`}>
-              <div className="producto">
+              <div className={styles.producto}>
                 <img
                   src={`${import.meta.env.VITE_API_URL}${producto.imagen_url}`}
                   alt={producto.nombre}
                 />
                 <h3>{producto.nombre}</h3>
-                <p className="categoria">{producto.categorias?.split(",").join(" / ")}</p>
-                <p className="precio">S/ {parseFloat(producto.precio).toFixed(2)}</p>
+                <p className={styles.categoria}>{producto.categorias?.split(",").join(" / ")}</p>
+                <p className={styles.precio}>S/ {parseFloat(producto.precio).toFixed(2)}</p>
               </div>
             </Link>
           ))}
         </div>
       </main>
 
-      <footer className="footer">
-        <div className="footer-links">
+      <footer className={styles.footer}>
+        <div className={styles.footerLinks}>
           <a href="#">Acerca de nosotros</a>
           <a href="#">Términos y condiciones</a>
           <a href="#">Redes Sociales</a>

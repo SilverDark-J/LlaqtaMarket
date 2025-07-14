@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "../../styles/registro_emprendedor.css";
+import styles from "../../styles/registroEmprendedor.module.css";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+
 const RegistroEmprendedorPage = () => {
   const navigate = useNavigate();
 
@@ -91,7 +92,7 @@ const RegistroEmprendedorPage = () => {
     setEnviando(true);
 
     try {
-      const res = await fetch("http://localhost:3000/api/usuarios/registro", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/usuarios/registro`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -121,88 +122,88 @@ const RegistroEmprendedorPage = () => {
   };
 
   return (
-    <div className="registro-contenedor">
-      <div className="formulario">
-        <div className="empresa-info">
-          <div className="logo">
+    <div className={styles.registroContenedor}>
+      <div className={styles.formulario}>
+        <div className={styles.empresaInfo}>
+          <div className={styles.logo}>
             <img src="/src/assets/media/logo2.jpg" alt="Logo LlaqtaMarket" />
           </div>
-          <div className="nombre-empresa">
+          <div className={styles.nombreEmpresa}>
             <h1>LlaqtaMarket</h1>
           </div>
         </div>
 
         <h2>Registro Emprendedor</h2>
         <form onSubmit={handleSubmit} noValidate>
-            {["nombres", "apellidos", "emprendimiento", "correo"].map((campo) => (
-                <div key={campo}>
-                <input
-                    className={`form-input ${
-                    touched[campo]
-                        ? errores[campo]
-                        ? "input-error"
-                        : "input-ok"
-                        : ""
-                    }`}
-                    type={campo === "correo" ? "email" : "text"}
-                    name={campo}
-                    placeholder={
-                    campo === "nombres"
-                        ? "Ingrese su nombre"
-                        : campo === "apellidos"
-                        ? "Ingrese su apellido"
-                        : campo === "emprendimiento"
-                        ? "Nombre del Emprendimiento"
-                        : "Correo"
-                    }
-                    value={formData[campo]}
-                    onChange={handleInputChange}
-                    onBlur={handleBlur}
-                />
-                {errores[campo] && touched[campo] && (
-                    <span className="error-text">{errores[campo]}</span>
-                )}
-                </div>
-            ))}
-
-          <div className="input-password-wrapper">
-            <input
-                className={`form-input ${
-                touched.contrasenia
-                    ? errores.contrasenia
-                    ? "input-error"
-                    : "input-ok"
+          {["nombres", "apellidos", "emprendimiento", "correo"].map((campo) => (
+            <div key={campo}>
+              <input
+                className={`${styles.formInput} ${
+                  touched[campo]
+                    ? errores[campo]
+                      ? styles.inputError
+                      : styles.inputOk
                     : ""
                 }`}
-                type={mostrarContrasenia ? "text" : "password"}
-                name="contrasenia"
-                placeholder="Contraseña"
-                value={formData.contrasenia}
+                type={campo === "correo" ? "email" : "text"}
+                name={campo}
+                placeholder={
+                  campo === "nombres"
+                    ? "Ingrese su nombre"
+                    : campo === "apellidos"
+                    ? "Ingrese su apellido"
+                    : campo === "emprendimiento"
+                    ? "Nombre del Emprendimiento"
+                    : "Correo"
+                }
+                value={formData[campo]}
                 onChange={handleInputChange}
                 onBlur={handleBlur}
+              />
+              {errores[campo] && touched[campo] && (
+                <span className={styles.errorText}>{errores[campo]}</span>
+              )}
+            </div>
+          ))}
+
+          <div className={styles.inputPasswordWrapper}>
+            <input
+              className={`${styles.formInput} ${
+                touched.contrasenia
+                  ? errores.contrasenia
+                    ? styles.inputError
+                    : styles.inputOk
+                  : ""
+              }`}
+              type={mostrarContrasenia ? "text" : "password"}
+              name="contrasenia"
+              placeholder="Contraseña"
+              value={formData.contrasenia}
+              onChange={handleInputChange}
+              onBlur={handleBlur}
             />
             <span
-                className="toggle-password-icon"
-                onClick={() => setMostrarContrasenia((prev) => !prev)}
+              className={styles.togglePasswordIcon}
+              onClick={() => setMostrarContrasenia((prev) => !prev)}
             >
-                {mostrarContrasenia ? <FaEyeSlash /> : <FaEye />}
+              {mostrarContrasenia ? <FaEyeSlash /> : <FaEye />}
             </span>
-            </div>
-            {errores.contrasenia && touched.contrasenia && (
-            <span className="error-text">{errores.contrasenia}</span>
-            )}
+          </div>
+          {errores.contrasenia && touched.contrasenia && (
+            <span className={styles.errorText}>{errores.contrasenia}</span>
+          )}
 
           <button type="submit" disabled={enviando}>
             {enviando ? "Registrando..." : "REGISTRARSE"}
           </button>
         </form>
 
-        <p className="texto-login">
+        <p className={styles.textoLogin}>
           <a href="/login">¿Ya tienes una cuenta?</a>
         </p>
       </div>
 
-      <div className="imagen-lateral">
+      <div className={styles.imagenLateral}>
         <img
           src="/src/assets/media/registro_emprendedor.jpg"
           alt="Registro emprendedor"

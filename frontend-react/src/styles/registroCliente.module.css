@@ -1,0 +1,252 @@
+/* Variables básicas */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  font-family: "Segoe UI", sans-serif;
+  background-color: #fff3e0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.registroContenedor {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  max-width: 900px;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  background-color: #ffffff;
+  flex-shrink: 1;
+}
+
+/* Lado izquierdo */
+.formulario {
+  flex: 1;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.empresaInfo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  text-align: center;
+}
+
+.logo {
+  margin-right: 15px;
+}
+
+.logo img {
+  width: 100px;
+  height: auto;
+}
+
+.formulario h1 {
+  font-size: 28px;
+  color: #f57c00;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.formulario h2 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+form {
+  width: 100%;
+  max-width: 350px;
+  display: flex;
+  flex-direction: column;
+}
+
+form input {
+  width: 100%;
+  padding: 14px;
+  margin-bottom: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 15px;
+}
+
+form button {
+  width: 100%;
+  padding: 14px;
+  background-color: #f57c00;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+form button:hover {
+  background-color: #ef6c00;
+}
+
+.textoLogin {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.textoLogin a {
+  color: #0b3bab;
+  text-decoration: none;
+}
+
+.textoLogin a:hover {
+  text-decoration: underline;
+}
+
+/* Lado derecho */
+.imagenLateral {
+  flex: 1;
+  background-color: #f57c00;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.imagenLateral img {
+  width: 100%;
+  height: auto;
+  max-width: 350px;
+  border-radius: 12px;
+}
+
+/* Validaciones */
+.inputError {
+  border: 2px solid #e74c3c !important;
+}
+
+.inputOk {
+  border: 2px solid #2ecc71 !important;
+}
+
+.errorText {
+  display: block;
+  font-size: 0.75rem;
+  color: #e74c3c;
+  margin-top: 2px;
+  margin-bottom: 10px;
+  margin-left: 4px;
+}
+
+/* Agrupa input de contraseña y botón de mostrar */
+.inputPasswordWrapper {
+  position: relative;
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+.togglePasswordIcon {
+  position: absolute;
+  top: 50%;
+  right: 14px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 14px;
+  color: #888;
+  background: transparent;
+  border: none;
+  font-weight: 500;
+  padding: 2px 4px;
+  user-select: none;
+}
+
+.togglePasswordIcon:hover {
+  color: #333;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .togglePasswordIcon {
+    font-size: 13px;
+    right: 12px;
+  }
+
+  html,
+  body {
+    padding: 10px;
+  }
+
+  .registroContenedor {
+    flex-direction: column;
+    width: 100%;
+    max-width: 450px;
+  }
+
+  .formulario {
+    padding: 30px 20px;
+  }
+
+  .formulario h1 {
+    font-size: 22px;
+  }
+
+  .formulario h2 {
+    font-size: 18px;
+  }
+
+  form input,
+  form button {
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  .imagenLateral {
+    padding: 20px 10px;
+  }
+
+  .imagenLateral img {
+    max-width: 200px;
+  }
+
+  .logo img {
+    width: 80px;
+  }
+
+  .textoLogin {
+    font-size: 13px;
+  }
+
+  .errorText {
+    font-size: 0.7rem;
+    margin-left: 2px;
+    margin-bottom: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .formulario h2 {
+    font-size: 1.2rem;
+  }
+
+  form input,
+  form button {
+    font-size: 0.9rem;
+  }
+
+  .errorText {
+    font-size: 0.65rem;
+  }
+}

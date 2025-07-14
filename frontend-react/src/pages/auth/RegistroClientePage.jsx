@@ -1,6 +1,7 @@
+// RegistroClientePage.jsx (modificado para usar CSS Modules)
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "../../styles/estilos_cliente.css";
+import styles from "../../styles/registroCliente.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
@@ -33,8 +34,7 @@ const RegistroCliente = () => {
       nuevosErrores.correo = "Correo inválido.";
     }
 
-    const regexContrasenia =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[.,_-])[A-Za-z\d.,_-]{8,}$/;
+    const regexContrasenia = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[.,_-])[A-Za-z\d.,_-]{8,}$/;
     if (!regexContrasenia.test(formulario.contrasenia)) {
       nuevosErrores.contrasenia =
         "Mínimo 8 caracteres, una mayúscula, una minúscula, un número y un símbolo (.,_-).";
@@ -61,8 +61,7 @@ const RegistroCliente = () => {
         }
         break;
       case "contrasenia":
-        const regexContrasenia =
-          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[.,_-])[A-Za-z\d.,_-]{8,}$/;
+        const regexContrasenia = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[.,_-])[A-Za-z\d.,_-]{8,}$/;
         if (!regexContrasenia.test(value)) {
           error =
             "Mínimo 8 caracteres, una mayúscula, una minúscula, un número y un símbolo (.,_-).";
@@ -91,7 +90,7 @@ const RegistroCliente = () => {
 
     try {
       setCargando(true);
-      const response = await fetch("http://localhost:3000/api/usuarios/registro", {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/usuarios/registro`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -117,19 +116,19 @@ const RegistroCliente = () => {
   };
 
   const getInputClass = (campo) => {
-    if (errores[campo]) return "input-error";
-    if (formulario[campo].length > 2 && !errores[campo]) return "input-ok";
+    if (errores[campo]) return styles.inputError;
+    if (formulario[campo].length > 2 && !errores[campo]) return styles.inputOk;
     return "";
   };
 
   return (
-    <div className="registro-contenedor">
-      <div className="formulario">
-        <div className="empresa-info">
-          <div className="logo">
+    <div className={styles.registroContenedor}>
+      <div className={styles.formulario}>
+        <div className={styles.empresaInfo}>
+          <div className={styles.logo}>
             <img src="/src/assets/media/logo2.jpg" alt="Logo LlaqtaMarket" />
           </div>
-          <div className="nombre-empresa">
+          <div className={styles.nombreEmpresa}>
             <h1>LlaqtaMarket</h1>
           </div>
         </div>
@@ -145,7 +144,7 @@ const RegistroCliente = () => {
             onBlur={(e) => validarCampo(e.target.name, e.target.value)}
             className={getInputClass("nombres")}
           />
-          {errores.nombres && <span className="error-text">{errores.nombres}</span>}
+          {errores.nombres && <span className={styles.errorText}>{errores.nombres}</span>}
 
           <input
             type="text"
@@ -156,7 +155,7 @@ const RegistroCliente = () => {
             onBlur={(e) => validarCampo(e.target.name, e.target.value)}
             className={getInputClass("apellidos")}
           />
-          {errores.apellidos && <span className="error-text">{errores.apellidos}</span>}
+          {errores.apellidos && <span className={styles.errorText}>{errores.apellidos}</span>}
 
           <input
             type="email"
@@ -167,9 +166,9 @@ const RegistroCliente = () => {
             onBlur={(e) => validarCampo(e.target.name, e.target.value)}
             className={getInputClass("correo")}
           />
-          {errores.correo && <span className="error-text">{errores.correo}</span>}
+          {errores.correo && <span className={styles.errorText}>{errores.correo}</span>}
 
-          <div className="input-password-wrapper">
+          <div className={styles.inputPasswordWrapper}>
             <input
               type={mostrarContrasenia ? "text" : "password"}
               name="contrasenia"
@@ -180,14 +179,14 @@ const RegistroCliente = () => {
               className={getInputClass("contrasenia")}
             />
             <span
-              className="toggle-password-icon"
+              className={styles.togglePasswordIcon}
               onClick={() => setMostrarContrasenia(!mostrarContrasenia)}
             >
               <FontAwesomeIcon icon={mostrarContrasenia ? faEyeSlash : faEye} />
             </span>
           </div>
           {errores.contrasenia && (
-            <span className="error-text">{errores.contrasenia}</span>
+            <span className={styles.errorText}>{errores.contrasenia}</span>
           )}
 
           <button type="submit" disabled={cargando}>
@@ -195,12 +194,12 @@ const RegistroCliente = () => {
           </button>
         </form>
 
-        <p className="texto-login">
+        <p className={styles.textoLogin}>
           <a href="/login">¿Ya tienes una cuenta?</a>
         </p>
       </div>
 
-      <div className="imagen-lateral">
+      <div className={styles.imagenLateral}>
         <img
           src="/src/assets/media/registro_cliente.jpg"
           alt="Registro LlaqtaMarket"
