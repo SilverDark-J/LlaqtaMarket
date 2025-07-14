@@ -2,8 +2,11 @@ import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "../../styles/login.module.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
+import { useAuth } from "../../context/AuthContext";
 
 const LoginPage = () => {
+  const { login } = useAuth();
+  
   const [correo, setCorreo] = useState("");
   const [contrasena, setContrasena] = useState("");
   const [errores, setErrores] = useState({});
@@ -93,10 +96,10 @@ const LoginPage = () => {
       const data = await response.json();
 
       if (response.ok) {
-        localStorage.setItem("token", data.token);
-        localStorage.setItem("tipo_usuario", data.tipo_usuario);
+        const { token, usuario } = data;
+        login(token, usuario); // ✅ usamos AuthContext
 
-        switch (data.tipo_usuario) {
+        switch (usuario.rol) {
           case "cliente":
             navigate("/panel/cliente");
             break;

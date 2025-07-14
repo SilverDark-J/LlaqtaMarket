@@ -113,7 +113,13 @@ exports.loginUsuario = async (req, res) => {
     return res.json({
       mensaje: "Inicio de sesión exitoso",
       token,
-      tipo_usuario: usuario.tipo_usuario,
+      usuario: {
+        id_usuario: usuario.id_usuario,
+        rol: usuario.tipo_usuario, // 👈 importante: usamos 'rol' en frontend
+        nombres: usuario.nombres,
+        apellidos: usuario.apellidos,
+        correo: usuario.correo,
+      },
     });
   } catch (error) {
     console.error("Error en login:", error);

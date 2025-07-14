@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import styles from "../../styles/producto_detalle.module.css";
 import { useNavigate, useParams, Link } from "react-router-dom";
-import logo from "../../assets/media/logo2.jpg";
-import iconoPerfil from "../../assets/media/I.png";
-import iconoCarrito from "../../assets/media/carrito.png";
 import { obtenerProductoPorId } from "../../services/productoService";
+
+import PublicHeader from "../../components/PublicHeader";
+import PublicFooter from "../../components/PublicFooter";
 
 const ProductoDetallePage = () => {
   const [producto, setProducto] = useState(null);
@@ -38,30 +38,7 @@ const ProductoDetallePage = () => {
 
   return (
     <div className={styles.productoDetallePage}>
-      <header className={styles.header}>
-        <div className={styles.headerIzquierda}>
-          <div className={styles.logo}>
-            <Link to="/">
-              <img src={logo} alt="Logo" className={styles.logoImg} />
-            </Link>
-            LlaqtaMarket
-          </div>
-          <div className={styles.buscador}>
-            <input type="text" placeholder="¿Qué estás buscando?" />
-          </div>
-        </div>
-
-        <div className={styles.acciones}>
-          <Link to="/login" className={styles.perfil}>
-            <img src={iconoPerfil} alt="Perfil" className={styles.icono} />
-            <p>Iniciar Sesión</p>
-          </Link>
-          <Link to="/productos" className={styles.carrito}>
-            <img src={iconoCarrito} alt="Carrito" className={styles.icono} />
-            <p>Carrito</p>
-          </Link>
-        </div>
-      </header>
+      <PublicHeader />
 
       <div className={styles.contenido}>
         <aside className={styles.categorias}>
@@ -120,13 +97,8 @@ const ProductoDetallePage = () => {
         </main>
       </div>
 
-      <footer className={styles.footer}>
-        <div className={styles.footerLinks}>
-          <a href="#">Acerca de nosotros</a>
-          <a href="#">Términos y condiciones</a>
-          <a href="#">Redes Sociales</a>
-        </div>
-      </footer>
+      <PublicFooter />
+      
     </div>
   );
 };

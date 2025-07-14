@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import styles from "../../styles/productos.module.css";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { obtenerProductosPublicos } from "../../services/productoService";
-import logo from "../../assets/media/logo2.jpg";
-import iconoPerfil from "../../assets/media/I.png";
-import iconoCarrito from "../../assets/media/carrito.png";
+
+import PublicHeader from "../../components/PublicHeader";
+import PublicFooter from "../../components/PublicFooter";
 
 const categorias = [
   "Todos",
@@ -67,42 +67,7 @@ const ProductosPage = () => {
 
   return (
     <div className={styles.productosPage}>
-      <header className={styles.header}>
-        <div className={styles.headerContenido}>
-          <div className={styles.headerIzquierda}>
-            <div className={styles.logo}>
-              <Link to="/">
-                <img src={logo} alt="Logo" className={styles.logoImg} />
-              </Link>
-              LlaqtaMarket
-            </div>
-
-            <div className={styles.menuContainer}>
-              <button className={styles.menuBtn}>Menú</button>
-            </div>
-
-            <div className={styles.buscador}>
-              <input
-                type="text"
-                placeholder="¿Qué estás buscando?"
-                value={busqueda}
-                onChange={(e) => setBusqueda(e.target.value)}
-              />
-            </div>
-          </div>
-
-          <div className={styles.acciones}>
-            <Link to="/login" className={styles.perfil}>
-              <img src={iconoPerfil} alt="Perfil" className={styles.icono} />
-              <p>Iniciar Sesión</p>
-            </Link>
-            <Link to="/productos" className={styles.carrito}>
-              <img src={iconoCarrito} alt="Carrito" className={styles.icono} />
-              <p>Carrito</p>
-            </Link>
-          </div>
-        </div>
-      </header>
+      <PublicHeader mostrarCategorias={true} onBuscar={(valor) => setBusqueda(valor)} />
 
       <main className={styles.contenido}>
         <aside className={styles.categorias}>
@@ -144,13 +109,8 @@ const ProductosPage = () => {
         </section>
       </main>
 
-      <footer className={styles.footer}>
-        <div className={styles.footerLinks}>
-          <a href="#">Acerca de nosotros</a>
-          <a href="#">Términos y condiciones</a>
-          <a href="#">Redes Sociales</a>
-        </div>
-      </footer>
+      <PublicFooter />
+      
     </div>
   );
 };

@@ -1,9 +1,8 @@
-// src/routes/PanelRoutes.jsx
 import { Routes, Route } from "react-router-dom";
 import ClientePanel from "../pages/paneles/ClientePanel";
 import EmprendedorPanel from "../pages/paneles/EmprendedorPanel";
 import AdminPanel from "../pages/paneles/AdminPanel";
-import PrivateRoute from "./PrivateRoute"; // 👈 Importamos
+import RoleBasedRoute from "./RoleBasedRoute";
 
 export default function PanelRoutes() {
   return (
@@ -11,25 +10,25 @@ export default function PanelRoutes() {
       <Route
         path="cliente"
         element={
-          <PrivateRoute>
+          <RoleBasedRoute rolesPermitidos={["cliente"]}>
             <ClientePanel />
-          </PrivateRoute>
+          </RoleBasedRoute>
         }
       />
       <Route
         path="emprendedor"
         element={
-          <PrivateRoute>
+          <RoleBasedRoute rolesPermitidos={["emprendedor"]}>
             <EmprendedorPanel />
-          </PrivateRoute>
+          </RoleBasedRoute>
         }
       />
       <Route
         path="admin"
         element={
-          <PrivateRoute>
+          <RoleBasedRoute rolesPermitidos={["administrador"]}>
             <AdminPanel />
-          </PrivateRoute>
+          </RoleBasedRoute>
         }
       />
     </Routes>

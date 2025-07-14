@@ -2,10 +2,10 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "../../styles/indexPage.module.css";
-import logo from "../../assets/media/logo2.jpg";
-import iconoPerfil from "../../assets/media/I.png";
-import iconoCarrito from "../../assets/media/carrito.png";
 import { obtenerProductosPublicos } from "../../services/productoService";
+
+import PublicHeader from "../../components/PublicHeader";
+import PublicFooter from "../../components/PublicFooter";
 
 const IndexPage = () => {
   const [mostrarMenu, setMostrarMenu] = useState(false);
@@ -31,51 +31,7 @@ const IndexPage = () => {
 
   return (
     <div>
-      <header className={styles.header}>
-        <div className={styles.headerContenido}>
-          <div className={styles.headerIzquierda}>
-            <div className={styles.logo}>
-              <Link to="/">
-                <img src={logo} alt="Logo" className={styles.logoImg} />
-              </Link>
-              LlaqtaMarket
-            </div>
-
-            <div className={styles.menuContainer}>
-              <button onClick={() => setMostrarMenu(!mostrarMenu)} className={styles.menuBtn}>
-                Menú
-              </button>
-              <div
-                className={styles.menuOpciones}
-                style={{ display: mostrarMenu ? "flex" : "none" }}
-              >
-                {["Ropa", "Calzado", "Electrónica", "Hogar", "Juguetería", "Belleza", "Deportes", "Libros"].map(
-                  (cat, i) => (
-                    <a href="#" key={i} onClick={() => filtrarPorCategoria(cat)}>
-                      {cat}
-                    </a>
-                  )
-                )}
-              </div>
-            </div>
-
-            <div className={styles.buscador}>
-              <input type="text" placeholder="¿Qué estás buscando?" disabled />
-            </div>
-          </div>
-
-          <div className={styles.acciones}>
-            <Link to="/login" className={styles.perfil}>
-              <img src={iconoPerfil} alt="Perfil" className={styles.icono} />
-              <p>Iniciar Sesión</p>
-            </Link>
-            <Link to="/productos" className={styles.carrito}>
-              <img src={iconoCarrito} alt="Carrito" className={styles.icono} />
-              <p>Carrito</p>
-            </Link>
-          </div>
-        </div>
-      </header>
+      <PublicHeader mostrarCategorias={true} />
 
       <main className={styles.productosRecomendados}>
         <h2>Productos Recomendados</h2>
@@ -96,13 +52,7 @@ const IndexPage = () => {
         </div>
       </main>
 
-      <footer className={styles.footer}>
-        <div className={styles.footerLinks}>
-          <a href="#">Acerca de nosotros</a>
-          <a href="#">Términos y condiciones</a>
-          <a href="#">Redes Sociales</a>
-        </div>
-      </footer>
+      <PublicFooter />
     </div>
   );
 };
