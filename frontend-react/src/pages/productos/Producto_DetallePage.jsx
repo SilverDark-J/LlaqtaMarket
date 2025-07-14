@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import "../../styles/producto_detalle.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import logo from "../../assets/media/logo2.jpg";
 import iconoPerfil from "../../assets/media/I.png";
 import iconoCarrito from "../../assets/media/carrito.png";
+import { obtenerProductoPorId } from "../../services/productoService";
 
 const ProductoDetallePage = () => {
   const [producto, setProducto] = useState(null);
@@ -12,15 +13,20 @@ const ProductoDetallePage = () => {
   const [comentarios, setComentarios] = useState([]);
   const [valorEstrella, setValorEstrella] = useState(0);
   const navigate = useNavigate();
+  const { id } = useParams();
 
   useEffect(() => {
-    const seleccionado = localStorage.getItem("productoSeleccionado");
-    if (seleccionado) {
-      setProducto(JSON.parse(seleccionado));
-    } else {
-      navigate("/productos");
-    }
-  }, []);
+    const cargarProducto = async () => {
+      try {
+        const data = await obtenerProductoPorId(id);
+        setProducto(data);
+      } catch (error) {
+        console.error(error);
+        navigate("/productos");
+      }
+    };
+    cargarProducto();
+  }, [id]);
 
   const enviarComentario = () => {
     if (comentario.trim() === "") return alert("Por favor escribe un comentario.");
@@ -29,7 +35,7 @@ const ProductoDetallePage = () => {
     setValorEstrella(0);
   };
 
-  if (!producto) return null;
+  if (!producto) return <p>Cargando...</p>;
 
   return (
     <div className="producto-detalle-page">
@@ -37,22 +43,10 @@ const ProductoDetallePage = () => {
         <div className="header-izquierda">
           <div className="logo">
             <Link to="/">
-                <img src={logo} alt="Logo" className="logo-img" />
+              <img src={logo} alt="Logo" className="logo-img" />
             </Link>
             LlaqtaMarket
           </div>
-          <div className="menu-container">
-            <button className="menu-btn">Menú</button>
-            <div className="menu-opciones" id="menuOpciones">
-              {/* Opcional: puedes enlazar a rutas */}
-              {[
-                "Ropa", "Calzado", "Electrónica", "Hogar", "Juguetería", "Belleza", "Deportes", "Libros"
-              ].map((cat) => (
-                <a key={cat} href="/productos">{cat}</a>
-              ))}
-            </div>
-          </div>
-
           <div className="buscador">
             <input type="text" placeholder="¿Qué estás buscando?" />
           </div>
@@ -60,13 +54,13 @@ const ProductoDetallePage = () => {
 
         <div className="acciones">
           <Link to="/login" className="perfil">
-                <img src={iconoPerfil} alt="Perfil" className="icono" />
-                <p>Iniciar Sesión</p>
+            <img src={iconoPerfil} alt="Perfil" className="icono" />
+            <p>Iniciar Sesión</p>
           </Link>
           <Link to="/productos" className="carrito">
-                <img src={iconoCarrito} alt="Carrito" className="icono" />
+            <img src={iconoCarrito} alt="Carrito" className="icono" />
             <p>Carrito</p>
-           </Link>
+          </Link>
         </div>
       </header>
 
@@ -75,27 +69,24 @@ const ProductoDetallePage = () => {
           <h3>Categoría</h3>
           <ul>
             {["Todos", "Ropa", "Calzado", "Electrónica", "Hogar", "Juguetería", "Belleza", "Deportes", "Libros"].map((cat) => (
-              <li key={cat} onClick={() => navigate("/productos")}>{cat}</li>
+              <li key={cat} onClick={() => navigate(`/productos?categoria=${cat}`)}>{cat}</li>
             ))}
           </ul>
         </aside>
 
         <main id="contenedor-producto">
           <div className="producto-detalle">
-            <img src={producto.imagen} alt={producto.nombre} className="producto-img" />
+            <img
+              src={`${import.meta.env.VITE_API_URL}${producto.imagen_url}`}
+              alt={producto.nombre}
+              className="producto-img"
+            />
             <div className="producto-info">
-              <h2 className="producto-nombre">{producto.nombre}</h2>
-              {producto.precioRegular && (
-                <p><strong>Precio Regular:</strong> <del>S/ {producto.precioRegular.toFixed(2)}</del></p>
-              )}
-              <p><strong>Precio Online:</strong> <span className="precio-oferta">S/ {producto.precioOferta?.toFixed(2) || producto.precio.toFixed(2)}</span></p>
-              {producto.color && <p><strong>Color:</strong> {producto.color}</p>}
-              {producto.modelo && <p><strong>Modelo:</strong> {producto.modelo}</p>}
-              {producto.cierre && <p><strong>Cierre:</strong> {producto.cierre}</p>}
-              {producto.material && <p><strong>Material:</strong> {producto.material}</p>}
-              {producto.coleccion && <p><strong>Colección:</strong> {producto.coleccion}</p>}
-              {producto.tipo && <p><strong>Tipo:</strong> {producto.tipo}</p>}
-              {producto.cuidados && <p className="cuidados"><strong>Cuidados:</strong> {producto.cuidados}</p>}
+              <h2>{producto.nombre}</h2>
+              <p><strong>Precio:</strong> S/ {parseFloat(producto.precio).toFixed(2)}</p>
+              <p><strong>Categorías:</strong> {producto.categorias?.split(",").join(" / ")}</p>
+              <p><strong>Descripción:</strong> {producto.descripcion}</p>
+              <p><strong>Vendido por:</strong> {producto.nombre_emprendimiento}</p>
             </div>
           </div>
 
@@ -117,9 +108,9 @@ const ProductoDetallePage = () => {
               value={comentario}
               onChange={(e) => setComentario(e.target.value)}
             ></textarea>
-            <button className="enviar-comentario" onClick={enviarComentario}>Enviar</button>
+            <button onClick={enviarComentario}>Enviar</button>
 
-            <div id="comentarios-lista">
+            <div className="comentarios-lista">
               {comentarios.map((c, idx) => (
                 <div key={idx} className="comentario-usuario">
                   <p><strong>Usuario:</strong> {c.texto}</p>

@@ -12,7 +12,7 @@ export default function PublicRoutes() {
     <Routes>
       <Route path="/" element={<IndexPage />} />
       <Route path="/productos" element={<ProductosPage />} />
-      <Route path="/producto_detalle" element={<ProductoDetallePage />} />
+      <Route path="/producto_detalle/:id" element={<ProductoDetallePage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/registro_cliente" element={<RegistroClientePage />} />
       <Route path="/registro_emprendedor" element={<RegistroEmprendedorPage />} />
