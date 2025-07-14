@@ -20,50 +20,38 @@ const RegistroEmprendedorPage = () => {
   const [mostrarContrasenia, setMostrarContrasenia] = useState(false);
 
   const validarCampo = (nombre, valor) => {
-    let error = "";
-
     if (["nombres", "apellidos", "emprendimiento"].includes(nombre) && valor.trim().length < 3) {
-      error = "Debe tener al menos 3 caracteres.";
+      return "Debe tener al menos 3 caracteres.";
     }
 
     if (nombre === "correo") {
       const regexCorreo = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
-      if (!regexCorreo.test(valor)) {
-        error = "Correo inválido.";
-      }
+      if (!regexCorreo.test(valor)) return "Correo inválido.";
     }
 
     if (nombre === "contrasenia") {
       const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[.,_-])[A-Za-z\d.,_-]{8,}$/;
       if (!regex.test(valor)) {
-        error = "Mínimo 8 caracteres, una mayúscula, una minúscula, un número y un símbolo (.,_-).";
+        return "Mínimo 8 caracteres, una mayúscula, una minúscula, un número y un símbolo (.,_-).";
       }
     }
 
-    return error;
+    return "";
   };
 
-  const handleInputChange = (e) => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
-
     setFormData((prev) => ({ ...prev, [name]: value }));
 
     if (touched[name]) {
-      setErrores((prev) => ({
-        ...prev,
-        [name]: validarCampo(name, value),
-      }));
+      setErrores((prev) => ({ ...prev, [name]: validarCampo(name, value) }));
     }
   };
 
   const handleBlur = (e) => {
     const { name, value } = e.target;
-
     setTouched((prev) => ({ ...prev, [name]: true }));
-    setErrores((prev) => ({
-      ...prev,
-      [name]: validarCampo(name, value),
-    }));
+    setErrores((prev) => ({ ...prev, [name]: validarCampo(name, value) }));
   };
 
   const handleSubmit = async (e) => {
@@ -109,7 +97,7 @@ const RegistroEmprendedorPage = () => {
 
       if (res.ok) {
         alert("✅ Registro exitoso. ¡Bienvenido a LlaqtaMarket!");
-        navigate("/panel_emprendedor");
+        navigate("/login");
       } else {
         alert("❌ Error: " + (data.mensaje || "No se pudo registrar."));
       }
@@ -120,6 +108,29 @@ const RegistroEmprendedorPage = () => {
       setEnviando(false);
     }
   };
+
+  const renderInput = (name, placeholder, type = "text") => (
+    <div key={name}>
+      <input
+        type={type}
+        name={name}
+        placeholder={placeholder}
+        value={formData[name]}
+        onChange={handleChange}
+        onBlur={handleBlur}
+        className={`${styles.formInput} ${
+          touched[name]
+            ? errores[name]
+              ? styles.inputError
+              : styles.inputOk
+            : ""
+        }`}
+      />
+      {errores[name] && touched[name] && (
+        <span className={styles.errorText}>{errores[name]}</span>
+      )}
+    </div>
+  );
 
   return (
     <div className={styles.registroContenedor}>
@@ -135,39 +146,19 @@ const RegistroEmprendedorPage = () => {
 
         <h2>Registro Emprendedor</h2>
         <form onSubmit={handleSubmit} noValidate>
-          {["nombres", "apellidos", "emprendimiento", "correo"].map((campo) => (
-            <div key={campo}>
-              <input
-                className={`${styles.formInput} ${
-                  touched[campo]
-                    ? errores[campo]
-                      ? styles.inputError
-                      : styles.inputOk
-                    : ""
-                }`}
-                type={campo === "correo" ? "email" : "text"}
-                name={campo}
-                placeholder={
-                  campo === "nombres"
-                    ? "Ingrese su nombre"
-                    : campo === "apellidos"
-                    ? "Ingrese su apellido"
-                    : campo === "emprendimiento"
-                    ? "Nombre del Emprendimiento"
-                    : "Correo"
-                }
-                value={formData[campo]}
-                onChange={handleInputChange}
-                onBlur={handleBlur}
-              />
-              {errores[campo] && touched[campo] && (
-                <span className={styles.errorText}>{errores[campo]}</span>
-              )}
-            </div>
-          ))}
+          {renderInput("nombres", "Ingrese su nombre")}
+          {renderInput("apellidos", "Ingrese su apellido")}
+          {renderInput("emprendimiento", "Nombre del Emprendimiento")}
+          {renderInput("correo", "Correo", "email")}
 
           <div className={styles.inputPasswordWrapper}>
             <input
+              type={mostrarContrasenia ? "text" : "password"}
+              name="contrasenia"
+              placeholder="Contraseña"
+              value={formData.contrasenia}
+              onChange={handleChange}
+              onBlur={handleBlur}
               className={`${styles.formInput} ${
                 touched.contrasenia
                   ? errores.contrasenia
@@ -175,12 +166,6 @@ const RegistroEmprendedorPage = () => {
                     : styles.inputOk
                   : ""
               }`}
-              type={mostrarContrasenia ? "text" : "password"}
-              name="contrasenia"
-              placeholder="Contraseña"
-              value={formData.contrasenia}
-              onChange={handleInputChange}
-              onBlur={handleBlur}
             />
             <span
               className={styles.togglePasswordIcon}

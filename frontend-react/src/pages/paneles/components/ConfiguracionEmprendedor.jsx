@@ -1,8 +1,10 @@
+// 📁 src/pages/paneles/components/ConfiguracionEmprendedor.jsx
 import { useEffect, useState } from "react";
 import {
   obtenerEmprendedor,
   actualizarEmprendedor,
 } from "../../../services/emprendedorService";
+import styles from "../../../styles/panelEmprendedor.module.css";
 
 export default function ConfiguracionEmprendedor() {
   const [datos, setDatos] = useState({
@@ -65,10 +67,10 @@ export default function ConfiguracionEmprendedor() {
   if (cargando) return <p>Cargando configuración...</p>;
 
   return (
-    <section className="contenedor-configuracion">
+    <section className={styles.contenedorConfiguracion}>
       <h2>Configuración</h2>
-      <form className="formulario-configuracion" onSubmit={handleSubmit}>
-        <div className="campo">
+      <form className={styles.formularioConfiguracion} onSubmit={handleSubmit}>
+        <div className={styles.campo}>
           <label>Nombre:</label>
           <input
             type="text"
@@ -78,7 +80,7 @@ export default function ConfiguracionEmprendedor() {
             required
           />
         </div>
-        <div className="campo">
+        <div className={styles.campo}>
           <label>Apellido:</label>
           <input
             type="text"
@@ -88,15 +90,15 @@ export default function ConfiguracionEmprendedor() {
             required
           />
         </div>
-        <div className="campo">
+        <div className={styles.campo}>
           <label>Nombre del emprendimiento:</label>
           <input type="text" value={datos.nombre_emprendimiento} disabled />
         </div>
-        <div className="campo">
+        <div className={styles.campo}>
           <label>Correo:</label>
           <input type="email" value={datos.correo} disabled />
         </div>
-        <div className="campo">
+        <div className={styles.campo}>
           <label>Contraseña:</label>
           <input
             type="password"
@@ -106,7 +108,7 @@ export default function ConfiguracionEmprendedor() {
             onChange={handleChange}
           />
         </div>
-        <div className="campo">
+        <div className={styles.campo}>
           <label>Teléfono:</label>
           <input
             type="tel"
@@ -118,7 +120,7 @@ export default function ConfiguracionEmprendedor() {
             title="Debe contener 9 dígitos"
           />
         </div>
-        <div className="campo">
+        <div className={styles.campo}>
           <label>Dirección:</label>
           <input
             type="text"
@@ -128,7 +130,7 @@ export default function ConfiguracionEmprendedor() {
             required
           />
         </div>
-        <div className="campo">
+        <div className={styles.campo}>
           <label>Descripción:</label>
           <textarea
             name="descripcion"

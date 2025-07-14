@@ -1,22 +1,3 @@
-/* Reset */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html,
-body {
-  font-family: "Segoe UI", sans-serif;
-  background-color: #fff3e0;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-}
-
-/* Contenedor principal */
 .registroContenedor {
   display: flex;
   width: 100%;
@@ -26,9 +7,9 @@ body {
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
   background-color: #ffffff;
   flex-direction: row;
+  margin: 40px auto;
 }
 
-/* Formulario */
 .formulario {
   flex: 1;
   padding: 40px;
@@ -43,6 +24,8 @@ body {
   align-items: center;
   justify-content: center;
   margin-bottom: 8px;
+  flex-wrap: wrap;
+  text-align: center;
 }
 
 .logo {
@@ -68,10 +51,11 @@ body {
   text-align: center;
 }
 
-/* Form */
 form {
   width: 100%;
   max-width: 350px;
+  display: flex;
+  flex-direction: column;
 }
 
 .formInput {
@@ -83,57 +67,36 @@ form {
   font-size: 15px;
 }
 
-/* Botón */
-form button {
+.inputPasswordWrapper {
+  position: relative;
   width: 100%;
-  padding: 14px;
-  background-color: #f57c00;
-  color: white;
-  font-weight: bold;
-  border: none;
+  margin-bottom: 12px;
+}
+
+.inputPasswordWrapper input {
+  width: 100%;
+  padding: 14px 42px 14px 14px;
+  border: 1px solid #ccc;
   border-radius: 8px;
+  font-size: 15px;
+  box-sizing: border-box;
+}
+
+.togglePasswordIcon {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  color: #888;
+  font-size: 18px;
+  user-select: none;
 }
 
-form button:hover {
-  background-color: #ef6c00;
+.togglePasswordIcon:hover {
+  color: #333;
 }
 
-/* Texto login */
-.textoLogin {
-  margin-top: 20px;
-  text-align: center;
-  font-size: 14px;
-}
-
-.textoLogin a {
-  color: #0b3bab;
-  text-decoration: none;
-}
-
-.textoLogin a:hover {
-  text-decoration: underline;
-}
-
-/* Imagen lateral */
-.imagenLateral {
-  flex: 1;
-  background-color: #f57c00;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-}
-
-.imagenLateral img {
-  width: 100%;
-  height: auto;
-  max-width: 350px;
-  border-radius: 12px;
-}
-
-/* Estados del input */
 .inputError {
   border: 2px solid #e74c3c !important;
 }
@@ -151,56 +114,55 @@ form button:hover {
   margin-left: 4px;
 }
 
-/* Contraseña con ícono */
-.inputPasswordWrapper {
-  position: relative;
+button {
   width: 100%;
-  margin-bottom: 0;
-}
-
-.inputPasswordWrapper input {
-  width: 100%;
-  padding: 14px 42px 14px 14px;
-  border: 1px solid #ccc;
+  padding: 14px;
+  background-color: #f57c00;
+  color: white;
+  font-weight: bold;
+  border: none;
   border-radius: 8px;
-  font-size: 15px;
-  box-sizing: border-box;
-}
-
-.togglePasswordIcon {
-  position: absolute;
-  right: 14px;
-  top: 40%;
-  transform: translateY(-50%);
   cursor: pointer;
-  color: #888;
-  font-size: 18px;
-  user-select: none;
+  transition: background-color 0.3s ease;
 }
 
-.togglePasswordIcon:hover {
-  color: #333;
+button:hover {
+  background-color: #ef6c00;
 }
 
-/* Ocultar íconos por defecto del navegador */
-input[type="password"]::-ms-reveal,
-input[type="password"]::-ms-clear {
-  display: none;
+.textoLogin {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 14px;
 }
 
-input[type="password"]::-webkit-credentials-auto-fill-button,
-input[type="password"]::-webkit-textfield-decoration-container {
-  display: none !important;
+.textoLogin a {
+  color: #0b3bab;
+  text-decoration: none;
+}
+
+.textoLogin a:hover {
+  text-decoration: underline;
+}
+
+.imagenLateral {
+  flex: 1;
+  background-color: #f57c00;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.imagenLateral img {
+  width: 100%;
+  height: auto;
+  max-width: 350px;
+  border-radius: 12px;
 }
 
 /* Responsive */
 @media (max-width: 768px) {
-  html,
-  body {
-    flex-direction: column;
-    padding: 20px;
-  }
-
   .registroContenedor {
     flex-direction: column;
     max-width: 500px;
@@ -226,7 +188,7 @@ input[type="password"]::-webkit-textfield-decoration-container {
   }
 
   .formInput,
-  form button {
+  button {
     padding: 12px;
     font-size: 14px;
   }
@@ -242,7 +204,6 @@ input[type="password"]::-webkit-textfield-decoration-container {
   .errorText {
     font-size: 0.7em;
     margin-left: 2px;
-    margin-top: -6px;
   }
 }
 

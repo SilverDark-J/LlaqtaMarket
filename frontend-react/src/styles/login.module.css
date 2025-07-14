@@ -1,18 +1,11 @@
-/* === RESET GLOBAL (opcional si ya está en global.css) === */
-:global(*) {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-:global(html),
-:global(body) {
-  font-family: "Segoe UI", sans-serif;
-  background-color: #fff3e0;
+/* === RESET (solo afecta este módulo) === */
+.containerWrapper {
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: #fff3e0;
+  font-family: "Segoe UI", sans-serif;
   padding: 20px;
 }
 
@@ -177,18 +170,9 @@
   color: #333;
 }
 
-/* === PARA EVITAR ICONOS DE AUTOCOMPLETADO === */
-:global(input[type="password"]::-ms-reveal),
-:global(input[type="password"]::-ms-clear),
-:global(input[type="password"]::-webkit-credentials-auto-fill-button),
-:global(input[type="password"]::-webkit-textfield-decoration-container) {
-  display: none !important;
-}
-
 /* === RESPONSIVE === */
 @media (max-width: 768px) {
-  :global(html),
-  :global(body) {
+  .containerWrapper {
     flex-direction: column;
     padding: 20px;
   }

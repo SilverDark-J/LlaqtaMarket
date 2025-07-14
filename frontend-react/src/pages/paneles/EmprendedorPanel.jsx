@@ -3,6 +3,7 @@ import PanelLayout from "../../layouts/PanelLayout";
 import MisProductos from "./components/MisProductos";
 import AgregarProducto from "./components/AgregarProducto";
 import ConfiguracionEmprendedor from "./components/ConfiguracionEmprendedor";
+import styles from "../../styles/panelEmprendedor.module.css";
 
 export default function EmprendedorPanel() {
   const [seccion, setSeccion] = useState("configuracion");

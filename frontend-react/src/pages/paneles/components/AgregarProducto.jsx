@@ -1,5 +1,7 @@
+// 📁 src/pages/paneles/components/AgregarProducto.jsx
 import { useState } from "react";
 import { guardarProducto } from "../../../services/emprendedorService";
+import styles from "../../../styles/panelEmprendedor.module.css";
 
 export default function AgregarProducto() {
   const [datos, setDatos] = useState({
@@ -39,10 +41,10 @@ export default function AgregarProducto() {
   };
 
   return (
-    <section className="contenedor-agregar-producto">
+    <section className={styles.contenedorAgregarProducto}>
       <h2>Agregar Producto</h2>
-      <form className="formulario-agregar" onSubmit={handleSubmit}>
-        <div className="campo">
+      <form className={styles.formularioAgregar} onSubmit={handleSubmit}>
+        <div className={styles.campo}>
           <label>Nombre:</label>
           <input
             type="text"
@@ -52,7 +54,7 @@ export default function AgregarProducto() {
             required
           />
         </div>
-        <div className="campo">
+        <div className={styles.campo}>
           <label>Precio:</label>
           <input
             type="number"
@@ -62,7 +64,7 @@ export default function AgregarProducto() {
             required
           />
         </div>
-        <div className="campo">
+        <div className={styles.campo}>
           <label>Categoría:</label>
           <select
             name="categoria"
@@ -76,7 +78,7 @@ export default function AgregarProducto() {
             <option value="Libros">Libros</option>
           </select>
         </div>
-        <div className="campo">
+        <div className={styles.campo}>
           <label>Descripción:</label>
           <textarea
             name="descripcion"
@@ -84,7 +86,7 @@ export default function AgregarProducto() {
             onChange={handleChange}
           />
         </div>
-        <div className="campo">
+        <div className={styles.campo}>
           <label>Imagen:</label>
           <input type="file" onChange={handleImagenChange} />
         </div>

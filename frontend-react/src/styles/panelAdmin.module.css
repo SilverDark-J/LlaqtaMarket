@@ -1,19 +1,8 @@
-/* ============================== RESET Y BASE ============================== */
-:global(*) {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-:global(body),
-:global(html) {
+/* ============================== BASE ============================== */
+.panelAdminWrapper {
   height: 100%;
   font-family: "Segoe UI", sans-serif;
   background-color: #fff3e0;
-}
-
-:global(main section h2) {
-  margin-bottom: 20px;
 }
 
 /* ============================== HEADER ============================== */
@@ -179,7 +168,6 @@
   width: 100%;
   max-width: 400px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-  font-family: "Segoe UI", sans-serif;
   z-index: 1001;
 }
 
@@ -242,6 +230,7 @@
   background-color: #c2c2c2;
 }
 
+/* ============================== CONTRASEÑA VISUAL ============================== */
 .inputPassword {
   position: relative;
 }
@@ -262,7 +251,7 @@
   cursor: pointer;
 }
 
-/* ============================== KEYFRAMES ============================== */
+/* ============================== ANIMACIÓN ============================== */
 @keyframes fadeIn {
   from {
     opacity: 0;

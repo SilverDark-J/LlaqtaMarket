@@ -1,22 +1,11 @@
-/* Reset y base */
-:global(*) {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-:global(body),
-:global(html) {
+/* ================== BASE DEL PANEL CLIENTE ================== */
+.panelClienteWrapper {
   height: 100%;
   font-family: "Segoe UI", sans-serif;
   background-color: #fff3e0;
 }
 
-:global(main section h2) {
-  margin-bottom: 20px;
-}
-
-/* Header */
+/* ================== HEADER ================== */
 .header {
   background-color: #f57c00;
   color: white;
@@ -66,13 +55,13 @@
   background-color: #ffe0b2;
 }
 
-/* Layout */
+/* ================== LAYOUT ================== */
 .contenedor {
   display: flex;
   height: calc(100vh - 60px);
 }
 
-/* Sidebar */
+/* ================== SIDEBAR ================== */
 .sidebar {
   width: 240px;
   background-color: #ffe1b0;
@@ -82,6 +71,8 @@
 
 .sidebar ul {
   list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 .sidebar li {
@@ -98,8 +89,8 @@
   background-color: #fff3e0;
 }
 
-/* Contenido principal */
-#contenidoPrincipal {
+/* ================== CONTENIDO PRINCIPAL ================== */
+.contenidoPrincipal {
   flex: 1;
   padding: 30px;
   overflow-y: auto;
@@ -107,7 +98,14 @@
   justify-content: center;
 }
 
-/* Tarjetas de producto */
+/* ================== PRODUCTOS ================== */
+.productosGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+  width: 100%;
+}
+
 .tarjetaProducto {
   background-color: #fff8e1;
   padding: 15px;
@@ -125,14 +123,7 @@
   margin-bottom: 10px;
 }
 
-.productosGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 20px;
-  width: 100%;
-}
-
-/* Contenedor y formulario de configuración */
+/* ================== CONFIGURACIÓN ================== */
 .configuracionContenedor {
   display: flex;
   flex-direction: column;

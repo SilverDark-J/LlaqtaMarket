@@ -1,4 +1,3 @@
-// RegistroClientePage.jsx (modificado para usar CSS Modules)
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "../../styles/registroCliente.module.css";
@@ -116,94 +115,96 @@ const RegistroCliente = () => {
   };
 
   const getInputClass = (campo) => {
-    if (errores[campo]) return styles.inputError;
-    if (formulario[campo].length > 2 && !errores[campo]) return styles.inputOk;
-    return "";
+    if (errores[campo]) return `${styles.input} ${styles.inputError}`;
+    if (formulario[campo].length > 2 && !errores[campo]) return `${styles.input} ${styles.inputOk}`;
+    return styles.input;
   };
 
   return (
     <div className={styles.registroContenedor}>
-      <div className={styles.formulario}>
-        <div className={styles.empresaInfo}>
-          <div className={styles.logo}>
-            <img src="/src/assets/media/logo2.jpg" alt="Logo LlaqtaMarket" />
+      <div className={styles.wrapper}>
+        <div className={styles.formulario}>
+          <div className={styles.empresaInfo}>
+            <div className={styles.logo}>
+              <img src="/src/assets/media/logo2.jpg" alt="Logo LlaqtaMarket" />
+            </div>
+            <div className={styles.nombreEmpresa}>
+              <h1>LlaqtaMarket</h1>
+            </div>
           </div>
-          <div className={styles.nombreEmpresa}>
-            <h1>LlaqtaMarket</h1>
-          </div>
-        </div>
 
-        <h2>Registro Cliente</h2>
-        <form onSubmit={handleSubmit} noValidate>
-          <input
-            type="text"
-            name="nombres"
-            placeholder="Ingrese su nombre"
-            value={formulario.nombres}
-            onChange={handleChange}
-            onBlur={(e) => validarCampo(e.target.name, e.target.value)}
-            className={getInputClass("nombres")}
-          />
-          {errores.nombres && <span className={styles.errorText}>{errores.nombres}</span>}
-
-          <input
-            type="text"
-            name="apellidos"
-            placeholder="Ingrese su apellido"
-            value={formulario.apellidos}
-            onChange={handleChange}
-            onBlur={(e) => validarCampo(e.target.name, e.target.value)}
-            className={getInputClass("apellidos")}
-          />
-          {errores.apellidos && <span className={styles.errorText}>{errores.apellidos}</span>}
-
-          <input
-            type="email"
-            name="correo"
-            placeholder="Correo"
-            value={formulario.correo}
-            onChange={handleChange}
-            onBlur={(e) => validarCampo(e.target.name, e.target.value)}
-            className={getInputClass("correo")}
-          />
-          {errores.correo && <span className={styles.errorText}>{errores.correo}</span>}
-
-          <div className={styles.inputPasswordWrapper}>
+          <h2>Registro Cliente</h2>
+          <form onSubmit={handleSubmit} noValidate className={styles.form}>
             <input
-              type={mostrarContrasenia ? "text" : "password"}
-              name="contrasenia"
-              placeholder="Contraseña"
-              value={formulario.contrasenia}
+              type="text"
+              name="nombres"
+              placeholder="Ingrese su nombre"
+              value={formulario.nombres}
               onChange={handleChange}
               onBlur={(e) => validarCampo(e.target.name, e.target.value)}
-              className={getInputClass("contrasenia")}
+              className={getInputClass("nombres")}
             />
-            <span
-              className={styles.togglePasswordIcon}
-              onClick={() => setMostrarContrasenia(!mostrarContrasenia)}
-            >
-              <FontAwesomeIcon icon={mostrarContrasenia ? faEyeSlash : faEye} />
-            </span>
-          </div>
-          {errores.contrasenia && (
-            <span className={styles.errorText}>{errores.contrasenia}</span>
-          )}
+            {errores.nombres && <span className={styles.errorText}>{errores.nombres}</span>}
 
-          <button type="submit" disabled={cargando}>
-            {cargando ? "Registrando..." : "REGISTRARSE"}
-          </button>
-        </form>
+            <input
+              type="text"
+              name="apellidos"
+              placeholder="Ingrese su apellido"
+              value={formulario.apellidos}
+              onChange={handleChange}
+              onBlur={(e) => validarCampo(e.target.name, e.target.value)}
+              className={getInputClass("apellidos")}
+            />
+            {errores.apellidos && <span className={styles.errorText}>{errores.apellidos}</span>}
 
-        <p className={styles.textoLogin}>
-          <a href="/login">¿Ya tienes una cuenta?</a>
-        </p>
-      </div>
+            <input
+              type="email"
+              name="correo"
+              placeholder="Correo"
+              value={formulario.correo}
+              onChange={handleChange}
+              onBlur={(e) => validarCampo(e.target.name, e.target.value)}
+              className={getInputClass("correo")}
+            />
+            {errores.correo && <span className={styles.errorText}>{errores.correo}</span>}
 
-      <div className={styles.imagenLateral}>
-        <img
-          src="/src/assets/media/registro_cliente.jpg"
-          alt="Registro LlaqtaMarket"
-        />
+            <div className={styles.inputPasswordWrapper}>
+              <input
+                type={mostrarContrasenia ? "text" : "password"}
+                name="contrasenia"
+                placeholder="Contraseña"
+                value={formulario.contrasenia}
+                onChange={handleChange}
+                onBlur={(e) => validarCampo(e.target.name, e.target.value)}
+                className={getInputClass("contrasenia")}
+              />
+              <span
+                className={styles.togglePasswordIcon}
+                onClick={() => setMostrarContrasenia(!mostrarContrasenia)}
+              >
+                <FontAwesomeIcon icon={mostrarContrasenia ? faEyeSlash : faEye} />
+              </span>
+            </div>
+            {errores.contrasenia && (
+              <span className={styles.errorText}>{errores.contrasenia}</span>
+            )}
+
+            <button type="submit" disabled={cargando} className={styles.boton}>
+              {cargando ? "Registrando..." : "REGISTRARSE"}
+            </button>
+          </form>
+
+          <p className={styles.textoLogin}>
+            <a href="/login">¿Ya tienes una cuenta?</a>
+          </p>
+        </div>
+
+        <div className={styles.imagenLateral}>
+          <img
+            src="/src/assets/media/registro_cliente.jpg"
+            alt="Registro LlaqtaMarket"
+          />
+        </div>
       </div>
     </div>
   );
