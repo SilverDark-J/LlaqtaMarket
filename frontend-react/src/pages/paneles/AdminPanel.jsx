@@ -1,6 +1,6 @@
 import { useState } from "react";
 import PanelLayout from "../../layouts/PanelLayout";
-import "../../styles/panelAdmin.css";
+import styles from "../../styles/panelAdmin.module.css";
 
 import ListaClientes from "./components/ListaClientes";
 import ListaEmprendedores from "./components/ListaEmprendedores";
@@ -24,14 +24,16 @@ export default function AdminPanel() {
   };
 
   return (
-    <PanelLayout
-      nombreUsuario="Administrador"
-      onSeleccion={handleSeleccion}
-      opciones={opciones}
-      opcionActiva={seccion}
-    >
-      {seccion === "clientes" && <ListaClientes />}
-      {seccion === "emprendedores" && <ListaEmprendedores />}
-    </PanelLayout>
+    <div className={styles.panelAdmin}>
+      <PanelLayout
+        nombreUsuario="Administrador"
+        onSeleccion={handleSeleccion}
+        opciones={opciones}
+        opcionActiva={seccion}
+      >
+        {seccion === "clientes" && <ListaClientes />}
+        {seccion === "emprendedores" && <ListaEmprendedores />}
+      </PanelLayout>
+    </div>
   );
 }

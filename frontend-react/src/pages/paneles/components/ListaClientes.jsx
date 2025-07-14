@@ -5,6 +5,7 @@ import {
   actualizarCliente,
 } from "../../../services/adminService";
 import EditarClienteModal from "./EditarClienteModal";
+import styles from "../../../styles/panelAdmin.module.css";
 
 export default function ListaClientes() {
   const [clientes, setClientes] = useState([]);
@@ -64,7 +65,7 @@ export default function ListaClientes() {
       {cargando ? (
         <p>Cargando clientes...</p>
       ) : (
-        <table className="tabla">
+        <table className={styles.tabla}>
           <thead>
             <tr>
               <th>ID Cliente</th>

@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import styles from "../../../styles/panelAdmin.module.css";
 
 export default function EditarEmprendedorModal({
   emprendedor,
@@ -44,10 +45,10 @@ export default function EditarEmprendedorModal({
   if (!emprendedor) return null;
 
   return (
-    <div className="modal-backdrop">
-      <div className="modal">
-        <h3>Editar Emprendedor</h3>
-        <form onSubmit={handleSubmit}>
+    <div className={styles.modalBackdrop}>
+      <div className={styles.modal}>
+        <h3 className={styles.modalTitle}>Editar Emprendedor</h3>
+        <form onSubmit={handleSubmit} className={styles.modalForm}>
           <label htmlFor="nombres">Nombres:</label>
           <input
             id="nombres"
@@ -88,7 +89,7 @@ export default function EditarEmprendedorModal({
           />
 
           <label htmlFor="contrasenia">Contraseña:</label>
-          <div className="input-password">
+          <div className={styles.inputPassword}>
             <input
               id="contrasenia"
               name="contrasenia"
@@ -99,7 +100,7 @@ export default function EditarEmprendedorModal({
             />
             <button
               type="button"
-              className="toggle-pass"
+              className={styles.togglePass}
               onClick={() => setVerContrasenia(!verContrasenia)}
             >
               {verContrasenia ? "🙈" : "👁"}
@@ -133,7 +134,7 @@ export default function EditarEmprendedorModal({
             required
           />
 
-          <div className="acciones-modal">
+          <div className={styles.accionesModal}>
             <button type="submit">Guardar</button>
             <button type="button" onClick={onClose}>
               Cancelar

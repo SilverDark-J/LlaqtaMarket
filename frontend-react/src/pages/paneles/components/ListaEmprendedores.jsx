@@ -5,6 +5,7 @@ import {
   actualizarEmprendedor,
 } from "../../../services/adminService";
 import EditarEmprendedorModal from "./EditarEmprendedorModal";
+import styles from "../../../styles/panelAdmin.module.css";
 
 export default function ListaEmprendedores() {
   const [emprendedores, setEmprendedores] = useState([]);
@@ -66,7 +67,7 @@ export default function ListaEmprendedores() {
       {cargando ? (
         <p>Cargando emprendedores...</p>
       ) : (
-        <table className="tabla">
+        <table className={styles.tabla}>
           <thead>
             <tr>
               <th>ID Emprendedor</th>

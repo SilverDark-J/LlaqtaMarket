@@ -1,5 +1,6 @@
-import HeaderCliente from "../components/Header";
+import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
+import styles from "../styles/panelAdmin.module.css";
 
 export default function PanelLayout({
   children,
@@ -10,14 +11,16 @@ export default function PanelLayout({
 }) {
   return (
     <>
-      <HeaderCliente nombre={nombreUsuario} />
-      <div className="contenedor">
+      <Header nombreUsuario={nombreUsuario} />
+      <div className={styles.contenedor}>
         <Sidebar
           opciones={opciones}
           onSeleccion={onSeleccion}
           opcionActiva={opcionActiva}
         />
-        <main id="contenidoPrincipal">{children}</main>
+        <main id="contenidoPrincipal" className={styles.contenidoPrincipal}>
+          {children}
+        </main>
       </div>
     </>
   );
