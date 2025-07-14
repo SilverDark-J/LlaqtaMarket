@@ -77,3 +77,46 @@ exports.listarProductosPorEmprendedor = async (req, res) => {
     res.status(500).json({ error: "Error al obtener productos" });
   }
 };
+
+///////////////////////// para index producto y producto_detalle
+exports.listarProductosPublicos = async (req, res) => {
+  try {
+    const [productos] = await conexion.query(
+      `SELECT p.id_producto, p.nombre, p.precio, p.descripcion,
+              p.imagen_url, GROUP_CONCAT(c.nombre_categoria) AS categorias
+       FROM Producto p
+       LEFT JOIN ProductoCategoria pc ON p.id_producto = pc.id_producto
+       LEFT JOIN Categoria c ON pc.id_categoria = c.id_categoria
+       GROUP BY p.id_producto
+       ORDER BY p.fecha_publicacion DESC`
+    );
+    res.json(productos);
+  } catch (error) {
+    console.error("Error al obtener productos públicos:", error);
+    res.status(500).json({ error: "Error al obtener productos" });
+  }
+};
+
+exports.obtenerProductoPorId = async (req, res) => {
+  const id_producto = req.params.id;
+  try {
+    const [[producto]] = await conexion.query(
+      `SELECT p.id_producto, p.nombre, p.precio, p.descripcion, 
+              p.imagen_url, e.nombre_emprendimiento, e.id_emprendedor,
+              GROUP_CONCAT(c.nombre_categoria) AS categorias
+       FROM Producto p
+       LEFT JOIN ProductoCategoria pc ON p.id_producto = pc.id_producto
+       LEFT JOIN Categoria c ON pc.id_categoria = c.id_categoria
+       LEFT JOIN Emprendedor e ON p.id_emprendedor = e.id_emprendedor
+       WHERE p.id_producto = ?
+       GROUP BY p.id_producto`,
+      [id_producto]
+    );
+
+    if (!producto) return res.status(404).json({ error: "Producto no encontrado" });
+    res.json(producto);
+  } catch (error) {
+    console.error("Error al obtener producto por ID:", error);
+    res.status(500).json({ error: "Error interno" });
+  }
+};
