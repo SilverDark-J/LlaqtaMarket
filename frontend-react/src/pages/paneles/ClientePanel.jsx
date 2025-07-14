@@ -1,7 +1,7 @@
 // src/pages/paneles/ClientePanel.jsx
 import { useEffect, useState } from "react";
 import PanelLayout from "../../layouts/PanelLayout";
-import "../../styles/panelCliente.css";
+import styles from "../../styles/panelCliente.module.css"; // ✅ Nuevo import
 import MisPedidos from "./components/MisPedidos";
 import ConfiguracionCliente from "./components/ConfiguracionCliente";
 
@@ -16,7 +16,6 @@ export default function ClientePanel() {
       return;
     }
 
-    // Obtener nombre del cliente desde el backend
     fetch("http://localhost:3000/api/clientes", {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -47,14 +46,16 @@ export default function ClientePanel() {
   };
 
   return (
-    <PanelLayout
-      nombreUsuario={nombreCliente}
-      onSeleccion={handleSeleccion}
-      opciones={opcionesCliente}
-      opcionActiva={seccion}
-    >
-      {seccion === "pedidos" && <MisPedidos />}
-      {seccion === "config" && <ConfiguracionCliente />}
-    </PanelLayout>
+    <div className={styles.panelClienteWrapper}>
+      <PanelLayout
+        nombreUsuario={nombreCliente}
+        onSeleccion={handleSeleccion}
+        opciones={opcionesCliente}
+        opcionActiva={seccion}
+      >
+        {seccion === "pedidos" && <MisPedidos />}
+        {seccion === "config" && <ConfiguracionCliente />}
+      </PanelLayout>
+    </div>
   );
 }

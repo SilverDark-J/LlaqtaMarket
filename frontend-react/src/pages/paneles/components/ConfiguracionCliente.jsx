@@ -1,8 +1,10 @@
+// 📁 src/pages/paneles/components/ConfiguracionCliente.jsx
 import { useEffect, useState } from "react";
 import {
   obtenerCliente,
   actualizarCliente,
 } from "../../../services/clienteService";
+import styles from "../../../styles/panelCliente.module.css";
 
 export default function ConfiguracionCliente() {
   const [datos, setDatos] = useState({
@@ -65,10 +67,10 @@ export default function ConfiguracionCliente() {
   }
 
   return (
-    <section className="contenedor-configuracion">
+    <section className={styles.configuracionContenedor}>
       <h2>Configuración</h2>
-      <form className="formulario-configuracion" onSubmit={handleSubmit}>
-        <div className="campo">
+      <form className={styles.configuracionFormulario} onSubmit={handleSubmit}>
+        <div className={styles.campo}>
           <label htmlFor="clienteNombre">Nombres:</label>
           <input
             type="text"
@@ -80,7 +82,7 @@ export default function ConfiguracionCliente() {
           />
         </div>
 
-        <div className="campo">
+        <div className={styles.campo}>
           <label htmlFor="clienteApellido">Apellidos:</label>
           <input
             type="text"
@@ -92,7 +94,7 @@ export default function ConfiguracionCliente() {
           />
         </div>
 
-        <div className="campo">
+        <div className={styles.campo}>
           <label htmlFor="clienteCorreo">Correo:</label>
           <input
             type="email"
@@ -103,7 +105,7 @@ export default function ConfiguracionCliente() {
           />
         </div>
 
-        <div className="campo">
+        <div className={styles.campo}>
           <label htmlFor="clienteContrasena">Contraseña:</label>
           <input
             type="password"
@@ -116,7 +118,7 @@ export default function ConfiguracionCliente() {
           />
         </div>
 
-        <div className="campo">
+        <div className={styles.campo}>
           <label htmlFor="clienteDireccion">Dirección:</label>
           <input
             type="text"
@@ -128,7 +130,7 @@ export default function ConfiguracionCliente() {
           />
         </div>
 
-        <div className="campo">
+        <div className={styles.campo}>
           <label htmlFor="clienteTelefono">Teléfono:</label>
           <input
             type="tel"
@@ -142,7 +144,7 @@ export default function ConfiguracionCliente() {
           />
         </div>
 
-        <div className="campo">
+        <div className={styles.campo}>
           <label htmlFor="clienteFechaRegistro">Fecha de Registro:</label>
           <input
             type="text"
@@ -153,7 +155,9 @@ export default function ConfiguracionCliente() {
           />
         </div>
 
-        <button type="submit">Actualizar</button>
+        <button type="submit" className={styles.botonActualizar}>
+          Actualizar
+        </button>
       </form>
     </section>
   );
