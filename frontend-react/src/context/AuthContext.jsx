@@ -5,35 +5,35 @@ const AuthContext = createContext();
 export const useAuth = () => useContext(AuthContext);
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null);
+  const [usuario, setUsuario] = useState(null);
   const [token, setToken] = useState(null);
 
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
-    const storedUser = localStorage.getItem("user");
+    const storedUsuario = localStorage.getItem("usuario");
 
-    if (storedToken && storedUser) {
+    if (storedToken && storedUsuario) {
       setToken(storedToken);
-      setUser(JSON.parse(storedUser));
+      setUsuario(JSON.parse(storedUsuario));
     }
   }, []);
 
-  const login = (token, user) => {
+  const login = (token, usuario) => {
     localStorage.setItem("token", token);
-    localStorage.setItem("user", JSON.stringify(user));
+    localStorage.setItem("usuario", JSON.stringify(usuario));
     setToken(token);
-    setUser(user);
+    setUsuario(usuario);
   };
 
   const logout = () => {
     localStorage.removeItem("token");
-    localStorage.removeItem("user");
+    localStorage.removeItem("usuario");
     setToken(null);
-    setUser(null);
+    setUsuario(null);
   };
 
   return (
-    <AuthContext.Provider value={{ user, token, login, logout }}>
+    <AuthContext.Provider value={{ usuario, token, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

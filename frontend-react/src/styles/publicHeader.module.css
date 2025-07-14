@@ -91,6 +91,7 @@
   display: flex;
   align-items: center;
   gap: 20px;
+  position: relative;
 }
 
 .acciones a {
@@ -106,6 +107,44 @@
   width: 24px;
   height: 24px;
   filter: brightness(0) invert(1);
+}
+
+.perfilLogueado {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  position: relative;
+  font-weight: bold;
+  color: white;
+}
+
+.menuOpcionesUsuario {
+  position: absolute;
+  top: 40px;
+  right: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  z-index: 100;
+  color: #f57c00;
+  min-width: 140px;
+}
+
+.menuOpcionesUsuario button {
+  background: none;
+  border: none;
+  color: #f57c00;
+  font-weight: bold;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  padding: 5px 0;
+}
+
+.menuOpcionesUsuario button:hover {
+  background-color: #ffe0b2;
 }
 
 /* Responsive */
