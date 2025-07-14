@@ -1,23 +1,38 @@
 const db = require("../db/conexion");
 
+// Obtener el carrito actual de un cliente
 exports.obtenerCarritoPorCliente = async (req, res) => {
-  const id_cliente = req.params.id;
-
   try {
+    const id_usuario = req.usuario?.id_usuario || req.params.id; // fallback a params si no hay auth
+
+    const [[cliente]] = await db.query(
+      "SELECT id_cliente FROM Cliente WHERE id_usuario = ?",
+      [id_usuario]
+    );
+    if (!cliente)
+      return res.status(404).json({ mensaje: "Cliente no encontrado" });
+
+    const id_cliente = cliente.id_cliente;
+
+    // Buscar carrito activo
     const [carrito] = await db.query(
-      "SELECT * FROM Carrito WHERE id_cliente = ? ORDER BY fecha_creacion DESC LIMIT 1",
+      "SELECT * FROM Carrito WHERE id_cliente = ? AND estado = 'activo' ORDER BY fecha_creacion DESC LIMIT 1",
       [id_cliente]
     );
 
+    let id_carrito;
+
     if (carrito.length === 0) {
+      // Crear nuevo carrito activo
       const [nuevo] = await db.query(
-        "INSERT INTO Carrito (id_cliente) VALUES (?)",
+        "INSERT INTO Carrito (id_cliente, estado) VALUES (?, 'activo')",
         [id_cliente]
       );
-      return res.json({ id_carrito: nuevo.insertId, productos: [] });
+      id_carrito = nuevo.insertId;
+    } else {
+      id_carrito = carrito[0].id_carrito;
     }
 
-    const id_carrito = carrito[0].id_carrito;
     const [productos] = await db.query(
       `SELECT dc.id_detallecarrito, dc.id_producto, p.nombre, p.precio, dc.cantidad, dc.subtotal, p.imagen_url
        FROM DetalleCarrito dc
@@ -26,17 +41,56 @@ exports.obtenerCarritoPorCliente = async (req, res) => {
       [id_carrito]
     );
 
-    res.json({ ...carrito[0], productos });
-  } catch (err) {
-    console.error(err);
+    const [[{ total }]] = await db.query(
+      "SELECT total FROM Carrito WHERE id_carrito = ?",
+      [id_carrito]
+    );
+
+    res.json({ id_carrito, total, productos });
+  } catch (error) {
+    console.error(error);
     res.status(500).json({ mensaje: "Error al obtener el carrito" });
   }
 };
 
-exports.agregarAlCarrito = async (req, res) => {
-  const { id_carrito, id_producto, cantidad } = req.body;
-
+// Agregar producto al carrito
+exports.agregarProductoAlCarrito = async (req, res) => {
   try {
+    const { id_producto, cantidad } = req.body;
+    if (!id_producto || !cantidad || cantidad <= 0) {
+      return res.status(400).json({ mensaje: "Datos inválidos" });
+    }
+
+    const id_usuario = req.usuario?.id_usuario || req.body.id_usuario;
+
+    const [[cliente]] = await db.query(
+      "SELECT id_cliente FROM Cliente WHERE id_usuario = ?",
+      [id_usuario]
+    );
+    if (!cliente)
+      return res.status(404).json({ mensaje: "Cliente no encontrado" });
+
+    const id_cliente = cliente.id_cliente;
+
+    // Obtener carrito activo
+    const [carrito] = await db.query(
+      "SELECT * FROM Carrito WHERE id_cliente = ? AND estado = 'activo' ORDER BY fecha_creacion DESC LIMIT 1",
+      [id_cliente]
+    );
+
+    let id_carrito;
+
+    if (carrito.length === 0) {
+      const [nuevo] = await db.query(
+        "INSERT INTO Carrito (id_cliente, estado) VALUES (?, 'activo')",
+        [id_cliente]
+      );
+      id_carrito = nuevo.insertId;
+    } else {
+      id_carrito = carrito[0].id_carrito;
+    }
+
+    // Obtener precio del producto
     const [[producto]] = await db.query(
       "SELECT precio FROM Producto WHERE id_producto = ?",
       [id_producto]
@@ -46,93 +100,77 @@ exports.agregarAlCarrito = async (req, res) => {
 
     const subtotal = producto.precio * cantidad;
 
-    const [[yaExiste]] = await db.query(
-      "SELECT * FROM DetalleCarrito WHERE id_carrito = ? AND id_producto = ?",
+    // Verificar si el producto ya está en el carrito
+    const [[existe]] = await db.query(
+      "SELECT id_detallecarrito, cantidad FROM DetalleCarrito WHERE id_carrito = ? AND id_producto = ?",
       [id_carrito, id_producto]
     );
 
-    if (yaExiste) {
+    if (existe) {
+      const nuevaCantidad = existe.cantidad + cantidad;
+      const nuevoSubtotal = producto.precio * nuevaCantidad;
+
       await db.query(
-        `UPDATE DetalleCarrito 
-         SET cantidad = cantidad + ?, subtotal = subtotal + ? 
-         WHERE id_carrito = ? AND id_producto = ?`,
-        [cantidad, subtotal, id_carrito, id_producto]
+        "UPDATE DetalleCarrito SET cantidad = ?, subtotal = ? WHERE id_detallecarrito = ?",
+        [nuevaCantidad, nuevoSubtotal, existe.id_detallecarrito]
       );
     } else {
       await db.query(
-        `INSERT INTO DetalleCarrito (id_carrito, id_producto, cantidad, subtotal)
-         VALUES (?, ?, ?, ?)`,
+        "INSERT INTO DetalleCarrito (id_carrito, id_producto, cantidad, subtotal) VALUES (?, ?, ?, ?)",
         [id_carrito, id_producto, cantidad, subtotal]
       );
     }
 
+    // Actualizar total del carrito
     await db.query(
-      `UPDATE Carrito 
-       SET total = (SELECT SUM(subtotal) FROM DetalleCarrito WHERE id_carrito = ?) 
-       WHERE id_carrito = ?`,
+      `UPDATE Carrito SET total = (
+        SELECT IFNULL(SUM(subtotal), 0) FROM DetalleCarrito WHERE id_carrito = ?
+      ) WHERE id_carrito = ?`,
       [id_carrito, id_carrito]
     );
 
-    res.json({ mensaje: "Producto agregado al carrito" });
-  } catch (err) {
-    console.error(err);
+    res
+      .status(201)
+      .json({ mensaje: "Producto agregado al carrito", id_carrito });
+  } catch (error) {
+    console.error(error);
     res.status(500).json({ mensaje: "Error al agregar producto al carrito" });
   }
 };
 
-exports.actualizarCantidad = async (req, res) => {
-  const { id_carrito, id_producto, cantidad } = req.body;
-
+// Eliminar un producto del carrito
+exports.eliminarProductoDelCarrito = async (req, res) => {
   try {
-    const [[producto]] = await db.query(
-      "SELECT precio FROM Producto WHERE id_producto = ?",
-      [id_producto]
-    );
-    if (!producto)
-      return res.status(404).json({ mensaje: "Producto no encontrado" });
+    const { id_carrito, id_producto } = req.params;
 
-    const nuevoSubtotal = producto.precio * cantidad;
-
-    await db.query(
-      `UPDATE DetalleCarrito 
-       SET cantidad = ?, subtotal = ?
-       WHERE id_carrito = ? AND id_producto = ?`,
-      [cantidad, nuevoSubtotal, id_carrito, id_producto]
+    // Verificar existencia del producto
+    const [[detalle]] = await db.query(
+      "SELECT id_detallecarrito FROM DetalleCarrito WHERE id_carrito = ? AND id_producto = ?",
+      [id_carrito, id_producto]
     );
 
-    await db.query(
-      `UPDATE Carrito 
-       SET total = (SELECT SUM(subtotal) FROM DetalleCarrito WHERE id_carrito = ?) 
-       WHERE id_carrito = ?`,
-      [id_carrito, id_carrito]
-    );
+    if (!detalle)
+      return res
+        .status(404)
+        .json({ mensaje: "Producto no encontrado en el carrito" });
 
-    res.json({ mensaje: "Cantidad actualizada" });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ mensaje: "Error al actualizar cantidad" });
-  }
-};
-
-exports.eliminarProducto = async (req, res) => {
-  const { id_carrito, id_producto } = req.params;
-
-  try {
+    // Eliminar producto
     await db.query(
       "DELETE FROM DetalleCarrito WHERE id_carrito = ? AND id_producto = ?",
       [id_carrito, id_producto]
     );
 
+    // Actualizar total
     await db.query(
-      `UPDATE Carrito 
-       SET total = (SELECT COALESCE(SUM(subtotal), 0) FROM DetalleCarrito WHERE id_carrito = ?) 
-       WHERE id_carrito = ?`,
+      `UPDATE Carrito SET total = (
+        SELECT IFNULL(SUM(subtotal), 0) FROM DetalleCarrito WHERE id_carrito = ?
+      ) WHERE id_carrito = ?`,
       [id_carrito, id_carrito]
     );
 
     res.json({ mensaje: "Producto eliminado del carrito" });
-  } catch (err) {
-    console.error(err);
+  } catch (error) {
+    console.error(error);
     res.status(500).json({ mensaje: "Error al eliminar producto del carrito" });
   }
 };

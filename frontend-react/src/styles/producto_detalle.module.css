@@ -283,3 +283,17 @@ button {
     padding: 15px;
   }
 }
+
+/* Carrito */
+.cantidadAgregar {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cantidadAgregar input {
+  width: 60px;
+  padding: 5px;
+  font-size: 16px;
+}

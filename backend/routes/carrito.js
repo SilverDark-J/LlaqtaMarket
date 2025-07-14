@@ -3,9 +3,9 @@ const router = express.Router();
 const carritoController = require("../controllers/carritoController");
 const auth = require("../middlewares/auth");
 
-// Obtener carrito por cliente
+// Obtener carrito por cliente autenticado
 router.get(
-  "/:id",
+  "/",
   auth.verificarTokenCliente,
   carritoController.obtenerCarritoPorCliente
 );
@@ -14,21 +14,24 @@ router.get(
 router.post(
   "/agregar",
   auth.verificarTokenCliente,
-  carritoController.agregarAlCarrito
+  carritoController.agregarProductoAlCarrito
 );
 
-// Actualizar cantidad de un producto
+// Eliminar producto del carrito (requiere id_carrito y id_producto)
+router.delete(
+  "/:id_carrito/:id_producto",
+  auth.verificarTokenCliente,
+  carritoController.eliminarProductoDelCarrito
+);
+
+// ❌ Esta ruta está comentada porque no existe en el controller actual
+// Si implementas la lógica para actualizar cantidad en el carrito, puedes descomentarla
+/*
 router.put(
-  "/actualizar",
+  "/:id_detallecarrito",
   auth.verificarTokenCliente,
   carritoController.actualizarCantidad
 );
-
-// Eliminar producto del carrito
-router.delete(
-  "/eliminar/:id_carrito/:id_producto",
-  auth.verificarTokenCliente,
-  carritoController.eliminarProducto
-);
+*/
 
 module.exports = router;

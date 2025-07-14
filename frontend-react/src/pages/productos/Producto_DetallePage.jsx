@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import styles from "../../styles/producto_detalle.module.css";
-import { useNavigate, useParams, Link } from "react-router-dom";
 import { obtenerProductoPorId } from "../../services/productoService";
-
+import { agregarAlCarrito } from "../../services/carritoService";
+import { obtenerRolDesdeToken } from "../../utils/authUtils";
 import PublicHeader from "../../components/PublicHeader";
 import PublicFooter from "../../components/PublicFooter";
 
@@ -11,6 +12,7 @@ const ProductoDetallePage = () => {
   const [comentario, setComentario] = useState("");
   const [comentarios, setComentarios] = useState([]);
   const [valorEstrella, setValorEstrella] = useState(0);
+  const [cantidad, setCantidad] = useState(1);
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -28,10 +30,31 @@ const ProductoDetallePage = () => {
   }, [id]);
 
   const enviarComentario = () => {
-    if (comentario.trim() === "") return alert("Por favor escribe un comentario.");
-    setComentarios([...comentarios, { texto: comentario, estrellas: valorEstrella }]);
+    if (comentario.trim() === "")
+      return alert("Por favor escribe un comentario.");
+    setComentarios([
+      ...comentarios,
+      { texto: comentario, estrellas: valorEstrella },
+    ]);
     setComentario("");
     setValorEstrella(0);
+  };
+
+  const handleAgregarAlCarrito = async () => {
+    const rol = obtenerRolDesdeToken();
+    if (rol !== "cliente")
+      return alert(
+        "Debes iniciar sesión como cliente para agregar al carrito."
+      );
+
+    try {
+      await agregarAlCarrito(producto.id_producto, cantidad);
+      alert("✅ Producto agregado al carrito");
+      // Opcional: navigate("/carrito");
+    } catch (error) {
+      console.error("Error al agregar al carrito:", error);
+      alert("❌ No se pudo agregar al carrito.");
+    }
   };
 
   if (!producto) return <p>Cargando...</p>;
@@ -44,8 +67,23 @@ const ProductoDetallePage = () => {
         <aside className={styles.categorias}>
           <h3>Categoría</h3>
           <ul>
-            {["Todos", "Ropa", "Calzado", "Electrónica", "Hogar", "Juguetería", "Belleza", "Deportes", "Libros"].map((cat) => (
-              <li key={cat} onClick={() => navigate(`/productos?categoria=${cat}`)}>{cat}</li>
+            {[
+              "Todos",
+              "Ropa",
+              "Calzado",
+              "Electrónica",
+              "Hogar",
+              "Juguetería",
+              "Belleza",
+              "Deportes",
+              "Libros",
+            ].map((cat) => (
+              <li
+                key={cat}
+                onClick={() => navigate(`/productos?categoria=${cat}`)}
+              >
+                {cat}
+              </li>
             ))}
           </ul>
         </aside>
@@ -59,10 +97,35 @@ const ProductoDetallePage = () => {
             />
             <div className={styles.productoInfo}>
               <h2>{producto.nombre}</h2>
-              <p><strong>Precio:</strong> S/ {parseFloat(producto.precio).toFixed(2)}</p>
-              <p><strong>Categorías:</strong> {producto.categorias?.split(",").join(" / ")}</p>
-              <p><strong>Descripción:</strong> {producto.descripcion}</p>
-              <p><strong>Vendido por:</strong> {producto.nombre_emprendimiento}</p>
+              <p>
+                <strong>Precio:</strong> S/{" "}
+                {parseFloat(producto.precio).toFixed(2)}
+              </p>
+              <p>
+                <strong>Categorías:</strong>{" "}
+                {producto.categorias?.split(",").join(" / ")}
+              </p>
+              <p>
+                <strong>Descripción:</strong> {producto.descripcion}
+              </p>
+              <p>
+                <strong>Vendido por:</strong> {producto.nombre_emprendimiento}
+              </p>
+
+              <div className={styles.cantidadAgregar}>
+                <label>Cantidad:</label>
+                <input
+                  type="number"
+                  value={cantidad}
+                  onChange={(e) =>
+                    setCantidad(Math.max(1, parseInt(e.target.value)))
+                  }
+                  min={1}
+                />
+                <button onClick={handleAgregarAlCarrito}>
+                  🛒 Agregar al carrito
+                </button>
+              </div>
             </div>
           </div>
 
@@ -89,7 +152,9 @@ const ProductoDetallePage = () => {
             <div className={styles.comentariosLista}>
               {comentarios.map((c, idx) => (
                 <div key={idx} className={styles.comentarioUsuario}>
-                  <p><strong>Usuario:</strong> {c.texto}</p>
+                  <p>
+                    <strong>Usuario:</strong> {c.texto}
+                  </p>
                 </div>
               ))}
             </div>
@@ -98,7 +163,6 @@ const ProductoDetallePage = () => {
       </div>
 
       <PublicFooter />
-      
     </div>
   );
 };

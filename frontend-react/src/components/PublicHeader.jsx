@@ -54,7 +54,10 @@ export default function PublicHeader({ mostrarCategorias = false, onBuscar }) {
           <div className={styles.menuContainer}>
             {mostrarCategorias && (
               <>
-                <button onClick={() => setMostrarMenu(!mostrarMenu)} className={styles.menuBtn}>
+                <button
+                  onClick={() => setMostrarMenu(!mostrarMenu)}
+                  className={styles.menuBtn}
+                >
                   Menú
                 </button>
                 <div
@@ -62,7 +65,11 @@ export default function PublicHeader({ mostrarCategorias = false, onBuscar }) {
                   style={{ display: mostrarMenu ? "flex" : "none" }}
                 >
                   {categorias.map((cat, i) => (
-                    <a href="#" key={i} onClick={() => filtrarPorCategoria(cat)}>
+                    <a
+                      href="#"
+                      key={i}
+                      onClick={() => filtrarPorCategoria(cat)}
+                    >
                       {cat}
                     </a>
                   ))}
@@ -96,21 +103,25 @@ export default function PublicHeader({ mostrarCategorias = false, onBuscar }) {
               <p>Bienvenido, {usuario.nombres.split(" ")[0]}</p>
               {mostrarOpcionesUsuario && (
                 <div className={styles.menuOpcionesUsuario}>
-                  <button onClick={() => {
-                    switch (usuario.rol) {
-                      case "cliente":
-                        navigate("/panel/cliente");
-                        break;
-                      case "emprendedor":
-                        navigate("/panel/emprendedor");
-                        break;
-                      case "administrador":
-                        navigate("/panel/admin");
-                        break;
-                      default:
-                        break;
-                    }
-                  }}>Ver Perfil</button>
+                  <button
+                    onClick={() => {
+                      switch (usuario.rol) {
+                        case "cliente":
+                          navigate("/panel/cliente");
+                          break;
+                        case "emprendedor":
+                          navigate("/panel/emprendedor");
+                          break;
+                        case "administrador":
+                          navigate("/panel/admin");
+                          break;
+                        default:
+                          break;
+                      }
+                    }}
+                  >
+                    Ver Perfil
+                  </button>
 
                   <button onClick={handleLogout}>Cerrar sesión</button>
                 </div>
@@ -118,7 +129,7 @@ export default function PublicHeader({ mostrarCategorias = false, onBuscar }) {
             </div>
           )}
 
-          <Link to="/productos" className={styles.carrito}>
+          <Link to="/carrito" className={styles.carrito}>
             <img src={iconoCarrito} alt="Carrito" className={styles.icono} />
             <p>Carrito</p>
           </Link>

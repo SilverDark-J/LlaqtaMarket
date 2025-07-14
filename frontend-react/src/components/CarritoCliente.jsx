@@ -1,49 +1,61 @@
-import { useState, useEffect } from "react";
-import styles from "../../styles/carritoCliente.module.css";
-import { Link } from "react-router-dom";
+// ✅ CarritoCliente.jsx
+import { useEffect, useState } from "react";
+import styles from "../styles/carritoCliente.module.css";
+import {
+  obtenerCarrito,
+  actualizarCantidad,
+  eliminarDelCarrito,
+} from "../services/carritoService";
 
-const productosIniciales = [
-  {
-    id: "tv",
-    nombre: "Televisor HISENSE QLED 65''",
-    precio: 1499.0,
-    cantidad: 1,
-    imagen: "/src/assets/media/TV.png",
-  },
-  {
-    id: "bidon",
-    nombre: "Botella Bidón VIVA HOME 2L",
-    precio: 6.9,
-    cantidad: 1,
-    imagen: "/src/assets/media/bidon.jpg",
-  },
-];
+// Importamos PublicHeader desde la misma carpeta
+import PublicHeader from "./PublicHeader";
+import PublicFooter from "./PublicFooter";
 
 export default function CarritoCliente() {
-  const [productos, setProductos] = useState(productosIniciales);
+  const [carrito, setCarrito] = useState([]);
+  const [subtotal, setSubtotal] = useState(0);
 
-  const cambiarCantidad = (id, cambio) => {
-    setProductos((prev) =>
-      prev.map((p) =>
-        p.id === id ? { ...p, cantidad: Math.max(1, p.cantidad + cambio) } : p
-      )
-    );
+  useEffect(() => {
+    cargarCarrito();
+  }, []);
+
+  const cargarCarrito = async () => {
+    try {
+      const data = await obtenerCarrito();
+      console.log("🚀 Respuesta del carrito:", data);
+
+      // Convertimos precio y subtotal a número por seguridad
+      const productos = (data.productos || []).map((p) => ({
+        ...p,
+        precio: Number(p.precio),
+        subtotal: Number(p.subtotal),
+      }));
+
+      setCarrito(productos);
+      setSubtotal(Number(data.total || 0));
+    } catch (error) {
+      console.error("Error al cargar carrito:", error);
+      setCarrito([]);
+      setSubtotal(0);
+    }
   };
 
-  const eliminarProducto = (id) => {
-    setProductos((prev) => prev.filter((p) => p.id !== id));
+  const cambiarCantidad = async (idDetalle, cantidad) => {
+    await actualizarCantidad(idDetalle, cantidad);
+    cargarCarrito();
   };
 
-  const subtotal = productos.reduce((acc, p) => acc + p.precio * p.cantidad, 0);
-  const cantidadTotal = productos.reduce((acc, p) => acc + p.cantidad, 0);
+  const eliminarProducto = async (idDetalle) => {
+    await eliminarDelCarrito(idDetalle);
+    cargarCarrito();
+  };
 
   return (
-    <div className={styles.carritoContainer}>
-      <h2 className={styles.tituloCarrito}>🛒 Mi Carrito</h2>
+    <main className={styles.carritoContainer}>
+      {/* Aquí puedes incluir el componente PublicHeader */}
+      <PublicHeader />
 
-      <div className={styles.contadorProductos}>
-        Productos seleccionados: <span>{cantidadTotal}</span>
-      </div>
+      <h2 className={styles.tituloCarrito}>🛒 Mi Carrito</h2>
 
       <table className={styles.tablaCarrito}>
         <thead>
@@ -51,37 +63,46 @@ export default function CarritoCliente() {
             <th>Producto</th>
             <th>Precio</th>
             <th>Cantidad</th>
-            <th>Total</th>
+            <th>Subtotal</th>
             <th></th>
           </tr>
         </thead>
         <tbody>
-          {productos.map((producto) => (
-            <tr key={producto.id}>
+          {carrito.map((item) => (
+            <tr key={item.id_detallecarrito}>
               <td data-label="Producto">
-                <img src={producto.imagen} alt={producto.nombre} />
+                <img
+                  src={`${import.meta.env.VITE_BACKEND_URL}/${item.imagen_url}`}
+                  alt={item.nombre}
+                />
                 <br />
-                {producto.nombre}
+                {item.nombre}
               </td>
-              <td data-label="Precio">S/ {producto.precio.toFixed(2)}</td>
+              <td data-label="Precio">S/ {item.precio.toFixed(2)}</td>
               <td data-label="Cantidad">
                 <div className={styles.cantidadControl}>
-                  <button onClick={() => cambiarCantidad(producto.id, -1)}>
-                    −
+                  <button
+                    onClick={() =>
+                      cambiarCantidad(item.id_detallecarrito, item.cantidad - 1)
+                    }
+                  >
+                    -
                   </button>
-                  <span>{producto.cantidad}</span>
-                  <button onClick={() => cambiarCantidad(producto.id, 1)}>
+                  <span>{item.cantidad}</span>
+                  <button
+                    onClick={() =>
+                      cambiarCantidad(item.id_detallecarrito, item.cantidad + 1)
+                    }
+                  >
                     +
                   </button>
                 </div>
               </td>
-              <td data-label="Total">
-                S/ {(producto.precio * producto.cantidad).toFixed(2)}
-              </td>
-              <td data-label="Acción">
+              <td data-label="Subtotal">S/ {item.subtotal.toFixed(2)}</td>
+              <td>
                 <button
                   className={styles.eliminarBtn}
-                  onClick={() => eliminarProducto(producto.id)}
+                  onClick={() => eliminarProducto(item.id_detallecarrito)}
                 >
                   Eliminar
                 </button>
@@ -96,12 +117,14 @@ export default function CarritoCliente() {
           <strong>Subtotal:</strong> S/ {subtotal.toFixed(2)}
         </p>
         <div className={styles.botones}>
-          <Link to="/productos" className={`${styles.btn} ${styles.seguir}`}>
+          <a href="/productos" className={`${styles.btn} ${styles.seguir}`}>
             ← Seguir comprando
-          </Link>
+          </a>
           <button className={styles.btn}>Continuar para pagar</button>
         </div>
       </div>
-    </div>
+
+      <PublicFooter />
+    </main>
   );
 }
