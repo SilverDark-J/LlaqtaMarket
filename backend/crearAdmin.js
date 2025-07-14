@@ -5,8 +5,8 @@ async function crearAdmin() {
   const nombres = "admin2";
   const apellidos = "";
   const dni = null;
-  const correo = "admin2@a.a";
-  const contrasenia = "Admin2.";
+  const correo = "admin10@a.a";
+  const contrasenia = "Admin10.";
   const tipo_usuario = "administrador";
 
   try {

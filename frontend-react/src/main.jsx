@@ -1,11 +1,11 @@
 // src/main.jsx
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App.jsx";
-import "./styles/global.css"; // 👈 importante
+import AppRoutes from "./routes/AppRoutes"; // ✅ importamos el archivo unificado de rutas
+import "./styles/global.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <App />
+    <AppRoutes />
   </React.StrictMode>
 );

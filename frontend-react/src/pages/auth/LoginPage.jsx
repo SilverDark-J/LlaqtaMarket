@@ -84,11 +84,17 @@ const LoginPage = () => {
     try {
       setCargando(true);
 
-      const response = await fetch("http://localhost:3000/api/usuarios/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ correo: correo, contrasenia: contrasena }),
-      });
+      // Esto hace que usemos .env para desarrollo local o producción
+      // const response = await fetch("http://localhost:3000/api/usuarios/login", {
+
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/usuarios/login`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ correo: correo, contrasenia: contrasena }),
+        }
+      );
 
       const data = await response.json();
 
@@ -98,13 +104,13 @@ const LoginPage = () => {
 
         switch (data.tipo_usuario) {
           case "cliente":
-            navigate("/panel_cliente");
+            navigate("/panel/cliente");
             break;
           case "emprendedor":
-            navigate("/panel_emprendedor");
+            navigate("/panel/emprendedor");
             break;
           case "administrador":
-            navigate("/panel_admin");
+            navigate("/panel/admin");
             break;
           default:
             alert("Tipo de usuario no reconocido.");
