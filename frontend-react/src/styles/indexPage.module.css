@@ -60,31 +60,6 @@
   color: #d84315;
 }
 
-.footer {
-  background-color: #ef6c00;
-  color: white;
-  text-align: center;
-  padding: 15px 0;
-  margin-top: 30px;
-}
-
-.footerLinks {
-  display: flex;
-  justify-content: center;
-  gap: 30px;
-  flex-wrap: wrap;
-}
-
-.footerLinks a {
-  color: white;
-  text-decoration: none;
-  font-weight: 500;
-}
-
-.footerLinks a:hover {
-  text-decoration: underline;
-}
-
 /* Responsive */
 @media (max-width: 768px) {
   .headerContenido {
