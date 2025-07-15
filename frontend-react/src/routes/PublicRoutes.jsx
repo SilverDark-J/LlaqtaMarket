@@ -7,6 +7,7 @@ import IndexPage from "../pages/index/IndexPage";
 import ProductosPage from "../pages/productos/ProductosPage";
 import ProductoDetallePage from "../pages/productos/Producto_DetallePage";
 import CarritoCliente from "../components/CarritoCliente";
+import PagoClientePage from "../pages/pago/PagoClientePage"; // ✅ nueva ruta
 
 export default function PublicRoutes() {
   return (
@@ -21,6 +22,7 @@ export default function PublicRoutes() {
         element={<RegistroEmprendedorPage />}
       />
       <Route path="/carrito" element={<CarritoCliente />} />
+      <Route path="/pago" element={<PagoClientePage />} />
     </Routes>
   );
 }

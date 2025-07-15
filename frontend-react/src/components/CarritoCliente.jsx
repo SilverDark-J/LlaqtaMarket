@@ -142,7 +142,9 @@ export default function CarritoCliente() {
                 >
                   ← Seguir comprando
                 </a>
-                <button className={styles.btn}>Continuar para pagar</button>
+                <a href="/pago" className={styles.btn}>
+                  Continuar para pagar
+                </a>{" "}
                 <button
                   className={`${styles.btn} ${styles.vaciar}`}
                   onClick={handleVaciarCarrito}

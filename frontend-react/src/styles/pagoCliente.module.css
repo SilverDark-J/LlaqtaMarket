@@ -1,0 +1,94 @@
+/* ✅ src/styles/pagoCliente.module.css */
+
+.pagoWrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #fafafa;
+}
+
+.formularioPago {
+  max-width: 480px;
+  margin: 60px auto;
+  padding: 30px 25px;
+  background-color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.titulo {
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: 24px;
+  color: #f57c00;
+  font-weight: 600;
+}
+
+.inputGroup {
+  margin-bottom: 20px;
+}
+
+.inputGroup label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+}
+
+.inputGroup input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 15px;
+  transition: border-color 0.3s ease;
+}
+
+.inputGroup input:focus {
+  border-color: #f57c00;
+  outline: none;
+}
+
+.botonPagar {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  background-color: #f57c00;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.botonPagar:hover {
+  background-color: #e65100;
+}
+
+.mensajeExito {
+  margin-top: 20px;
+  text-align: center;
+  color: green;
+  font-weight: 600;
+}
+
+.mensajeError {
+  margin-top: 20px;
+  text-align: center;
+  color: crimson;
+  font-weight: 600;
+}
+
+@keyframes fadeIn {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
