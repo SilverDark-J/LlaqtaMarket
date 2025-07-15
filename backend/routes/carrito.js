@@ -34,4 +34,18 @@ router.put(
 );
 */
 
+// Actualizar cantidad de un producto en el carrito
+router.put(
+  "/actualizar-cantidad",
+  auth.verificarTokenCliente,
+  carritoController.actualizarCantidadProducto
+);
+
+// Vaciar carrito activo del cliente
+router.delete(
+  "/vaciar",
+  auth.verificarTokenCliente,
+  carritoController.vaciarCarrito
+);
+
 module.exports = router;

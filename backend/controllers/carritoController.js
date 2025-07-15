@@ -174,3 +174,91 @@ exports.eliminarProductoDelCarrito = async (req, res) => {
     res.status(500).json({ mensaje: "Error al eliminar producto del carrito" });
   }
 };
+
+// Actualizar la cantidad de un producto en el carrito
+exports.actualizarCantidadProducto = async (req, res) => {
+  try {
+    const { id_detallecarrito, cantidad } = req.body;
+
+    if (!id_detallecarrito || !cantidad || cantidad <= 0) {
+      return res.status(400).json({ mensaje: "Datos inválidos" });
+    }
+
+    // Obtener el precio del producto
+    const [[detalle]] = await db.query(
+      `SELECT dc.id_producto, p.precio, dc.id_carrito
+       FROM DetalleCarrito dc
+       JOIN Producto p ON dc.id_producto = p.id_producto
+       WHERE dc.id_detallecarrito = ?`,
+      [id_detallecarrito]
+    );
+
+    if (!detalle) {
+      return res.status(404).json({ mensaje: "Detalle no encontrado" });
+    }
+
+    const nuevoSubtotal = detalle.precio * cantidad;
+
+    // Actualizar detalle
+    await db.query(
+      `UPDATE DetalleCarrito 
+       SET cantidad = ?, subtotal = ? 
+       WHERE id_detallecarrito = ?`,
+      [cantidad, nuevoSubtotal, id_detallecarrito]
+    );
+
+    // Actualizar total del carrito
+    await db.query(
+      `UPDATE Carrito SET total = (
+        SELECT IFNULL(SUM(subtotal), 0)
+        FROM DetalleCarrito
+        WHERE id_carrito = ?
+      ) WHERE id_carrito = ?`,
+      [detalle.id_carrito, detalle.id_carrito]
+    );
+
+    res.json({ mensaje: "Cantidad actualizada correctamente" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ mensaje: "Error al actualizar cantidad" });
+  }
+};
+
+// Vaciar completamente el carrito activo
+exports.vaciarCarrito = async (req, res) => {
+  try {
+    const id_usuario = req.usuario?.id_usuario;
+
+    const [[cliente]] = await db.query(
+      "SELECT id_cliente FROM Cliente WHERE id_usuario = ?",
+      [id_usuario]
+    );
+    if (!cliente)
+      return res.status(404).json({ mensaje: "Cliente no encontrado" });
+
+    const id_cliente = cliente.id_cliente;
+
+    const [[carrito]] = await db.query(
+      `SELECT id_carrito FROM Carrito 
+       WHERE id_cliente = ? AND estado = 'activo' 
+       ORDER BY fecha_creacion DESC LIMIT 1`,
+      [id_cliente]
+    );
+
+    if (!carrito)
+      return res.status(404).json({ mensaje: "No hay carrito activo" });
+
+    await db.query("DELETE FROM DetalleCarrito WHERE id_carrito = ?", [
+      carrito.id_carrito,
+    ]);
+
+    await db.query("UPDATE Carrito SET total = 0 WHERE id_carrito = ?", [
+      carrito.id_carrito,
+    ]);
+
+    res.json({ mensaje: "Carrito vaciado correctamente" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ mensaje: "Error al vaciar el carrito" });
+  }
+};
