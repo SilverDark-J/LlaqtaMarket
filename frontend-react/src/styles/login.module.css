@@ -1,16 +1,19 @@
-/* === RESET (solo afecta este módulo) === */
-.containerWrapper {
-  min-height: 100vh;
+/* Contenedor principal centrado en toda la pantalla */
+.loginContainer {
+  position: fixed;
+  inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: #fff3e0;
   font-family: "Segoe UI", sans-serif;
   padding: 20px;
+  overflow: auto;
+  z-index: 0; /* evita superposición con modales si los hubiera */
 }
 
-/* === CONTENEDOR PRINCIPAL === */
-.loginContainer {
+/* Cuadro principal */
+.loginWrapper {
   display: flex;
   flex-direction: row;
   width: 100%;
@@ -21,7 +24,7 @@
   background-color: #ffffff;
 }
 
-/* === LADO IZQUIERDO === */
+/* Lado izquierdo */
 .loginLeft {
   flex: 1;
   background-color: #f57c00;
@@ -52,7 +55,7 @@
   border-radius: 12px;
 }
 
-/* === LADO DERECHO === */
+/* Lado derecho */
 .loginRight {
   flex: 1;
   padding: 60px 40px;
@@ -73,7 +76,7 @@
   margin-bottom: 25px;
 }
 
-/* === FORMULARIO === */
+/* Formulario */
 .formGroup {
   margin-bottom: 15px;
 }
@@ -85,44 +88,10 @@
   border: 1px solid #ccc;
   border-radius: 8px;
   outline: none;
+  transition: border 0.3s, background-color 0.3s;
 }
 
-/* === BOTÓN LOGIN === */
-.loginBtn {
-  width: 100%;
-  background-color: #f57c00;
-  color: white;
-  border: none;
-  padding: 14px;
-  font-size: 16px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  margin-top: 10px;
-}
-
-.loginBtn:hover {
-  background-color: #806c5c;
-}
-
-/* === ENLACES DE REGISTRO === */
-.registerLink {
-  text-align: center;
-  margin-top: 20px;
-  font-size: 14px;
-}
-
-.registerLink a {
-  color: #388e3c;
-  font-weight: bold;
-  text-decoration: none;
-}
-
-.registerLink a:hover {
-  text-decoration: underline;
-}
-
-/* === INPUT VALIDACIONES === */
+/* Validaciones */
 .inputError {
   border: 2px solid red !important;
 }
@@ -139,19 +108,18 @@
   display: block;
 }
 
-/* === CONTRASEÑA VISUAL === */
+/* Contraseña */
 .inputPasswordWrapper {
   position: relative;
   width: 100%;
-  margin-bottom: 0;
 }
 
 .inputPasswordWrapper input {
   width: 100%;
   padding: 14px 42px 14px 14px;
-  border-radius: 8px;
   font-size: 15px;
   border: 1px solid #ccc;
+  border-radius: 8px;
   box-sizing: border-box;
 }
 
@@ -170,14 +138,44 @@
   color: #333;
 }
 
-/* === RESPONSIVE === */
-@media (max-width: 768px) {
-  .containerWrapper {
-    flex-direction: column;
-    padding: 20px;
-  }
+/* Botón */
+.loginBtn {
+  width: 100%;
+  background-color: #f57c00;
+  color: white;
+  border: none;
+  padding: 14px;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 10px;
+}
 
-  .loginContainer {
+.loginBtn:hover {
+  background-color: #806c5c;
+}
+
+/* Registro */
+.registerLink {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+.registerLink a {
+  color: #388e3c;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.registerLink a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .loginWrapper {
     flex-direction: column;
     max-width: 500px;
     width: 100%;
@@ -206,7 +204,8 @@
     font-size: 20px;
   }
 
-  .formGroup input {
+  .formGroup input,
+  .inputPasswordWrapper input {
     padding: 12px;
     font-size: 13px;
   }
