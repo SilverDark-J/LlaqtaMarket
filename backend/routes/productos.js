@@ -11,17 +11,27 @@ router.post(
   productosController.registrarProducto
 );
 
+router.put(
+  "/:id_producto",
+  auth.verificarToken,
+  upload.single("imagenProducto"),
+  productosController.actualizarProducto
+);
+
+router.delete(
+  "/:id_producto",
+  auth.verificarToken,
+  productosController.eliminarProducto // ✅ NUEVO
+);
+
 router.get(
   "/:id_emprendedor",
   auth.verificarToken,
   productosController.listarProductosPorEmprendedor
 );
 
-// GET /api/productos -> Listar todos los productos disponibles públicamente
 router.get("/", productosController.listarProductosPublicos);
 
-// GET /api/productos/:id -> Obtener detalle de un producto
 router.get("/detalle/:id", productosController.obtenerProductoPorId);
-
 
 module.exports = router;

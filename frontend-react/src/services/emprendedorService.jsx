@@ -1,24 +1,19 @@
 // 📁 src/services/emprendedorService.js
 
 const API_URL = "http://localhost:3000/api";
-
 const getToken = () => localStorage.getItem("token");
 
 export const obtenerEmprendedor = async () => {
   const token = getToken();
-
   const res = await fetch(`${API_URL}/emprendedores`, {
     headers: { Authorization: `Bearer ${token}` },
   });
-
   if (!res.ok) throw new Error("No autorizado");
-
   return await res.json();
 };
 
 export const actualizarEmprendedor = async (datos) => {
   const token = getToken();
-
   const res = await fetch(`${API_URL}/emprendedores`, {
     method: "PUT",
     headers: {
@@ -27,7 +22,6 @@ export const actualizarEmprendedor = async (datos) => {
     },
     body: JSON.stringify(datos),
   });
-
   if (!res.ok) throw new Error("Error al actualizar datos");
   return await res.json();
 };
@@ -46,6 +40,35 @@ export const guardarProducto = async (formData) => {
   });
 
   if (!res.ok) throw new Error("Error al guardar producto");
+  return await res.json();
+};
+
+export const actualizarProducto = async (id_producto, formData) => {
+  const token = getToken();
+
+  const res = await fetch(`${API_URL}/productos/${id_producto}`, {
+    method: "PUT",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    body: formData,
+  });
+
+  if (!res.ok) throw new Error("Error al actualizar producto");
+  return await res.json();
+};
+
+export const eliminarProducto = async (id_producto) => {
+  const token = getToken();
+
+  const res = await fetch(`${API_URL}/productos/${id_producto}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (!res.ok) throw new Error("Error al eliminar producto");
   return await res.json();
 };
 
