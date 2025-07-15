@@ -33,7 +33,8 @@ const RegistroCliente = () => {
       nuevosErrores.correo = "Correo inválido.";
     }
 
-    const regexContrasenia = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[.,_-])[A-Za-z\d.,_-]{8,}$/;
+    const regexContrasenia =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[.,_-])[A-Za-z\d.,_-]{8,}$/;
     if (!regexContrasenia.test(formulario.contrasenia)) {
       nuevosErrores.contrasenia =
         "Mínimo 8 caracteres, una mayúscula, una minúscula, un número y un símbolo (.,_-).";
@@ -60,7 +61,8 @@ const RegistroCliente = () => {
         }
         break;
       case "contrasenia":
-        const regexContrasenia = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[.,_-])[A-Za-z\d.,_-]{8,}$/;
+        const regexContrasenia =
+          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[.,_-])[A-Za-z\d.,_-]{8,}$/;
         if (!regexContrasenia.test(value)) {
           error =
             "Mínimo 8 caracteres, una mayúscula, una minúscula, un número y un símbolo (.,_-).";
@@ -89,14 +91,17 @@ const RegistroCliente = () => {
 
     try {
       setCargando(true);
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/usuarios/registro`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ...formulario,
-          tipo_usuario: "cliente",
-        }),
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/usuarios/registro`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            ...formulario,
+            tipo_usuario: "cliente",
+          }),
+        }
+      );
 
       const data = await response.json();
 
@@ -116,7 +121,8 @@ const RegistroCliente = () => {
 
   const getInputClass = (campo) => {
     if (errores[campo]) return `${styles.input} ${styles.inputError}`;
-    if (formulario[campo].length > 2 && !errores[campo]) return `${styles.input} ${styles.inputOk}`;
+    if (formulario[campo].length > 2 && !errores[campo])
+      return `${styles.input} ${styles.inputOk}`;
     return styles.input;
   };
 
@@ -144,7 +150,9 @@ const RegistroCliente = () => {
               onBlur={(e) => validarCampo(e.target.name, e.target.value)}
               className={getInputClass("nombres")}
             />
-            {errores.nombres && <span className={styles.errorText}>{errores.nombres}</span>}
+            {errores.nombres && (
+              <span className={styles.errorText}>{errores.nombres}</span>
+            )}
 
             <input
               type="text"
@@ -155,7 +163,9 @@ const RegistroCliente = () => {
               onBlur={(e) => validarCampo(e.target.name, e.target.value)}
               className={getInputClass("apellidos")}
             />
-            {errores.apellidos && <span className={styles.errorText}>{errores.apellidos}</span>}
+            {errores.apellidos && (
+              <span className={styles.errorText}>{errores.apellidos}</span>
+            )}
 
             <input
               type="email"
@@ -166,7 +176,9 @@ const RegistroCliente = () => {
               onBlur={(e) => validarCampo(e.target.name, e.target.value)}
               className={getInputClass("correo")}
             />
-            {errores.correo && <span className={styles.errorText}>{errores.correo}</span>}
+            {errores.correo && (
+              <span className={styles.errorText}>{errores.correo}</span>
+            )}
 
             <div className={styles.inputPasswordWrapper}>
               <input
@@ -182,7 +194,9 @@ const RegistroCliente = () => {
                 className={styles.togglePasswordIcon}
                 onClick={() => setMostrarContrasenia(!mostrarContrasenia)}
               >
-                <FontAwesomeIcon icon={mostrarContrasenia ? faEyeSlash : faEye} />
+                <FontAwesomeIcon
+                  icon={mostrarContrasenia ? faEyeSlash : faEye}
+                />
               </span>
             </div>
             {errores.contrasenia && (
