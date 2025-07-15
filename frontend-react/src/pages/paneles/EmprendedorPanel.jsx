@@ -3,7 +3,7 @@ import PanelLayout from "../../layouts/PanelLayout";
 import MisProductos from "./components/MisProductos";
 import AgregarProducto from "./components/AgregarProducto";
 import ConfiguracionEmprendedor from "./components/ConfiguracionEmprendedor";
-import styles from "../../styles/panelEmprendedor.module.css";
+import ReporteVentasEmprendedor from "./components/ReporteVentasEmprendedor";
 
 export default function EmprendedorPanel() {
   const [seccion, setSeccion] = useState("configuracion");
@@ -11,6 +11,7 @@ export default function EmprendedorPanel() {
   const opciones = [
     { id: "productos", nombre: "Mis Productos" },
     { id: "agregar", nombre: "Agregar Producto" },
+    { id: "reportes", nombre: "Reportes" },
     { id: "configuracion", nombre: "Configuración" },
     { id: "cerrar", nombre: "Cerrar Sesión" },
   ];
@@ -34,6 +35,7 @@ export default function EmprendedorPanel() {
       {seccion === "productos" && <MisProductos />}
       {seccion === "agregar" && <AgregarProducto />}
       {seccion === "configuracion" && <ConfiguracionEmprendedor />}
+      {seccion === "reportes" && <ReporteVentasEmprendedor />}
     </PanelLayout>
   );
 }

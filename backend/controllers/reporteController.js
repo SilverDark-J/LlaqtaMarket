@@ -90,7 +90,7 @@ exports.cantidadPedidos = async (req, res) => {
       [id_emprendedor]
     );
 
-    res.json(resultados[0]);
+    res.json([resultados[0] || { cantidad_pedidos: 0 }]);
   } catch (error) {
     console.error("Error al obtener cantidad de pedidos", error);
     res.status(500).json({ error: "Error interno" });
