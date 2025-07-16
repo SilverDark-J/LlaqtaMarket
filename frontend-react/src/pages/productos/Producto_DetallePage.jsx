@@ -1,11 +1,11 @@
+// src/pages/productos/Producto_DetallePage.jsx
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styles from "../../styles/producto_detalle.module.css";
 import { obtenerProductoPorId } from "../../services/productoService";
 import { agregarAlCarrito } from "../../services/carritoService";
 import { obtenerRolDesdeToken } from "../../utils/authUtils";
-import PublicHeader from "../../components/PublicHeader";
-import PublicFooter from "../../components/PublicFooter";
+import PublicLayout from "../../layouts/PublicLayout";
 
 const ProductoDetallePage = () => {
   const [producto, setProducto] = useState(null);
@@ -50,7 +50,6 @@ const ProductoDetallePage = () => {
     try {
       await agregarAlCarrito(producto.id_producto, cantidad);
       alert("✅ Producto agregado al carrito");
-      // Opcional: navigate("/carrito");
     } catch (error) {
       console.error("Error al agregar al carrito:", error);
       alert("❌ No se pudo agregar al carrito.");
@@ -60,9 +59,7 @@ const ProductoDetallePage = () => {
   if (!producto) return <p>Cargando...</p>;
 
   return (
-    <div className={styles.productoDetallePage}>
-      <PublicHeader />
-
+    <PublicLayout>
       <div className={styles.contenido}>
         <aside className={styles.categorias}>
           <h3>Categoría</h3>
@@ -161,9 +158,7 @@ const ProductoDetallePage = () => {
           </div>
         </main>
       </div>
-
-      <PublicFooter />
-    </div>
+    </PublicLayout>
   );
 };
 

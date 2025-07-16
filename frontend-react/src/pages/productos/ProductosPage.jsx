@@ -1,10 +1,10 @@
+// src/pages/productos/ProductosPage.jsx
 import React, { useState, useEffect } from "react";
 import styles from "../../styles/productos.module.css";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { obtenerProductosPublicos } from "../../services/productoService";
 
-import PublicHeader from "../../components/PublicHeader";
-import PublicFooter from "../../components/PublicFooter";
+import PublicLayout from "../../layouts/PublicLayout";
 
 const categorias = [
   "Todos",
@@ -18,7 +18,7 @@ const categorias = [
   "Libros",
 ];
 
-const ProductosPage = () => {
+export default function ProductosPage() {
   const [productos, setProductos] = useState([]);
   const [productosFiltrados, setProductosFiltrados] = useState([]);
   const [busqueda, setBusqueda] = useState("");
@@ -66,10 +66,8 @@ const ProductosPage = () => {
   };
 
   return (
-    <div className={styles.productosPage}>
-      <PublicHeader mostrarCategorias={true} onBuscar={(valor) => setBusqueda(valor)} />
-
-      <main className={styles.contenido}>
+    <PublicLayout>
+      <div className={styles.contenido}>
         <aside className={styles.categorias}>
           <h3>Categoría</h3>
           <ul>
@@ -107,12 +105,7 @@ const ProductosPage = () => {
             ))
           )}
         </section>
-      </main>
-
-      <PublicFooter />
-      
-    </div>
+      </div>
+    </PublicLayout>
   );
-};
-
-export default ProductosPage;
+}

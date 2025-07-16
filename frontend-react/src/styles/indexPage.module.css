@@ -1,9 +1,20 @@
-.productosRecomendados {
+/* src/styles/indexPage.module.css */
+
+/* Nuevo layout y main */
+.layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main {
+  flex: 1;
   padding: 30px 40px;
   background-color: #fff3e0;
 }
 
-.productosRecomendados h2 {
+/* Contenido */
+.main h2 {
   text-align: center;
   margin-bottom: 20px;
   color: #e65100;

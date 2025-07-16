@@ -1,0 +1,15 @@
+/* global.css */
+
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  font-family: "Segoe UI", sans-serif;
+  background-color: #fff3e0;
+  height: 100%; /* asegura altura total */
+}

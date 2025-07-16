@@ -1,11 +1,9 @@
-// ✅ src/pages/pago/PagoClientePage.jsx
-
+// src/pages/pago/PagoClientePage.jsx
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { realizarPedido } from "../../services/pedidoService";
 import styles from "../../styles/pagoCliente.module.css";
-import PublicHeader from "../../components/PublicHeader";
-import PublicFooter from "../../components/PublicFooter";
+import PublicLayout from "../../layouts/PublicLayout";
 
 export default function PagoClientePage() {
   const [formData, setFormData] = useState({
@@ -41,44 +39,42 @@ export default function PagoClientePage() {
   };
 
   return (
-    <div className={styles.pagoWrapper}>
-      <PublicHeader />
+    <PublicLayout>
+      <div className={styles.pagoWrapper}>
+        <div className={styles.formularioPago}>
+          <h2 className={styles.titulo}>Formulario de Pago</h2>
+          <form onSubmit={handleSubmit}>
+            {["nombre", "dni", "telefono", "correo", "tarjeta"].map((campo) => (
+              <div className={styles.inputGroup} key={campo}>
+                <label htmlFor={campo}>
+                  {campo === "tarjeta"
+                    ? "Número de Tarjeta (simulado)"
+                    : campo.charAt(0).toUpperCase() + campo.slice(1)}
+                </label>
+                <input
+                  id={campo}
+                  type={campo === "correo" ? "email" : "text"}
+                  name={campo}
+                  value={formData[campo]}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+            ))}
 
-      <div className={styles.formularioPago}>
-        <h2 className={styles.titulo}>Formulario de Pago</h2>
-        <form onSubmit={handleSubmit}>
-          {["nombre", "dni", "telefono", "correo", "tarjeta"].map((campo) => (
-            <div className={styles.inputGroup} key={campo}>
-              <label htmlFor={campo}>
-                {campo === "tarjeta"
-                  ? "Número de Tarjeta (simulado)"
-                  : campo.charAt(0).toUpperCase() + campo.slice(1)}
-              </label>
-              <input
-                id={campo}
-                type={campo === "correo" ? "email" : "text"}
-                name={campo}
-                value={formData[campo]}
-                onChange={handleChange}
-                required
-              />
-            </div>
-          ))}
+            <button
+              type="submit"
+              className={styles.botonPagar}
+              disabled={cargando}
+            >
+              {cargando ? "Procesando..." : "Pagar y confirmar pedido"}
+            </button>
 
-          <button
-            type="submit"
-            className={styles.botonPagar}
-            disabled={cargando}
-          >
-            {cargando ? "Procesando..." : "Pagar y confirmar pedido"}
-          </button>
-
-          {mensaje && <div className={styles.mensajeExito}>{mensaje}</div>}
-          {error && <div className={styles.mensajeError}>{error}</div>}
-        </form>
+            {mensaje && <div className={styles.mensajeExito}>{mensaje}</div>}
+            {error && <div className={styles.mensajeError}>{error}</div>}
+          </form>
+        </div>
       </div>
-
-      <PublicFooter />
-    </div>
+    </PublicLayout>
   );
 }

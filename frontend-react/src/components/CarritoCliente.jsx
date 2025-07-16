@@ -1,3 +1,4 @@
+// src/components/CarritoCliente.jsx
 import { useEffect, useState } from "react";
 import styles from "../styles/carritoCliente.module.css";
 import {
@@ -6,8 +7,7 @@ import {
   eliminarDelCarrito,
   vaciarCarrito,
 } from "../services/carritoService";
-import PublicHeader from "./PublicHeader";
-import PublicFooter from "./PublicFooter";
+import PublicLayout from "../layouts/PublicLayout";
 
 export default function CarritoCliente() {
   const [carrito, setCarrito] = useState([]);
@@ -58,9 +58,7 @@ export default function CarritoCliente() {
   };
 
   return (
-    <>
-      <PublicHeader />
-
+    <PublicLayout>
       <main className={styles.carritoContainer}>
         <h2 className={styles.tituloCarrito}>🛒 Mi Carrito</h2>
 
@@ -144,7 +142,7 @@ export default function CarritoCliente() {
                 </a>
                 <a href="/pago" className={styles.btn}>
                   Continuar para pagar
-                </a>{" "}
+                </a>
                 <button
                   className={`${styles.btn} ${styles.vaciar}`}
                   onClick={handleVaciarCarrito}
@@ -156,8 +154,6 @@ export default function CarritoCliente() {
           </>
         )}
       </main>
-
-      <PublicFooter />
-    </>
+    </PublicLayout>
   );
 }

@@ -2,14 +2,15 @@
 
 .pagoWrapper {
   display: flex;
-  flex-direction: column;
-  min-height: 100vh;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+  flex: 1; /* clave para que se adapte al layout con footer fijo */
   background-color: #fafafa;
 }
 
 .formularioPago {
   max-width: 480px;
-  margin: 60px auto;
   padding: 30px 25px;
   background-color: #fff;
   border-radius: 16px;
@@ -90,5 +91,15 @@
   to {
     transform: translateY(0);
     opacity: 1;
+  }
+}
+
+@media (max-width: 480px) {
+  .formularioPago {
+    padding: 20px 15px;
+  }
+
+  .titulo {
+    font-size: 22px;
   }
 }
