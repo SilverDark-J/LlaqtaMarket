@@ -1,16 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PanelLayout from "../../layouts/PanelLayout";
 import MisProductos from "./components/MisProductos";
 import AgregarProducto from "./components/AgregarProducto";
 import ConfiguracionEmprendedor from "./components/ConfiguracionEmprendedor";
-import styles from "../../styles/panelEmprendedor.module.css";
+import ReporteVentasEmprendedor from "./components/ReporteVentasEmprendedor";
+import { obtenerEmprendedor } from "../../services/emprendedorService";
 
 export default function EmprendedorPanel() {
   const [seccion, setSeccion] = useState("configuracion");
+  const [nombreEmprendedor, setNombreEmprendedor] = useState("Emprendedor");
+  const [productoEditar, setProductoEditar] = useState(null); // 👈 nuevo
 
   const opciones = [
     { id: "productos", nombre: "Mis Productos" },
     { id: "agregar", nombre: "Agregar Producto" },
+    { id: "reportes", nombre: "Reportes" },
     { id: "configuracion", nombre: "Configuración" },
     { id: "cerrar", nombre: "Cerrar Sesión" },
   ];
@@ -21,19 +25,50 @@ export default function EmprendedorPanel() {
       window.location.href = "/login";
     } else {
       setSeccion(opcion);
+      if (opcion !== "agregar") setProductoEditar(null); // Limpiar si se va a otra sección
     }
   };
 
+  useEffect(() => {
+    const cargarNombre = async () => {
+      try {
+        const emprendedor = await obtenerEmprendedor();
+        setNombreEmprendedor(
+          emprendedor.nombre_emprendimiento || "Emprendedor"
+        );
+      } catch (error) {
+        console.error("Error al cargar nombre del emprendedor:", error);
+      }
+    };
+    cargarNombre();
+  }, []);
+
   return (
     <PanelLayout
-      nombreUsuario="Emprendedor"
+      nombreUsuario={nombreEmprendedor}
       onSeleccion={handleSeleccion}
       opciones={opciones}
       opcionActiva={seccion}
     >
-      {seccion === "productos" && <MisProductos />}
-      {seccion === "agregar" && <AgregarProducto />}
+      {seccion === "productos" && (
+        <MisProductos
+          onEditarProducto={(producto) => {
+            setProductoEditar(producto);
+            setSeccion("agregar");
+          }}
+        />
+      )}
+      {seccion === "agregar" && (
+        <AgregarProducto
+          productoEditar={productoEditar}
+          onGuardado={() => {
+            setProductoEditar(null);
+            setSeccion("productos");
+          }}
+        />
+      )}
       {seccion === "configuracion" && <ConfiguracionEmprendedor />}
+      {seccion === "reportes" && <ReporteVentasEmprendedor />}
     </PanelLayout>
   );
 }

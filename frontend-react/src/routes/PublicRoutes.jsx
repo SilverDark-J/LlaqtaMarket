@@ -6,6 +6,8 @@ import RegistroEmprendedorPage from "../pages/auth/RegistroEmprendedorPage";
 import IndexPage from "../pages/index/IndexPage";
 import ProductosPage from "../pages/productos/ProductosPage";
 import ProductoDetallePage from "../pages/productos/Producto_DetallePage";
+import CarritoCliente from "../components/CarritoCliente";
+import PagoClientePage from "../pages/pago/PagoClientePage"; // ✅ nueva ruta
 
 export default function PublicRoutes() {
   return (
@@ -15,7 +17,12 @@ export default function PublicRoutes() {
       <Route path="/producto_detalle/:id" element={<ProductoDetallePage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/registro_cliente" element={<RegistroClientePage />} />
-      <Route path="/registro_emprendedor" element={<RegistroEmprendedorPage />} />
+      <Route
+        path="/registro_emprendedor"
+        element={<RegistroEmprendedorPage />}
+      />
+      <Route path="/carrito" element={<CarritoCliente />} />
+      <Route path="/pago" element={<PagoClientePage />} />
     </Routes>
   );
 }

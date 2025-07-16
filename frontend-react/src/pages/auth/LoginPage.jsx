@@ -18,9 +18,9 @@ const LoginPage = () => {
   const navigate = useNavigate();
 
   const regexCorreo = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
-  const regexContrasena = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[.,_-])[A-Za-z\d.,_-]{8,}$/;
+  const regexContrasena =
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[.,_-])[A-Za-z\d.,_-]{8,}$/;
 
-  // ✅ Redirección automática si ya está autenticado
   useEffect(() => {
     if (usuario?.rol) {
       switch (usuario.rol) {
@@ -50,7 +50,8 @@ const LoginPage = () => {
     if (!contrasena.trim()) {
       nuevosErrores.contrasena = "La contraseña es obligatoria.";
     } else if (!regexContrasena.test(contrasena)) {
-      nuevosErrores.contrasena = "Mínimo 8 caracteres, 1 mayúscula, 1 minúscula, 1 número y 1 símbolo (.,_-).";
+      nuevosErrores.contrasena =
+        "Mínimo 8 caracteres, 1 mayúscula, 1 minúscula, 1 número y 1 símbolo (.,_-).";
     }
 
     setErrores(nuevosErrores);
@@ -68,18 +69,20 @@ const LoginPage = () => {
     try {
       setCargando(true);
 
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/usuarios/login`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ correo, contrasenia: contrasena }),
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/usuarios/login`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ correo, contrasenia: contrasena }),
+        }
+      );
 
       const data = await response.json();
 
       if (response.ok) {
         const { token, usuario } = data;
-        login(token, usuario); // Se guarda en AuthContext
-        // Redirección la hace el useEffect al detectar `usuario`
+        login(token, usuario);
       } else {
         alert("❌ " + (data.mensaje || "Credenciales incorrectas."));
       }
@@ -93,58 +96,95 @@ const LoginPage = () => {
 
   return (
     <div className={styles.loginContainer}>
-      <div className={styles.loginLeft}>
-        <h1 className={styles.logo}>LlaqtaMarket</h1>
-        <p className={styles.mensaje}>Tu mercado local al alcance de un clic</p>
-        <img src="/src/assets/media/logo2.jpg" alt="Logo" className={styles.loginImg} />
-      </div>
+      <div className={styles.loginWrapper}>
+        <div className={styles.loginLeft}>
+          <h1 className={styles.logo}>LlaqtaMarket</h1>
+          <p className={styles.mensaje}>
+            Tu mercado local al alcance de un clic
+          </p>
+          <img
+            src="/src/assets/media/logo2.jpg"
+            alt="Logo"
+            className={styles.loginImg}
+          />
+        </div>
 
-      <div className={styles.loginRight}>
-        <div className={styles.loginBox}>
-          <h2>Bienvenido</h2>
-          <form onSubmit={handleLogin} noValidate>
-            <div className={styles.formGroup}>
-              <input
-                type="text"
-                placeholder="Correo electrónico"
-                value={correo}
-                ref={correoRef}
-                onChange={(e) => setCorreo(e.target.value)}
-                onBlur={() => setTocado((prev) => ({ ...prev, correo: true }))}
-                className={
-                  tocado.correo ? (errores.correo ? styles.inputError : styles.inputOk) : ""
-                }
-              />
-              {errores.correo && <span className={styles.errorText}>{errores.correo}</span>}
+        <div className={styles.loginRight}>
+          <div className={styles.loginBox}>
+            <h2>Bienvenido</h2>
+            <form onSubmit={handleLogin} noValidate>
+              <div className={styles.formGroup}>
+                <input
+                  type="text"
+                  placeholder="Correo electrónico"
+                  value={correo}
+                  ref={correoRef}
+                  onChange={(e) => setCorreo(e.target.value)}
+                  onBlur={() =>
+                    setTocado((prev) => ({ ...prev, correo: true }))
+                  }
+                  className={
+                    tocado.correo
+                      ? errores.correo
+                        ? styles.inputError
+                        : styles.inputOk
+                      : ""
+                  }
+                />
+                {errores.correo && (
+                  <span className={styles.errorText}>{errores.correo}</span>
+                )}
+              </div>
+
+              <div
+                className={`${styles.formGroup} ${styles.inputPasswordWrapper}`}
+              >
+                <input
+                  type={mostrarContrasena ? "text" : "password"}
+                  placeholder="Contraseña"
+                  value={contrasena}
+                  ref={contrasenaRef}
+                  onChange={(e) => setContrasena(e.target.value)}
+                  onBlur={() =>
+                    setTocado((prev) => ({ ...prev, contrasena: true }))
+                  }
+                  className={
+                    tocado.contrasena
+                      ? errores.contrasena
+                        ? styles.inputError
+                        : styles.inputOk
+                      : ""
+                  }
+                />
+                <span
+                  className={styles.togglePasswordIcon}
+                  onClick={() => setMostrarContrasena(!mostrarContrasena)}
+                >
+                  <i
+                    className={`fa-solid ${
+                      mostrarContrasena ? "fa-eye-slash" : "fa-eye"
+                    }`}
+                  ></i>
+                </span>
+              </div>
+              {errores.contrasena && (
+                <span className={styles.errorText}>{errores.contrasena}</span>
+              )}
+
+              <button
+                type="submit"
+                className={styles.loginBtn}
+                disabled={cargando}
+              >
+                {cargando ? "Iniciando..." : "Iniciar Sesión"}
+              </button>
+            </form>
+
+            <div className={styles.registerLink}>
+              ¿No tienes cuenta? <br />
+              <a href="/registro_cliente">Registrarse como Cliente</a> |{" "}
+              <a href="/registro_emprendedor">Como Emprendedor</a>
             </div>
-
-            <div className={`${styles.formGroup} ${styles.inputPasswordWrapper}`}>
-              <input
-                type={mostrarContrasena ? "text" : "password"}
-                placeholder="Contraseña"
-                value={contrasena}
-                ref={contrasenaRef}
-                onChange={(e) => setContrasena(e.target.value)}
-                onBlur={() => setTocado((prev) => ({ ...prev, contrasena: true }))}
-                className={
-                  tocado.contrasena ? (errores.contrasena ? styles.inputError : styles.inputOk) : ""
-                }
-              />
-              <span className={styles.togglePasswordIcon} onClick={() => setMostrarContrasena(!mostrarContrasena)}>
-                <i className={`fa-solid ${mostrarContrasena ? "fa-eye-slash" : "fa-eye"}`}></i>
-              </span>
-            </div>
-            {errores.contrasena && <span className={styles.errorText}>{errores.contrasena}</span>}
-
-            <button type="submit" className={styles.loginBtn} disabled={cargando}>
-              {cargando ? "Iniciando..." : "Iniciar Sesión"}
-            </button>
-          </form>
-
-          <div className={styles.registerLink}>
-            ¿No tienes cuenta? <br />
-            <a href="/registro_cliente">Registrarse como Cliente</a> |{" "}
-            <a href="/registro_emprendedor">Como Emprendedor</a>
           </div>
         </div>
       </div>

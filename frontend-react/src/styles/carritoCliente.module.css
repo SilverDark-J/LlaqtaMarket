@@ -1,0 +1,207 @@
+.carritoContainer {
+  max-width: 1000px;
+  margin: auto;
+  margin-top: 20px;
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.tituloCarrito {
+  font-size: 35px;
+  color: #f57c00;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.tablaCarrito {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tablaCarrito th,
+.tablaCarrito td {
+  border-bottom: 1px solid #eee;
+  padding: 15px;
+  text-align: center;
+}
+
+.tablaCarrito img {
+  width: 80px;
+  border-radius: 8px;
+}
+
+.cantidadControl {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.cantidadControl button {
+  background-color: #f57c00;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.cantidadControl span {
+  font-size: 16px;
+  width: 30px;
+  display: inline-block;
+  text-align: center;
+}
+
+.resumenCarrito {
+  text-align: right;
+  margin-top: 20px;
+  font-size: 18px;
+}
+
+.botones {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.btn {
+  background-color: #f57c00;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn.seguir {
+  background-color: #8d6e63;
+}
+
+.btn.vaciar {
+  background-color: #888;
+}
+
+.eliminarBtn {
+  background-color: crimson;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.eliminarBtn:hover {
+  background-color: darkred;
+}
+
+.vacio {
+  text-align: center;
+  color: #888;
+  font-size: 20px;
+  margin: 40px 0;
+}
+
+/* ------------------- RESPONSIVE ------------------- */
+
+@media (max-width: 1024px) {
+  .carritoContainer {
+    padding: 20px;
+  }
+
+  .tituloCarrito {
+    font-size: 28px;
+  }
+
+  .btn,
+  .eliminarBtn {
+    font-size: 14px;
+    padding: 10px 16px;
+  }
+
+  .cantidadControl button {
+    padding: 4px 8px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 768px) {
+  .tablaCarrito th,
+  .tablaCarrito td {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .tablaCarrito img {
+    width: 60px;
+  }
+
+  .resumenCarrito {
+    font-size: 16px;
+  }
+
+  .botones {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+@media (max-width: 480px) {
+  .carritoContainer {
+    padding: 15px;
+  }
+
+  .tituloCarrito {
+    font-size: 24px;
+  }
+
+  .tablaCarrito thead {
+    display: none;
+  }
+
+  .tablaCarrito tr {
+    display: block;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #eee;
+  }
+
+  .tablaCarrito td {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    text-align: left;
+    font-size: 14px;
+  }
+
+  .tablaCarrito td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    flex-basis: 50%;
+  }
+
+  .cantidadControl {
+    gap: 6px;
+  }
+
+  .cantidadControl button {
+    font-size: 12px;
+    padding: 4px 8px;
+  }
+
+  .cantidadControl span {
+    width: 25px;
+    font-size: 14px;
+  }
+
+  .btn,
+  .eliminarBtn {
+    font-size: 13px;
+    padding: 8px 12px;
+  }
+}

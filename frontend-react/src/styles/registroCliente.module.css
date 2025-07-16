@@ -1,12 +1,12 @@
-/* ================= VARIABLES BÁSICAS ================= */
+/* registroCliente.module.css */
 .registroContenedor {
-  font-family: "Segoe UI", sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
   background-color: #fff3e0;
   min-height: 100vh;
-  padding: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  font-family: "Segoe UI", sans-serif;
 }
 
 .wrapper {
@@ -21,7 +21,6 @@
   flex-shrink: 1;
 }
 
-/* ================= LADO IZQUIERDO ================= */
 .formulario {
   flex: 1;
   padding: 40px;
@@ -79,56 +78,6 @@
   font-size: 15px;
 }
 
-.boton {
-  width: 100%;
-  padding: 14px;
-  background-color: #f57c00;
-  color: white;
-  font-weight: bold;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.boton:hover {
-  background-color: #ef6c00;
-}
-
-/* ================= TEXTO DE LOGIN ================= */
-.textoLogin {
-  margin-top: 20px;
-  text-align: center;
-  font-size: 14px;
-}
-
-.textoLogin a {
-  color: #0b3bab;
-  text-decoration: none;
-}
-
-.textoLogin a:hover {
-  text-decoration: underline;
-}
-
-/* ================= LADO DERECHO ================= */
-.imagenLateral {
-  flex: 1;
-  background-color: #f57c00;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-}
-
-.imagenLateral img {
-  width: 100%;
-  height: auto;
-  max-width: 350px;
-  border-radius: 12px;
-}
-
-/* ================= VALIDACIONES ================= */
 .inputError {
   border: 2px solid #e74c3c !important;
 }
@@ -146,7 +95,6 @@
   margin-left: 4px;
 }
 
-/* ================= CONTRASEÑA ================= */
 .inputPasswordWrapper {
   position: relative;
   width: 100%;
@@ -172,20 +120,61 @@
   color: #333;
 }
 
-/* ================= RESPONSIVO ================= */
-@media (max-width: 768px) {
-  .togglePasswordIcon {
-    font-size: 13px;
-    right: 12px;
-  }
+.boton {
+  width: 100%;
+  padding: 14px;
+  background-color: #f57c00;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
 
+.boton:hover {
+  background-color: #ef6c00;
+}
+
+.textoLogin {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.textoLogin a {
+  color: #0b3bab;
+  text-decoration: none;
+}
+
+.textoLogin a:hover {
+  text-decoration: underline;
+}
+
+.imagenLateral {
+  flex: 1;
+  background-color: #f57c00;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.imagenLateral img {
+  width: 100%;
+  height: auto;
+  max-width: 350px;
+  border-radius: 12px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
   .registroContenedor {
     padding: 10px;
   }
 
   .wrapper {
     flex-direction: column;
-    width: 100%;
     max-width: 450px;
   }
 

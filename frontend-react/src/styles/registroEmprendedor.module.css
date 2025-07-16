@@ -1,13 +1,23 @@
 .registroContenedor {
   display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background-color: #fff3e0;
+  min-height: 100vh;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: row;
   width: 100%;
   max-width: 900px;
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
   background-color: #ffffff;
-  flex-direction: row;
-  margin: 40px auto;
+  flex-shrink: 1;
 }
 
 .formulario {
@@ -23,7 +33,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 8px;
+  margin-bottom: 20px;
   flex-wrap: wrap;
   text-align: center;
 }
@@ -114,7 +124,7 @@ form {
   margin-left: 4px;
 }
 
-button {
+.boton {
   width: 100%;
   padding: 14px;
   background-color: #f57c00;
@@ -126,7 +136,7 @@ button {
   transition: background-color 0.3s ease;
 }
 
-button:hover {
+.boton:hover {
   background-color: #ef6c00;
 }
 
@@ -164,33 +174,38 @@ button:hover {
 /* Responsive */
 @media (max-width: 768px) {
   .registroContenedor {
+    padding: 10px;
+  }
+
+  .wrapper {
     flex-direction: column;
-    max-width: 500px;
+    max-width: 450px;
   }
 
-  .formulario,
-  .imagenLateral {
-    width: 100%;
+  .formulario {
     padding: 30px 20px;
-    text-align: center;
   }
 
-  .imagenLateral img {
-    max-width: 220px;
-  }
-
-  .formulario h1 {
+  .nombreEmpresa h1 {
     font-size: 22px;
   }
 
   .formulario h2 {
-    font-size: 20px;
+    font-size: 18px;
   }
 
-  .formInput,
-  button {
+  .input,
+  .boton {
     padding: 12px;
     font-size: 14px;
+  }
+
+  .imagenLateral {
+    padding: 20px 10px;
+  }
+
+  .imagenLateral img {
+    max-width: 200px;
   }
 
   .logo img {
@@ -202,14 +217,23 @@ button:hover {
   }
 
   .errorText {
-    font-size: 0.7em;
+    font-size: 0.7rem;
     margin-left: 2px;
+    margin-bottom: 8px;
   }
 }
 
 @media (max-width: 480px) {
+  .formulario h2 {
+    font-size: 1.2rem;
+  }
+
+  .input,
+  .boton {
+    font-size: 0.9rem;
+  }
+
   .errorText {
-    font-size: 0.65em;
-    margin-left: 2px;
+    font-size: 0.65rem;
   }
 }
