@@ -11,3 +11,9 @@ router.post(
 );
 
 module.exports = router;
+
+router.get(
+  "/permite-comentario/:id_producto",
+  auth.verificarTokenCliente,
+  pedidoController.permiteComentar
+);

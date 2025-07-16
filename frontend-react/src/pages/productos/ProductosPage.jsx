@@ -66,7 +66,7 @@ export default function ProductosPage() {
   };
 
   return (
-    <PublicLayout>
+    <PublicLayout onBuscar={setBusqueda}>
       <div className={styles.contenido}>
         <aside className={styles.categorias}>
           <h3>Categoría</h3>

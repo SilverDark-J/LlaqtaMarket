@@ -109,7 +109,12 @@ export default function AgregarProducto({ productoEditar = null, onGuardado }) {
           >
             <option value="">Selecciona una categoría</option>
             <option value="Ropa">Ropa</option>
+            <option value="Calzado">Calzado</option>
             <option value="Electrónica">Electrónica</option>
+            <option value="Hogar">Hogar</option>
+            <option value="Juguetería">Juguetería</option>
+            <option value="Belleza">Belleza</option>
+            <option value="Deportes">Deportes</option>
             <option value="Libros">Libros</option>
           </select>
         </div>
