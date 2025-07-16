@@ -127,100 +127,126 @@ const RegistroCliente = () => {
   };
 
   return (
-    <div className={styles.registroContenedor}>
-      <div className={styles.wrapper}>
-        <div className={styles.formulario}>
-          <div className={styles.empresaInfo}>
-            <div className={styles.logo}>
-              <img src="/src/assets/media/logo2.jpg" alt="Logo LlaqtaMarket" />
+    <>
+      <button
+        onClick={() => navigate("/")}
+        style={{
+          position: "absolute",
+          top: "20px",
+          left: "20px",
+          background: "transparent",
+          border: "none",
+          fontSize: "2rem",
+          cursor: "pointer",
+          color: "#333",
+          zIndex: 999,
+        }}
+        title="Ir al inicio"
+      >
+        <i className="fas fa-home"></i>
+      </button>
+      <div className={styles.registroContenedor}>
+        <div className={styles.wrapper}>
+          <div className={styles.formulario}>
+            <div className={styles.empresaInfo}>
+              <div className={styles.logo}>
+                <img
+                  src="/src/assets/media/logo2.jpg"
+                  alt="Logo LlaqtaMarket"
+                />
+              </div>
+              <div className={styles.nombreEmpresa}>
+                <h1>LlaqtaMarket</h1>
+              </div>
             </div>
-            <div className={styles.nombreEmpresa}>
-              <h1>LlaqtaMarket</h1>
-            </div>
-          </div>
 
-          <h2>Registro Cliente</h2>
-          <form onSubmit={handleSubmit} noValidate className={styles.form}>
-            <input
-              type="text"
-              name="nombres"
-              placeholder="Ingrese su nombre"
-              value={formulario.nombres}
-              onChange={handleChange}
-              onBlur={(e) => validarCampo(e.target.name, e.target.value)}
-              className={getInputClass("nombres")}
-            />
-            {errores.nombres && (
-              <span className={styles.errorText}>{errores.nombres}</span>
-            )}
-
-            <input
-              type="text"
-              name="apellidos"
-              placeholder="Ingrese su apellido"
-              value={formulario.apellidos}
-              onChange={handleChange}
-              onBlur={(e) => validarCampo(e.target.name, e.target.value)}
-              className={getInputClass("apellidos")}
-            />
-            {errores.apellidos && (
-              <span className={styles.errorText}>{errores.apellidos}</span>
-            )}
-
-            <input
-              type="email"
-              name="correo"
-              placeholder="Correo"
-              value={formulario.correo}
-              onChange={handleChange}
-              onBlur={(e) => validarCampo(e.target.name, e.target.value)}
-              className={getInputClass("correo")}
-            />
-            {errores.correo && (
-              <span className={styles.errorText}>{errores.correo}</span>
-            )}
-
-            <div className={styles.inputPasswordWrapper}>
+            <h2>Registro Cliente</h2>
+            <form onSubmit={handleSubmit} noValidate className={styles.form}>
               <input
-                type={mostrarContrasenia ? "text" : "password"}
-                name="contrasenia"
-                placeholder="Contraseña"
-                value={formulario.contrasenia}
+                type="text"
+                name="nombres"
+                placeholder="Ingrese su nombre"
+                value={formulario.nombres}
                 onChange={handleChange}
                 onBlur={(e) => validarCampo(e.target.name, e.target.value)}
-                className={getInputClass("contrasenia")}
+                className={getInputClass("nombres")}
               />
-              <span
-                className={styles.togglePasswordIcon}
-                onClick={() => setMostrarContrasenia(!mostrarContrasenia)}
-              >
-                <FontAwesomeIcon
-                  icon={mostrarContrasenia ? faEyeSlash : faEye}
+              {errores.nombres && (
+                <span className={styles.errorText}>{errores.nombres}</span>
+              )}
+
+              <input
+                type="text"
+                name="apellidos"
+                placeholder="Ingrese su apellido"
+                value={formulario.apellidos}
+                onChange={handleChange}
+                onBlur={(e) => validarCampo(e.target.name, e.target.value)}
+                className={getInputClass("apellidos")}
+              />
+              {errores.apellidos && (
+                <span className={styles.errorText}>{errores.apellidos}</span>
+              )}
+
+              <input
+                type="email"
+                name="correo"
+                placeholder="Correo"
+                value={formulario.correo}
+                onChange={handleChange}
+                onBlur={(e) => validarCampo(e.target.name, e.target.value)}
+                className={getInputClass("correo")}
+              />
+              {errores.correo && (
+                <span className={styles.errorText}>{errores.correo}</span>
+              )}
+
+              <div className={styles.inputPasswordWrapper}>
+                <input
+                  type={mostrarContrasenia ? "text" : "password"}
+                  name="contrasenia"
+                  placeholder="Contraseña"
+                  value={formulario.contrasenia}
+                  onChange={handleChange}
+                  onBlur={(e) => validarCampo(e.target.name, e.target.value)}
+                  className={getInputClass("contrasenia")}
                 />
-              </span>
-            </div>
-            {errores.contrasenia && (
-              <span className={styles.errorText}>{errores.contrasenia}</span>
-            )}
+                <span
+                  className={styles.togglePasswordIcon}
+                  onClick={() => setMostrarContrasenia(!mostrarContrasenia)}
+                >
+                  <FontAwesomeIcon
+                    icon={mostrarContrasenia ? faEyeSlash : faEye}
+                  />
+                </span>
+              </div>
+              {errores.contrasenia && (
+                <span className={styles.errorText}>{errores.contrasenia}</span>
+              )}
 
-            <button type="submit" disabled={cargando} className={styles.boton}>
-              {cargando ? "Registrando..." : "REGISTRARSE"}
-            </button>
-          </form>
+              <button
+                type="submit"
+                disabled={cargando}
+                className={styles.boton}
+              >
+                {cargando ? "Registrando..." : "REGISTRARSE"}
+              </button>
+            </form>
 
-          <p className={styles.textoLogin}>
-            <a href="/login">¿Ya tienes una cuenta?</a>
-          </p>
-        </div>
+            <p className={styles.textoLogin}>
+              <a href="/login">¿Ya tienes una cuenta?</a>
+            </p>
+          </div>
 
-        <div className={styles.imagenLateral}>
-          <img
-            src="/src/assets/media/registro_cliente.jpg"
-            alt="Registro LlaqtaMarket"
-          />
+          <div className={styles.imagenLateral}>
+            <img
+              src="/src/assets/media/registro_cliente.jpg"
+              alt="Registro LlaqtaMarket"
+            />
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

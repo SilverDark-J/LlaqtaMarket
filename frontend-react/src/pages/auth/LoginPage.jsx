@@ -25,7 +25,7 @@ const LoginPage = () => {
     if (usuario?.rol) {
       switch (usuario.rol) {
         case "cliente":
-          navigate("/panel/cliente", { replace: true });
+          navigate("/", { replace: true });
           break;
         case "emprendedor":
           navigate("/panel/emprendedor", { replace: true });
@@ -95,100 +95,119 @@ const LoginPage = () => {
   };
 
   return (
-    <div className={styles.loginContainer}>
-      <div className={styles.loginWrapper}>
-        <div className={styles.loginLeft}>
-          <h1 className={styles.logo}>LlaqtaMarket</h1>
-          <p className={styles.mensaje}>
-            Tu mercado local al alcance de un clic
-          </p>
-          <img
-            src="/src/assets/media/logo2.jpg"
-            alt="Logo"
-            className={styles.loginImg}
-          />
-        </div>
+    <>
+      <button
+        onClick={() => navigate("/")}
+        style={{
+          position: "absolute",
+          top: "20px",
+          left: "20px",
+          background: "transparent",
+          border: "none",
+          fontSize: "2rem",
+          cursor: "pointer",
+          color: "#333",
+          zIndex: 999,
+        }}
+        title="Ir al inicio"
+      >
+        <i className="fas fa-home"></i>
+      </button>
+      <div className={styles.loginContainer}>
+        <div className={styles.loginWrapper}>
+          <div className={styles.loginLeft}>
+            <h1 className={styles.logo}>LlaqtaMarket</h1>
+            <p className={styles.mensaje}>
+              Tu mercado local al alcance de un clic
+            </p>
+            <img
+              src="/src/assets/media/logo2.jpg"
+              alt="Logo"
+              className={styles.loginImg}
+            />
+          </div>
 
-        <div className={styles.loginRight}>
-          <div className={styles.loginBox}>
-            <h2>Bienvenido</h2>
-            <form onSubmit={handleLogin} noValidate>
-              <div className={styles.formGroup}>
-                <input
-                  type="text"
-                  placeholder="Correo electrónico"
-                  value={correo}
-                  ref={correoRef}
-                  onChange={(e) => setCorreo(e.target.value)}
-                  onBlur={() =>
-                    setTocado((prev) => ({ ...prev, correo: true }))
-                  }
-                  className={
-                    tocado.correo
-                      ? errores.correo
-                        ? styles.inputError
-                        : styles.inputOk
-                      : ""
-                  }
-                />
-                {errores.correo && (
-                  <span className={styles.errorText}>{errores.correo}</span>
-                )}
-              </div>
+          <div className={styles.loginRight}>
+            <div className={styles.loginBox}>
+              <h2>Bienvenido</h2>
+              <form onSubmit={handleLogin} noValidate>
+                <div className={styles.formGroup}>
+                  <input
+                    type="text"
+                    placeholder="Correo electrónico"
+                    value={correo}
+                    ref={correoRef}
+                    onChange={(e) => setCorreo(e.target.value)}
+                    onBlur={() =>
+                      setTocado((prev) => ({ ...prev, correo: true }))
+                    }
+                    className={
+                      tocado.correo
+                        ? errores.correo
+                          ? styles.inputError
+                          : styles.inputOk
+                        : ""
+                    }
+                  />
+                  {errores.correo && (
+                    <span className={styles.errorText}>{errores.correo}</span>
+                  )}
+                </div>
 
-              <div
-                className={`${styles.formGroup} ${styles.inputPasswordWrapper}`}
-              >
-                <input
-                  type={mostrarContrasena ? "text" : "password"}
-                  placeholder="Contraseña"
-                  value={contrasena}
-                  ref={contrasenaRef}
-                  onChange={(e) => setContrasena(e.target.value)}
-                  onBlur={() =>
-                    setTocado((prev) => ({ ...prev, contrasena: true }))
-                  }
-                  className={
-                    tocado.contrasena
-                      ? errores.contrasena
-                        ? styles.inputError
-                        : styles.inputOk
-                      : ""
-                  }
-                />
-                <span
-                  className={styles.togglePasswordIcon}
-                  onClick={() => setMostrarContrasena(!mostrarContrasena)}
+                <div
+                  className={`${styles.formGroup} ${styles.inputPasswordWrapper}`}
                 >
-                  <i
-                    className={`fa-solid ${
-                      mostrarContrasena ? "fa-eye-slash" : "fa-eye"
-                    }`}
-                  ></i>
-                </span>
+                  <input
+                    type={mostrarContrasena ? "text" : "password"}
+                    placeholder="Contraseña"
+                    value={contrasena}
+                    ref={contrasenaRef}
+                    onChange={(e) => setContrasena(e.target.value)}
+                    onBlur={() =>
+                      setTocado((prev) => ({ ...prev, contrasena: true }))
+                    }
+                    className={
+                      tocado.contrasena
+                        ? errores.contrasena
+                          ? styles.inputError
+                          : styles.inputOk
+                        : ""
+                    }
+                  />
+                  <span
+                    className={styles.togglePasswordIcon}
+                    onClick={() => setMostrarContrasena(!mostrarContrasena)}
+                  >
+                    <i
+                      className={`fa-solid ${
+                        mostrarContrasena ? "fa-eye-slash" : "fa-eye"
+                      }`}
+                    ></i>
+                  </span>
+                </div>
+                {errores.contrasena && (
+                  <span className={styles.errorText}>{errores.contrasena}</span>
+                )}
+
+                <button
+                  type="submit"
+                  className={styles.loginBtn}
+                  disabled={cargando}
+                >
+                  {cargando ? "Iniciando..." : "Iniciar Sesión"}
+                </button>
+              </form>
+
+              <div className={styles.registerLink}>
+                ¿No tienes cuenta? <br />
+                <a href="/registro_cliente">Registrarse como Cliente</a> |{" "}
+                <a href="/registro_emprendedor">Como Emprendedor</a>
               </div>
-              {errores.contrasena && (
-                <span className={styles.errorText}>{errores.contrasena}</span>
-              )}
-
-              <button
-                type="submit"
-                className={styles.loginBtn}
-                disabled={cargando}
-              >
-                {cargando ? "Iniciando..." : "Iniciar Sesión"}
-              </button>
-            </form>
-
-            <div className={styles.registerLink}>
-              ¿No tienes cuenta? <br />
-              <a href="/registro_cliente">Registrarse como Cliente</a> |{" "}
-              <a href="/registro_emprendedor">Como Emprendedor</a>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

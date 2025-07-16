@@ -140,70 +140,96 @@ const RegistroEmprendedorPage = () => {
   );
 
   return (
-    <div className={styles.registroContenedor}>
-      <div className={styles.wrapper}>
-        <div className={styles.formulario}>
-          <div className={styles.empresaInfo}>
-            <div className={styles.logo}>
-              <img src="/src/assets/media/logo2.jpg" alt="Logo LlaqtaMarket" />
+    <>
+      <button
+        onClick={() => navigate("/")}
+        style={{
+          position: "absolute",
+          top: "20px",
+          left: "20px",
+          background: "transparent",
+          border: "none",
+          fontSize: "2rem",
+          cursor: "pointer",
+          color: "#333",
+          zIndex: 999,
+        }}
+        title="Ir al inicio"
+      >
+        <i className="fas fa-home"></i>
+      </button>
+      <div className={styles.registroContenedor}>
+        <div className={styles.wrapper}>
+          <div className={styles.formulario}>
+            <div className={styles.empresaInfo}>
+              <div className={styles.logo}>
+                <img
+                  src="/src/assets/media/logo2.jpg"
+                  alt="Logo LlaqtaMarket"
+                />
+              </div>
+              <div className={styles.nombreEmpresa}>
+                <h1>LlaqtaMarket</h1>
+              </div>
             </div>
-            <div className={styles.nombreEmpresa}>
-              <h1>LlaqtaMarket</h1>
-            </div>
+
+            <h2>Registro Emprendedor</h2>
+            <form onSubmit={handleSubmit} noValidate>
+              {renderInput("nombres", "Ingrese su nombre")}
+              {renderInput("apellidos", "Ingrese su apellido")}
+              {renderInput("emprendimiento", "Nombre del Emprendimiento")}
+              {renderInput("correo", "Correo", "email")}
+
+              <div className={styles.inputPasswordWrapper}>
+                <input
+                  type={mostrarContrasenia ? "text" : "password"}
+                  name="contrasenia"
+                  placeholder="Contraseña"
+                  value={formData.contrasenia}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  className={`${styles.formInput} ${
+                    touched.contrasenia
+                      ? errores.contrasenia
+                        ? styles.inputError
+                        : styles.inputOk
+                      : ""
+                  }`}
+                />
+                <span
+                  className={styles.togglePasswordIcon}
+                  onClick={() => setMostrarContrasenia((prev) => !prev)}
+                >
+                  {mostrarContrasenia ? <FaEyeSlash /> : <FaEye />}
+                </span>
+              </div>
+              {errores.contrasenia && touched.contrasenia && (
+                <span className={styles.errorText}>{errores.contrasenia}</span>
+              )}
+
+              <button
+                type="submit"
+                disabled={enviando}
+                className={styles.boton}
+              >
+                {enviando ? "Registrando..." : "REGISTRARSE"}
+              </button>
+            </form>
+
+            <p className={styles.textoLogin}>
+              <a href="/login">¿Ya tienes una cuenta?</a>
+            </p>
           </div>
 
-          <h2>Registro Emprendedor</h2>
-          <form onSubmit={handleSubmit} noValidate>
-            {renderInput("nombres", "Ingrese su nombre")}
-            {renderInput("apellidos", "Ingrese su apellido")}
-            {renderInput("emprendimiento", "Nombre del Emprendimiento")}
-            {renderInput("correo", "Correo", "email")}
-
-            <div className={styles.inputPasswordWrapper}>
-              <input
-                type={mostrarContrasenia ? "text" : "password"}
-                name="contrasenia"
-                placeholder="Contraseña"
-                value={formData.contrasenia}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                className={`${styles.formInput} ${
-                  touched.contrasenia
-                    ? errores.contrasenia
-                      ? styles.inputError
-                      : styles.inputOk
-                    : ""
-                }`}
-              />
-              <span
-                className={styles.togglePasswordIcon}
-                onClick={() => setMostrarContrasenia((prev) => !prev)}
-              >
-                {mostrarContrasenia ? <FaEyeSlash /> : <FaEye />}
-              </span>
-            </div>
-            {errores.contrasenia && touched.contrasenia && (
-              <span className={styles.errorText}>{errores.contrasenia}</span>
-            )}
-
-            <button type="submit" disabled={enviando} className={styles.boton}>
-              {enviando ? "Registrando..." : "REGISTRARSE"}
-            </button>
-          </form>
-
-          <p className={styles.textoLogin}>
-            <a href="/login">¿Ya tienes una cuenta?</a>
-          </p>
-        </div>
-
-        <div className={styles.imagenLateral}>
-          <img
-            src="/src/assets/media/registro_emprendedor.jpg"
-            alt="Registro emprendedor"
-          />
+          <div className={styles.imagenLateral}>
+            <img
+              src="/src/assets/media/registro_emprendedor.jpg"
+              alt="Registro emprendedor"
+            />
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
