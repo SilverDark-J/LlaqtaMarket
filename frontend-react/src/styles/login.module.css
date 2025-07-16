@@ -1,0 +1,221 @@
+/* Contenedor principal centrado en toda la pantalla */
+.loginContainer {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff3e0;
+  font-family: "Segoe UI", sans-serif;
+  padding: 20px;
+  overflow: auto;
+  z-index: 0; /* evita superposición con modales si los hubiera */
+}
+
+/* Cuadro principal */
+.loginWrapper {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  max-width: 1000px;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  background-color: #ffffff;
+}
+
+/* Lado izquierdo */
+.loginLeft {
+  flex: 1;
+  background-color: #f57c00;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  text-align: center;
+}
+
+.logo {
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.mensaje {
+  font-size: 18px;
+  margin-bottom: 30px;
+  max-width: 300px;
+}
+
+.loginImg {
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+}
+
+/* Lado derecho */
+.loginRight {
+  flex: 1;
+  padding: 60px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loginBox {
+  width: 100%;
+  max-width: 350px;
+}
+
+.loginBox h2 {
+  color: #333;
+  font-size: 26px;
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+/* Formulario */
+.formGroup {
+  margin-bottom: 15px;
+}
+
+.formGroup input {
+  width: 100%;
+  padding: 14px;
+  font-size: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  transition: border 0.3s, background-color 0.3s;
+}
+
+/* Validaciones */
+.inputError {
+  border: 2px solid red !important;
+}
+
+.inputOk {
+  border: 2px solid #4caf50 !important;
+  background-color: #f0fff4;
+}
+
+.errorText {
+  color: red;
+  font-size: 0.85rem;
+  margin-top: 4px;
+  display: block;
+}
+
+/* Contraseña */
+.inputPasswordWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.inputPasswordWrapper input {
+  width: 100%;
+  padding: 14px 42px 14px 14px;
+  font-size: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
+.togglePasswordIcon {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #888;
+  font-size: 16px;
+  user-select: none;
+}
+
+.togglePasswordIcon:hover {
+  color: #333;
+}
+
+/* Botón */
+.loginBtn {
+  width: 100%;
+  background-color: #f57c00;
+  color: white;
+  border: none;
+  padding: 14px;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 10px;
+}
+
+.loginBtn:hover {
+  background-color: #806c5c;
+}
+
+/* Registro */
+.registerLink {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+.registerLink a {
+  color: #388e3c;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.registerLink a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .loginWrapper {
+    flex-direction: column;
+    max-width: 500px;
+    width: 100%;
+  }
+
+  .loginLeft,
+  .loginRight {
+    width: 100%;
+    padding: 20px 15px;
+    text-align: center;
+  }
+
+  .logo {
+    font-size: 26px;
+  }
+
+  .mensaje {
+    font-size: 16px;
+  }
+
+  .loginImg {
+    max-width: 220px;
+  }
+
+  .loginBox h2 {
+    font-size: 20px;
+  }
+
+  .formGroup input,
+  .inputPasswordWrapper input {
+    padding: 12px;
+    font-size: 13px;
+  }
+
+  .loginBtn {
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  .registerLink {
+    font-size: 13px;
+  }
+}

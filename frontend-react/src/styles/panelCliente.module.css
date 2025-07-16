@@ -1,0 +1,193 @@
+/* ================== BASE DEL PANEL CLIENTE ================== */
+.panelClienteWrapper {
+  height: 100%;
+  font-family: "Segoe UI", sans-serif;
+  background-color: #fff3e0;
+}
+
+/* ================== HEADER ================== */
+.header {
+  background-color: #f57c00;
+  color: white;
+  padding: 15px 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.1rem;
+  font-weight: bold;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  gap: 10px;
+}
+
+.logoImg {
+  height: 40px;
+  width: auto;
+  border-radius: 4px;
+}
+
+.nombreCliente {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.irProductos {
+  background-color: white;
+  color: #f57c00;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.irProductos:hover {
+  background-color: #ffe0b2;
+}
+
+/* ================== LAYOUT ================== */
+.contenedor {
+  display: flex;
+  height: calc(100vh - 60px);
+}
+
+/* ================== SIDEBAR ================== */
+.sidebar {
+  width: 240px;
+  background-color: #ffe1b0;
+  padding: 25px 20px;
+  border-right: 1px solid #ffccbc;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar li {
+  padding: 12px 15px;
+  cursor: pointer;
+  color: #f57c00;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.sidebar li:hover,
+.sidebar li.activo {
+  background-color: #fff3e0;
+}
+
+/* ================== CONTENIDO PRINCIPAL ================== */
+.contenidoPrincipal {
+  flex: 1;
+  padding: 30px;
+  overflow-y: auto;
+  display: flex;
+  justify-content: center;
+}
+
+/* ================== PRODUCTOS ================== */
+.productosGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+  width: 100%;
+}
+
+.tarjetaProducto {
+  background-color: #fff8e1;
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center;
+  border: 2px solid #f2b85b;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.tarjetaProducto img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+
+/* ================== CONFIGURACIÓN ================== */
+.configuracionContenedor {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.configuracionContenedor h2 {
+  margin-bottom: 20px;
+  color: #f57c00;
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.configuracionFormulario {
+  max-width: 650px;
+  background-color: #fffaf3;
+  padding: 24px 32px;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.campo {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.configuracionFormulario label {
+  width: 200px;
+  font-weight: bold;
+}
+
+.configuracionFormulario input,
+.configuracionFormulario textarea {
+  flex: 1;
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+}
+
+.configuracionFormulario input[disabled] {
+  background-color: #f0f0f0;
+  color: #777;
+  cursor: not-allowed;
+}
+
+.botonActualizar {
+  align-self: flex-end;
+  padding: 12px 24px;
+  background-color: #f57c00;
+  color: white;
+  border: none;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.botonActualizar:hover {
+  background-color: #ef6c00;
+}

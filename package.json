@@ -1,0 +1,13 @@
+{
+  "name": "llaqtamarket",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"cd backend && cross-env NODE_ENV=development nodemon server.js\" \"cd frontend-react && npm run dev\""
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.0",
+    "cross-env": "^7.0.3",
+    "nodemon": "^3.1.10"
+  }
+}
