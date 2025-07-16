@@ -1,3 +1,7 @@
+export function obtenerToken() {
+  return localStorage.getItem("token");
+}
+
 // ✅ Extraer el rol del token
 export function obtenerRolDesdeToken() {
   const token = localStorage.getItem("token");

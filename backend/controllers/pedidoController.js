@@ -67,3 +67,40 @@ exports.realizarPedido = async (req, res) => {
     res.status(500).json({ mensaje: "Error al procesar el pedido" });
   }
 };
+
+// Verificar si el cliente compró el producto hace máximo 7 días
+exports.permiteComentar = async (req, res) => {
+  try {
+    const id_usuario = req.usuario?.id_usuario;
+    const id_producto = req.params.id_producto;
+
+    // Obtener id_cliente
+    const [[cliente]] = await db.query(
+      "SELECT id_cliente FROM Cliente WHERE id_usuario = ?",
+      [id_usuario]
+    );
+    if (!cliente) {
+      return res.status(404).json({ mensaje: "Cliente no encontrado" });
+    }
+
+    const id_cliente = cliente.id_cliente;
+
+    // Verificar si compró el producto en los últimos 7 días
+    const [result] = await db.query(
+      `SELECT dp.*
+       FROM Pedido p
+       JOIN DetallePedido dp ON dp.id_pedido = p.id_pedido
+       WHERE p.id_cliente = ?
+         AND dp.id_producto = ?
+         AND p.estado = 'confirmado'
+         AND p.fecha >= DATE_SUB(NOW(), INTERVAL 7 DAY)`,
+      [id_cliente, id_producto]
+    );
+
+    const permitido = result.length > 0;
+    return res.json({ permitido });
+  } catch (error) {
+    console.error("❌ Error al verificar permiso de comentario:", error);
+    res.status(500).json({ mensaje: "Error al verificar permiso" });
+  }
+};

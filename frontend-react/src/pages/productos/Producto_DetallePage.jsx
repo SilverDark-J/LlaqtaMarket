@@ -4,7 +4,12 @@ import { useNavigate, useParams } from "react-router-dom";
 import styles from "../../styles/producto_detalle.module.css";
 import { obtenerProductoPorId } from "../../services/productoService";
 import { agregarAlCarrito } from "../../services/carritoService";
-import { obtenerRolDesdeToken } from "../../utils/authUtils";
+import {
+  listarValoracionesPorProducto,
+  enviarValoracion,
+} from "../../services/valoracionService";
+import { verificarPermisoComentario } from "../../services/permisoComentarioService";
+import { obtenerRolDesdeToken, obtenerToken } from "../../utils/authUtils";
 import PublicLayout from "../../layouts/PublicLayout";
 
 const ProductoDetallePage = () => {
@@ -12,6 +17,7 @@ const ProductoDetallePage = () => {
   const [comentario, setComentario] = useState("");
   const [comentarios, setComentarios] = useState([]);
   const [valorEstrella, setValorEstrella] = useState(0);
+  const [puedeComentar, setPuedeComentar] = useState(false);
   const [cantidad, setCantidad] = useState(1);
   const navigate = useNavigate();
   const { id } = useParams();
@@ -26,18 +32,48 @@ const ProductoDetallePage = () => {
         navigate("/productos");
       }
     };
+
+    const cargarComentarios = async () => {
+      try {
+        const data = await listarValoracionesPorProducto(id);
+        setComentarios(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    const validarPermiso = async () => {
+      const permitido = await verificarPermisoComentario(id);
+      setPuedeComentar(permitido);
+    };
+
     cargarProducto();
+    cargarComentarios();
+    validarPermiso();
   }, [id]);
 
-  const enviarComentario = () => {
+  const handleEnviarComentario = async () => {
+    if (!obtenerToken())
+      return alert("Debes iniciar sesión como cliente para comentar.");
     if (comentario.trim() === "")
       return alert("Por favor escribe un comentario.");
-    setComentarios([
-      ...comentarios,
-      { texto: comentario, estrellas: valorEstrella },
-    ]);
-    setComentario("");
-    setValorEstrella(0);
+    if (valorEstrella === 0) return alert("Selecciona una puntuación.");
+
+    try {
+      await enviarValoracion({
+        id_producto: id,
+        comentario,
+        puntuacion: valorEstrella,
+      });
+      alert("¡Gracias por tu valoración!");
+      setComentario("");
+      setValorEstrella(0);
+      const nuevosComentarios = await listarValoracionesPorProducto(id);
+      setComentarios(nuevosComentarios);
+      setPuedeComentar(false);
+    } catch (error) {
+      alert(error.message);
+    }
   };
 
   const handleAgregarAlCarrito = async () => {
@@ -127,33 +163,49 @@ const ProductoDetallePage = () => {
           </div>
 
           <div className={styles.comentarios}>
-            <h3>Valora este producto</h3>
-            <div className={styles.estrellas}>
-              {[1, 2, 3, 4, 5].map((num) => (
-                <span
-                  key={num}
-                  className={num <= valorEstrella ? styles.seleccionada : ""}
-                  onClick={() => setValorEstrella(num)}
-                >
-                  ★
-                </span>
-              ))}
-            </div>
-            <textarea
-              placeholder="Escribe tu comentario..."
-              value={comentario}
-              onChange={(e) => setComentario(e.target.value)}
-            ></textarea>
-            <button onClick={enviarComentario}>Enviar</button>
+            <h3>Valoraciones y comentarios</h3>
+
+            {puedeComentar && (
+              <div className={styles.formularioComentario}>
+                <div className={styles.estrellas}>
+                  {[1, 2, 3, 4, 5].map((num) => (
+                    <span
+                      key={num}
+                      className={
+                        num <= valorEstrella ? styles.seleccionada : ""
+                      }
+                      onClick={() => setValorEstrella(num)}
+                    >
+                      ★
+                    </span>
+                  ))}
+                </div>
+                <textarea
+                  placeholder="Escribe tu comentario..."
+                  value={comentario}
+                  onChange={(e) => setComentario(e.target.value)}
+                ></textarea>
+                <button onClick={handleEnviarComentario}>
+                  Enviar comentario
+                </button>
+              </div>
+            )}
 
             <div className={styles.comentariosLista}>
-              {comentarios.map((c, idx) => (
-                <div key={idx} className={styles.comentarioUsuario}>
-                  <p>
-                    <strong>Usuario:</strong> {c.texto}
-                  </p>
-                </div>
-              ))}
+              {comentarios.length === 0 ? (
+                <p>No hay comentarios aún.</p>
+              ) : (
+                comentarios.map((c, idx) => (
+                  <div key={idx} className={styles.comentarioUsuario}>
+                    <strong>{c.nombre_cliente}</strong>
+                    <p>{"★".repeat(c.puntuacion)}</p>
+                    <p>{c.comentario}</p>
+                    <small>
+                      {new Date(c.fecha_comentario).toLocaleDateString()}
+                    </small>
+                  </div>
+                ))
+              )}
             </div>
           </div>
         </main>
