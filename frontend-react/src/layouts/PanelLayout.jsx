@@ -1,5 +1,5 @@
-import Header from "../components/Header";
-import Sidebar from "../components/Sidebar";
+import Header from "../pages/paneles/components/Header";
+import Sidebar from "../pages/paneles/components/Sidebar";
 import styles from "../styles/panelAdmin.module.css";
 
 export default function PanelLayout({

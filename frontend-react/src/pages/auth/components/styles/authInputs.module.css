@@ -1,0 +1,256 @@
+.registroContenedor {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background-color: #fff3e0;
+  min-height: 100vh;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  max-width: 1000px;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  background-color: #ffffff;
+  flex-shrink: 1;
+}
+
+.formulario {
+  flex: 1;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.empresaInfoFila {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  gap: 15px;
+}
+
+.logo img {
+  width: 60px;
+  height: auto;
+  border-radius: 8px;
+}
+
+.nombreEmpresa h1 {
+  font-size: 28px;
+  color: #f57c00;
+  margin: 0;
+}
+
+/* Login lado izquierdo */
+.infoLateral {
+  text-align: center;
+}
+
+.nombreEmpresaLogin {
+  font-size: 28px;
+  color: #ffffff;
+  margin-bottom: 10px;
+}
+
+.subtitulo {
+  font-size: 16px;
+  color: #ffffff;
+  margin-bottom: 20px;
+}
+
+/* Login o imagen lateral */
+.imagenLateral {
+  flex: 1;
+  background-color: #f57c00;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.logoLateral {
+  max-width: 300px;
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+}
+
+/* Inputs */
+.inputWrapper {
+  width: 100%;
+  max-width: 350px;
+}
+
+.input {
+  width: 100%;
+  padding: 14px;
+  margin-bottom: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 15px;
+  box-sizing: border-box;
+}
+
+/* Input con ícono contraseña */
+.inputPasswordWrapper {
+  position: relative;
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+.inputPasswordWrapper input {
+  width: 100%;
+  padding: 14px 42px 14px 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 15px;
+  box-sizing: border-box;
+}
+
+.togglePasswordIcon {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #888;
+  font-size: 18px;
+  user-select: none;
+}
+
+.togglePasswordIcon:hover {
+  color: #333;
+}
+
+/* Botón */
+button[type="submit"] {
+  width: 100%;
+  max-width: 350px;
+  padding: 14px;
+  background-color: #f57c00;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 15px;
+}
+
+button[type="submit"]:hover {
+  background-color: #ef6c00;
+}
+
+button[type="submit"]:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Textos inferiores */
+.textoLogin,
+.registerLink {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.textoLogin a,
+.registerLink a {
+  color: #0b3bab;
+  text-decoration: none;
+}
+
+.textoLogin a:hover,
+.registerLink a:hover {
+  text-decoration: underline;
+}
+
+/* Errores */
+.inputError {
+  border: 2px solid #e74c3c !important;
+}
+
+.inputOk {
+  border: 2px solid #2ecc71 !important;
+}
+
+.errorText {
+  display: block;
+  font-size: 0.75rem;
+  color: #e74c3c;
+  margin-top: 2px;
+  margin-bottom: 10px;
+  margin-left: 4px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .registroContenedor {
+    padding: 10px;
+  }
+
+  .wrapper {
+    flex-direction: column;
+    max-width: 450px;
+  }
+
+  .formulario {
+    padding: 30px 20px;
+  }
+
+  .nombreEmpresa h1 {
+    font-size: 22px;
+  }
+
+  .input,
+  button[type="submit"] {
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  .imagenLateral {
+    padding: 20px 10px;
+  }
+
+  .logoLateral {
+    max-width: 200px;
+  }
+
+  .logo img {
+    width: 60px;
+  }
+
+  .textoLogin,
+  .registerLink {
+    font-size: 13px;
+  }
+
+  .errorText {
+    font-size: 0.7rem;
+    margin-left: 2px;
+    margin-bottom: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .nombreEmpresa h1 {
+    font-size: 1.2rem;
+  }
+
+  .input,
+  button[type="submit"] {
+    font-size: 0.9rem;
+  }
+
+  .errorText {
+    font-size: 0.65rem;
+  }
+}

@@ -1,4 +1,4 @@
-import styles from "../styles/panelAdmin.module.css";
+import styles from "../../../styles/panelAdmin.module.css";
 
 export default function Sidebar({ opciones = [], onSeleccion, opcionActiva }) {
   return (

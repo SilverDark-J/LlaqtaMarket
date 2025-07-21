@@ -1,13 +1,13 @@
 // src/components/CarritoCliente.jsx
 import { useEffect, useState } from "react";
-import styles from "../styles/carritoCliente.module.css";
+import styles from "../../styles/carritoCliente.module.css";
 import {
   obtenerCarrito,
   actualizarCantidad,
   eliminarDelCarrito,
   vaciarCarrito,
-} from "../services/carritoService";
-import PublicLayout from "../layouts/PublicLayout";
+} from "../../services/carritoService";
+import PublicLayout from "../../layouts/PublicLayout";
 
 export default function CarritoCliente() {
   const [carrito, setCarrito] = useState([]);

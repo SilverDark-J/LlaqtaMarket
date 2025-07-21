@@ -6,7 +6,7 @@ import RegistroEmprendedorPage from "../pages/auth/RegistroEmprendedorPage";
 import IndexPage from "../pages/index/IndexPage";
 import ProductosPage from "../pages/productos/ProductosPage";
 import ProductoDetallePage from "../pages/productos/Producto_DetallePage";
-import CarritoCliente from "../components/CarritoCliente";
+import CarritoCliente from "../pages/carrito/CarritoCliente";
 import PagoClientePage from "../pages/pago/PagoClientePage"; // ✅ nueva ruta
 
 export default function PublicRoutes() {

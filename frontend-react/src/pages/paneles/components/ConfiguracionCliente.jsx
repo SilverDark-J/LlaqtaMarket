@@ -17,6 +17,8 @@ export default function ConfiguracionCliente() {
     fecha_registro: "",
   });
 
+  const [mostrarContrasena, setMostrarContrasena] = useState(false);
+
   const [cargando, setCargando] = useState(true);
 
   useEffect(() => {
@@ -106,16 +108,36 @@ export default function ConfiguracionCliente() {
         </div>
 
         <div className={styles.campo}>
-          <label htmlFor="clienteContrasena">Contraseña:</label>
-          <input
-            type="password"
-            id="clienteContrasena"
-            name="contrasenia"
-            placeholder="••••••••"
-            value={datos.contrasenia}
-            onChange={handleChange}
-            required
-          />
+          <div className={styles.campo}>
+            <label htmlFor="clienteContrasena">Contraseña:</label>
+            <div className={styles.contrasenaInputWrapper}>
+              <input
+                type={mostrarContrasena ? "text" : "password"}
+                id="clienteContrasena"
+                name="contrasenia"
+                placeholder="••••••••"
+                value={datos.contrasenia}
+                onChange={handleChange}
+                required
+              />
+              <button
+                type="button"
+                onClick={() => setMostrarContrasena(!mostrarContrasena)}
+                className={styles.toggleBtn}
+                title={
+                  mostrarContrasena
+                    ? "Ocultar contraseña"
+                    : "Mostrar contraseña"
+                }
+              >
+                <i
+                  className={`fas ${
+                    mostrarContrasena ? "fa-eye-slash" : "fa-eye"
+                  }`}
+                ></i>
+              </button>
+            </div>
+          </div>
         </div>
 
         <div className={styles.campo}>
