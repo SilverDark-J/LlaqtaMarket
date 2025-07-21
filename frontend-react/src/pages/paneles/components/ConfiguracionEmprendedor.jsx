@@ -4,7 +4,7 @@ import {
   obtenerEmprendedor,
   actualizarEmprendedor,
 } from "../../../services/emprendedorService";
-import styles from "../../../styles/panelEmprendedor.module.css";
+import styles from "../../../styles/panelCliente.module.css";
 
 export default function ConfiguracionEmprendedor() {
   const [datos, setDatos] = useState({
@@ -19,6 +19,8 @@ export default function ConfiguracionEmprendedor() {
   });
 
   const [cargando, setCargando] = useState(true);
+
+  const [mostrarContrasena, setMostrarContrasena] = useState(false);
 
   useEffect(() => {
     const cargarDatos = async () => {
@@ -67,9 +69,9 @@ export default function ConfiguracionEmprendedor() {
   if (cargando) return <p>Cargando configuración...</p>;
 
   return (
-    <section className={styles.contenedorConfiguracion}>
+    <section className={styles.configuracionContenedor}>
       <h2>Configuración</h2>
-      <form className={styles.formularioConfiguracion} onSubmit={handleSubmit}>
+      <form className={styles.configuracionFormulario} onSubmit={handleSubmit}>
         <div className={styles.campo}>
           <label>Nombre:</label>
           <input
@@ -99,14 +101,36 @@ export default function ConfiguracionEmprendedor() {
           <input type="email" value={datos.correo} disabled />
         </div>
         <div className={styles.campo}>
-          <label>Contraseña:</label>
-          <input
-            type="password"
-            name="contrasenia"
-            placeholder="••••••••"
-            value={datos.contrasenia}
-            onChange={handleChange}
-          />
+          <div className={styles.campo}>
+            <label htmlFor="clienteContrasena">Contraseña:</label>
+            <div className={styles.contrasenaInputWrapper}>
+              <input
+                type={mostrarContrasena ? "text" : "password"}
+                id="clienteContrasena"
+                name="contrasenia"
+                placeholder="••••••••"
+                value={datos.contrasenia}
+                onChange={handleChange}
+                required
+              />
+              <button
+                type="button"
+                onClick={() => setMostrarContrasena(!mostrarContrasena)}
+                className={styles.toggleBtn}
+                title={
+                  mostrarContrasena
+                    ? "Ocultar contraseña"
+                    : "Mostrar contraseña"
+                }
+              >
+                <i
+                  className={`fas ${
+                    mostrarContrasena ? "fa-eye-slash" : "fa-eye"
+                  }`}
+                ></i>
+              </button>
+            </div>
+          </div>
         </div>
         <div className={styles.campo}>
           <label>Teléfono:</label>
@@ -139,7 +163,9 @@ export default function ConfiguracionEmprendedor() {
             required
           />
         </div>
-        <button type="submit">Guardar Cambios</button>
+        <button type="submit" className={styles.botonActualizar}>
+          Actualizar
+        </button>{" "}
       </form>
     </section>
   );

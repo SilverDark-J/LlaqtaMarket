@@ -1,195 +1,155 @@
-import React, { useState, useRef, useEffect } from "react";
+// ✅ src/pages/auth/LoginPage.jsx
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import styles from "../../styles/login.module.css";
-import "@fortawesome/fontawesome-free/css/all.min.css";
+import AuthLayout from "../../layouts/AuthLayout";
+import FormInput from "./components/FormInput";
+import PasswordInput from "./components/PasswordInput";
+import SubmitButton from "./components/SubmitButton";
+import AuthRedirectLinks from "./components/AuthRedirectLinks";
+import { validarCampo } from "../../utils/validators";
 import { useAuth } from "../../context/AuthContext";
+import styles from "./components/styles/authInputs.module.css";
 
-const LoginPage = () => {
-  const { login, usuario } = useAuth();
-  const [correo, setCorreo] = useState("");
-  const [contrasena, setContrasena] = useState("");
-  const [errores, setErrores] = useState({});
-  const [mostrarContrasena, setMostrarContrasena] = useState(false);
-  const [cargando, setCargando] = useState(false);
-  const [tocado, setTocado] = useState({ correo: false, contrasena: false });
-
-  const correoRef = useRef(null);
-  const contrasenaRef = useRef(null);
+export default function LoginPage() {
   const navigate = useNavigate();
+  const { login, usuario } = useAuth();
 
-  const regexCorreo = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
-  const regexContrasena =
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[.,_-])[A-Za-z\d.,_-]{8,}$/;
+  const [formData, setFormData] = useState({
+    correo: "",
+    contrasenia: "",
+  });
 
+  const [errors, setErrors] = useState({});
+  const [touched, setTouched] = useState({});
+  const [mostrarContrasenia, setMostrarContrasenia] = useState(false);
+  const [enviando, setEnviando] = useState(false);
+
+  // ✅ Redirige al usuario dependiendo del rol si ya está logueado
   useEffect(() => {
-    if (usuario?.rol) {
-      switch (usuario.rol) {
-        case "cliente":
-          navigate("/panel/cliente", { replace: true });
-          break;
-        case "emprendedor":
-          navigate("/panel/emprendedor", { replace: true });
-          break;
-        case "administrador":
-          navigate("/panel/admin", { replace: true });
-          break;
-        default:
-          navigate("/", { replace: true });
-      }
+    if (!usuario?.rol) return;
+
+    switch (usuario.rol) {
+      case "cliente":
+        navigate("/", { replace: true });
+        break;
+      case "emprendedor":
+        navigate("/panel/emprendedor", { replace: true });
+        break;
+      case "administrador":
+        navigate("/panel/admin", { replace: true });
+        break;
+      default:
+        navigate("/", { replace: true });
     }
   }, [usuario?.rol, navigate]);
 
-  const validarCampos = () => {
-    const nuevosErrores = {};
-    if (!correo.trim()) {
-      nuevosErrores.correo = "El correo es obligatorio.";
-    } else if (!regexCorreo.test(correo)) {
-      nuevosErrores.correo = "Correo inválido.";
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+
+    if (touched[name]) {
+      const error = validarCampo(name, value);
+      setErrors({ ...errors, [name]: error });
     }
-
-    if (!contrasena.trim()) {
-      nuevosErrores.contrasena = "La contraseña es obligatoria.";
-    } else if (!regexContrasena.test(contrasena)) {
-      nuevosErrores.contrasena =
-        "Mínimo 8 caracteres, 1 mayúscula, 1 minúscula, 1 número y 1 símbolo (.,_-).";
-    }
-
-    setErrores(nuevosErrores);
-
-    if (nuevosErrores.correo) correoRef.current.focus();
-    else if (nuevosErrores.contrasena) contrasenaRef.current.focus();
-
-    return Object.keys(nuevosErrores).length === 0;
   };
 
-  const handleLogin = async (e) => {
+  const handleBlur = (e) => {
+    const { name, value } = e.target;
+    setTouched({ ...touched, [name]: true });
+    const error = validarCampo(name, value);
+    setErrors({ ...errors, [name]: error });
+  };
+
+  const toggleMostrarContrasenia = () => {
+    setMostrarContrasenia(!mostrarContrasenia);
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!validarCampos()) return;
+
+    const nuevosErrores = {
+      correo: validarCampo("correo", formData.correo),
+      contrasenia: validarCampo("contrasenia", formData.contrasenia),
+    };
+
+    setErrors(nuevosErrores);
+    setTouched({ correo: true, contrasenia: true });
+
+    if (Object.values(nuevosErrores).some((error) => error)) return;
+
+    setEnviando(true);
 
     try {
-      setCargando(true);
-
-      const response = await fetch(
+      const res = await fetch(
         `${import.meta.env.VITE_API_URL}/api/usuarios/login`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ correo, contrasenia: contrasena }),
+          body: JSON.stringify(formData),
         }
       );
 
-      const data = await response.json();
+      const data = await res.json();
 
-      if (response.ok) {
+      if (res.ok) {
         const { token, usuario } = data;
-        login(token, usuario);
+        login(token, usuario); // ← esto activa el useEffect
       } else {
-        alert("❌ " + (data.mensaje || "Credenciales incorrectas."));
+        alert("❌ " + (data.mensaje || "Credenciales inválidas"));
       }
     } catch (error) {
-      console.error("Error:", error);
-      alert("Error al conectar con el servidor.");
+      alert("❌ Error de conexión");
     } finally {
-      setCargando(false);
+      setEnviando(false);
     }
   };
 
   return (
-    <div className={styles.loginContainer}>
-      <div className={styles.loginWrapper}>
-        <div className={styles.loginLeft}>
-          <h1 className={styles.logo}>LlaqtaMarket</h1>
-          <p className={styles.mensaje}>
-            Tu mercado local al alcance de un clic
-          </p>
-          <img
-            src="/src/assets/media/logo2.jpg"
-            alt="Logo"
-            className={styles.loginImg}
-          />
-        </div>
+    <AuthLayout
+      tipo="login"
+      titulo="Tu mercado local al alcance de un clic"
+      invertirLayout
+      imagen="/src/assets/media/logo2.jpg"
+      alt="Logo LlaqtaMarket"
+      mostrarInfoEmpresa={false}
+      mostrarSubtitulo={true}
+    >
+      <form onSubmit={handleSubmit} className={styles.formulario}>
+        <h2 className={styles.titulo}>Bienvenido</h2>
 
-        <div className={styles.loginRight}>
-          <div className={styles.loginBox}>
-            <h2>Bienvenido</h2>
-            <form onSubmit={handleLogin} noValidate>
-              <div className={styles.formGroup}>
-                <input
-                  type="text"
-                  placeholder="Correo electrónico"
-                  value={correo}
-                  ref={correoRef}
-                  onChange={(e) => setCorreo(e.target.value)}
-                  onBlur={() =>
-                    setTocado((prev) => ({ ...prev, correo: true }))
-                  }
-                  className={
-                    tocado.correo
-                      ? errores.correo
-                        ? styles.inputError
-                        : styles.inputOk
-                      : ""
-                  }
-                />
-                {errores.correo && (
-                  <span className={styles.errorText}>{errores.correo}</span>
-                )}
-              </div>
+        <FormInput
+          name="correo"
+          type="email"
+          placeholder="Correo electrónico"
+          value={formData.correo}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          error={errors.correo}
+          touched={touched.correo}
+          className={styles.formGroup}
+        />
 
-              <div
-                className={`${styles.formGroup} ${styles.inputPasswordWrapper}`}
-              >
-                <input
-                  type={mostrarContrasena ? "text" : "password"}
-                  placeholder="Contraseña"
-                  value={contrasena}
-                  ref={contrasenaRef}
-                  onChange={(e) => setContrasena(e.target.value)}
-                  onBlur={() =>
-                    setTocado((prev) => ({ ...prev, contrasena: true }))
-                  }
-                  className={
-                    tocado.contrasena
-                      ? errores.contrasena
-                        ? styles.inputError
-                        : styles.inputOk
-                      : ""
-                  }
-                />
-                <span
-                  className={styles.togglePasswordIcon}
-                  onClick={() => setMostrarContrasena(!mostrarContrasena)}
-                >
-                  <i
-                    className={`fa-solid ${
-                      mostrarContrasena ? "fa-eye-slash" : "fa-eye"
-                    }`}
-                  ></i>
-                </span>
-              </div>
-              {errores.contrasena && (
-                <span className={styles.errorText}>{errores.contrasena}</span>
-              )}
+        <PasswordInput
+          name="contrasenia"
+          placeholder="Contraseña"
+          value={formData.contrasenia}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          error={errors.contrasenia}
+          touched={touched.contrasenia}
+          mostrar={mostrarContrasenia}
+          toggleMostrar={toggleMostrarContrasenia}
+          className={styles.formGroup}
+        />
 
-              <button
-                type="submit"
-                className={styles.loginBtn}
-                disabled={cargando}
-              >
-                {cargando ? "Iniciando..." : "Iniciar Sesión"}
-              </button>
-            </form>
+        <SubmitButton
+          texto="Iniciar Sesión"
+          loading={enviando}
+          className={styles.submitButton}
+        />
 
-            <div className={styles.registerLink}>
-              ¿No tienes cuenta? <br />
-              <a href="/registro_cliente">Registrarse como Cliente</a> |{" "}
-              <a href="/registro_emprendedor">Como Emprendedor</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+        <AuthRedirectLinks tipo="login" />
+      </form>
+    </AuthLayout>
   );
-};
-
-export default LoginPage;
+}
