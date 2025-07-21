@@ -1,9 +1,16 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import styles from "../../styles/registroEmprendedor.module.css";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
+import styles from "./components/styles/authInputs.module.css";
 
-const RegistroEmprendedorPage = () => {
+import AuthLayout from "../../layouts/AuthLayout";
+import FormInput from "./components/FormInput";
+import PasswordInput from "./components/PasswordInput";
+import SubmitButton from "./components/SubmitButton";
+import AuthRedirectLinks from "./components/AuthRedirectLinks";
+
+import { validarCampo } from "../../utils/validators";
+
+export default function RegistroEmprendedorPage() {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -18,30 +25,6 @@ const RegistroEmprendedorPage = () => {
   const [touched, setTouched] = useState({});
   const [enviando, setEnviando] = useState(false);
   const [mostrarContrasenia, setMostrarContrasenia] = useState(false);
-
-  const validarCampo = (nombre, valor) => {
-    if (
-      ["nombres", "apellidos", "emprendimiento"].includes(nombre) &&
-      valor.trim().length < 3
-    ) {
-      return "Debe tener al menos 3 caracteres.";
-    }
-
-    if (nombre === "correo") {
-      const regexCorreo = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
-      if (!regexCorreo.test(valor)) return "Correo inválido.";
-    }
-
-    if (nombre === "contrasenia") {
-      const regex =
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[.,_-])[A-Za-z\d.,_-]{8,}$/;
-      if (!regex.test(valor)) {
-        return "Mínimo 8 caracteres, una mayúscula, una minúscula, un número y un símbolo (.,_-).";
-      }
-    }
-
-    return "";
-  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -116,121 +99,70 @@ const RegistroEmprendedorPage = () => {
     }
   };
 
-  const renderInput = (name, placeholder, type = "text") => (
-    <div key={name}>
-      <input
-        type={type}
-        name={name}
-        placeholder={placeholder}
-        value={formData[name]}
-        onChange={handleChange}
-        onBlur={handleBlur}
-        className={`${styles.formInput} ${
-          touched[name]
-            ? errores[name]
-              ? styles.inputError
-              : styles.inputOk
-            : ""
-        }`}
-      />
-      {errores[name] && touched[name] && (
-        <span className={styles.errorText}>{errores[name]}</span>
-      )}
-    </div>
-  );
-
   return (
-    <>
-      <button
-        onClick={() => navigate("/")}
-        style={{
-          position: "absolute",
-          top: "20px",
-          left: "20px",
-          background: "transparent",
-          border: "none",
-          fontSize: "2rem",
-          cursor: "pointer",
-          color: "#333",
-          zIndex: 999,
-        }}
-        title="Ir al inicio"
-      >
-        <i className="fas fa-home"></i>
-      </button>
-      <div className={styles.registroContenedor}>
-        <div className={styles.wrapper}>
-          <div className={styles.formulario}>
-            <div className={styles.empresaInfo}>
-              <div className={styles.logo}>
-                <img
-                  src="/src/assets/media/logo2.jpg"
-                  alt="Logo LlaqtaMarket"
-                />
-              </div>
-              <div className={styles.nombreEmpresa}>
-                <h1>LlaqtaMarket</h1>
-              </div>
-            </div>
+    <AuthLayout
+      tipo="registro"
+      titulo=""
+      invertirLayout={false}
+      imagen="/src/assets/media/registro_emprendedor.jpg"
+      alt="Registro cliente"
+      mostrarInfoEmpresa={true}
+      mostrarSubtitulo={false} // para que solo aparezca logo + nombre
+    >
+      <form onSubmit={handleSubmit} noValidate>
+        <h2 className={styles.titulo}>Registro de Emprendedor</h2>
+        <FormInput
+          name="nombres"
+          placeholder="Nombres"
+          value={formData.nombres}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          error={errores.nombres}
+          touched={touched.nombres}
+        />
+        <FormInput
+          name="apellidos"
+          placeholder="Apellidos"
+          value={formData.apellidos}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          error={errores.apellidos}
+          touched={touched.apellidos}
+        />
+        <FormInput
+          name="emprendimiento"
+          placeholder="Nombre del Emprendimiento"
+          value={formData.emprendimiento}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          error={errores.emprendimiento}
+          touched={touched.emprendimiento}
+        />
+        <FormInput
+          name="correo"
+          placeholder="Correo electrónico"
+          value={formData.correo}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          error={errores.correo}
+          touched={touched.correo}
+        />
+        <PasswordInput
+          name="contrasenia"
+          placeholder="Contraseña"
+          value={formData.contrasenia}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          error={errores.contrasenia}
+          touched={touched.contrasenia}
+          mostrar={mostrarContrasenia}
+          toggleMostrar={() => setMostrarContrasenia((prev) => !prev)}
+        />
 
-            <h2>Registro Emprendedor</h2>
-            <form onSubmit={handleSubmit} noValidate>
-              {renderInput("nombres", "Ingrese su nombre")}
-              {renderInput("apellidos", "Ingrese su apellido")}
-              {renderInput("emprendimiento", "Nombre del Emprendimiento")}
-              {renderInput("correo", "Correo", "email")}
+        <SubmitButton loading={enviando} texto="REGISTRARSE" />
+      </form>
 
-              <div className={styles.inputPasswordWrapper}>
-                <input
-                  type={mostrarContrasenia ? "text" : "password"}
-                  name="contrasenia"
-                  placeholder="Contraseña"
-                  value={formData.contrasenia}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  className={`${styles.formInput} ${
-                    touched.contrasenia
-                      ? errores.contrasenia
-                        ? styles.inputError
-                        : styles.inputOk
-                      : ""
-                  }`}
-                />
-                <span
-                  className={styles.togglePasswordIcon}
-                  onClick={() => setMostrarContrasenia((prev) => !prev)}
-                >
-                  {mostrarContrasenia ? <FaEyeSlash /> : <FaEye />}
-                </span>
-              </div>
-              {errores.contrasenia && touched.contrasenia && (
-                <span className={styles.errorText}>{errores.contrasenia}</span>
-              )}
-
-              <button
-                type="submit"
-                disabled={enviando}
-                className={styles.boton}
-              >
-                {enviando ? "Registrando..." : "REGISTRARSE"}
-              </button>
-            </form>
-
-            <p className={styles.textoLogin}>
-              <a href="/login">¿Ya tienes una cuenta?</a>
-            </p>
-          </div>
-
-          <div className={styles.imagenLateral}>
-            <img
-              src="/src/assets/media/registro_emprendedor.jpg"
-              alt="Registro emprendedor"
-            />
-          </div>
-        </div>
-      </div>
-    </>
+      <AuthRedirectLinks tipo="register" />
+    </AuthLayout>
   );
-};
-
-export default RegistroEmprendedorPage;
+}

@@ -1,253 +1,149 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import styles from "../../styles/registroCliente.module.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import AuthLayout from "../../layouts/AuthLayout";
+import FormInput from "./components/FormInput";
+import PasswordInput from "./components/PasswordInput";
+import SubmitButton from "./components/SubmitButton";
+import AuthRedirectLinks from "./components/AuthRedirectLinks";
+import { validarCampo } from "../../utils/validators";
+import imgRegistro from "../../assets/media/registro_cliente.jpg"; // ✅ Vite-friendly
+import styles from "./components/styles/authInputs.module.css";
 
-const RegistroCliente = () => {
-  const [formulario, setFormulario] = useState({
+export default function RegistroClientePage() {
+  const navigate = useNavigate();
+
+  const [formData, setFormData] = useState({
     nombres: "",
     apellidos: "",
     correo: "",
     contrasenia: "",
   });
-
-  const [mostrarContrasenia, setMostrarContrasenia] = useState(false);
   const [errores, setErrores] = useState({});
-  const [cargando, setCargando] = useState(false);
-  const navigate = useNavigate();
-
-  const validar = () => {
-    const nuevosErrores = {};
-
-    if (formulario.nombres.trim().length < 3) {
-      nuevosErrores.nombres = "Debe tener al menos 3 caracteres.";
-    }
-
-    if (formulario.apellidos.trim().length < 3) {
-      nuevosErrores.apellidos = "Debe tener al menos 3 caracteres.";
-    }
-
-    const regexCorreo = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
-    if (!regexCorreo.test(formulario.correo)) {
-      nuevosErrores.correo = "Correo inválido.";
-    }
-
-    const regexContrasenia =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[.,_-])[A-Za-z\d.,_-]{8,}$/;
-    if (!regexContrasenia.test(formulario.contrasenia)) {
-      nuevosErrores.contrasenia =
-        "Mínimo 8 caracteres, una mayúscula, una minúscula, un número y un símbolo (.,_-).";
-    }
-
-    setErrores(nuevosErrores);
-    return Object.keys(nuevosErrores).length === 0;
-  };
-
-  const validarCampo = (name, value) => {
-    let error = "";
-
-    switch (name) {
-      case "nombres":
-      case "apellidos":
-        if (value.trim().length < 3) {
-          error = "Debe tener al menos 3 caracteres.";
-        }
-        break;
-      case "correo":
-        const regexCorreo = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
-        if (!regexCorreo.test(value)) {
-          error = "Correo inválido.";
-        }
-        break;
-      case "contrasenia":
-        const regexContrasenia =
-          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[.,_-])[A-Za-z\d.,_-]{8,}$/;
-        if (!regexContrasenia.test(value)) {
-          error =
-            "Mínimo 8 caracteres, una mayúscula, una minúscula, un número y un símbolo (.,_-).";
-        }
-        break;
-      default:
-        break;
-    }
-
-    setErrores((prev) => ({ ...prev, [name]: error || undefined }));
-  };
+  const [touched, setTouched] = useState({});
+  const [enviando, setEnviando] = useState(false);
+  const [mostrarContrasenia, setMostrarContrasenia] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormulario({ ...formulario, [name]: value });
-    setErrores((prev) => ({ ...prev, [name]: undefined }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
+
+    if (touched[name]) {
+      setErrores((prev) => ({ ...prev, [name]: validarCampo(name, value) }));
+    }
+  };
+
+  const handleBlur = (e) => {
+    const { name, value } = e.target;
+    setTouched((prev) => ({ ...prev, [name]: true }));
+    setErrores((prev) => ({ ...prev, [name]: validarCampo(name, value) }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!validar()) {
+    const nuevosErrores = {};
+    Object.keys(formData).forEach((campo) => {
+      const error = validarCampo(campo, formData[campo]);
+      if (error) nuevosErrores[campo] = error;
+    });
+
+    setErrores(nuevosErrores);
+    setTouched({
+      nombres: true,
+      apellidos: true,
+      correo: true,
+      contrasenia: true,
+    });
+
+    if (Object.keys(nuevosErrores).length > 0) {
       alert("Corrige los errores antes de enviar.");
       return;
     }
 
+    setEnviando(true);
+
     try {
-      setCargando(true);
-      const response = await fetch(
+      const res = await fetch(
         `${import.meta.env.VITE_API_URL}/api/usuarios/registro`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            ...formulario,
+            ...formData,
             tipo_usuario: "cliente",
           }),
         }
       );
 
-      const data = await response.json();
+      const data = await res.json();
 
-      if (response.ok) {
+      if (res.ok) {
         alert("✅ Registro exitoso. ¡Bienvenido!");
         navigate("/login");
       } else {
-        alert("❌ " + (data.mensaje || "Error al registrar."));
+        alert("❌ Error: " + (data.mensaje || "No se pudo registrar."));
       }
     } catch (error) {
-      console.error(error);
       alert("❌ Error al conectar con el servidor.");
     } finally {
-      setCargando(false);
+      setEnviando(false);
     }
   };
 
-  const getInputClass = (campo) => {
-    if (errores[campo]) return `${styles.input} ${styles.inputError}`;
-    if (formulario[campo].length > 2 && !errores[campo])
-      return `${styles.input} ${styles.inputOk}`;
-    return styles.input;
-  };
-
   return (
-    <>
-      <button
-        onClick={() => navigate("/")}
-        style={{
-          position: "absolute",
-          top: "20px",
-          left: "20px",
-          background: "transparent",
-          border: "none",
-          fontSize: "2rem",
-          cursor: "pointer",
-          color: "#333",
-          zIndex: 999,
-        }}
-        title="Ir al inicio"
-      >
-        <i className="fas fa-home"></i>
-      </button>
-      <div className={styles.registroContenedor}>
-        <div className={styles.wrapper}>
-          <div className={styles.formulario}>
-            <div className={styles.empresaInfo}>
-              <div className={styles.logo}>
-                <img
-                  src="/src/assets/media/logo2.jpg"
-                  alt="Logo LlaqtaMarket"
-                />
-              </div>
-              <div className={styles.nombreEmpresa}>
-                <h1>LlaqtaMarket</h1>
-              </div>
-            </div>
+    <AuthLayout
+      tipo="registro"
+      titulo=""
+      invertirLayout={false}
+      imagen={imgRegistro}
+      alt="Registro cliente"
+      mostrarInfoEmpresa={true}
+      mostrarSubtitulo={false} // para que solo aparezca logo + nombre
+    >
+      <form onSubmit={handleSubmit} noValidate>
+        <h2 className={styles.titulo}>Registro de Cliente</h2>
+        <FormInput
+          name="nombres"
+          placeholder="Nombres"
+          value={formData.nombres}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          error={errores.nombres}
+          touched={touched.nombres}
+        />
+        <FormInput
+          name="apellidos"
+          placeholder="Apellidos"
+          value={formData.apellidos}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          error={errores.apellidos}
+          touched={touched.apellidos}
+        />
+        <FormInput
+          name="correo"
+          placeholder="Correo electrónico"
+          value={formData.correo}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          error={errores.correo}
+          touched={touched.correo}
+        />
+        <PasswordInput
+          name="contrasenia"
+          placeholder="Contraseña"
+          value={formData.contrasenia}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          error={errores.contrasenia}
+          touched={touched.contrasenia}
+          mostrar={mostrarContrasenia}
+          toggleMostrar={() => setMostrarContrasenia((prev) => !prev)}
+        />
+        <SubmitButton loading={enviando} texto="REGISTRARSE" />
+      </form>
 
-            <h2>Registro Cliente</h2>
-            <form onSubmit={handleSubmit} noValidate className={styles.form}>
-              <input
-                type="text"
-                name="nombres"
-                placeholder="Ingrese su nombre"
-                value={formulario.nombres}
-                onChange={handleChange}
-                onBlur={(e) => validarCampo(e.target.name, e.target.value)}
-                className={getInputClass("nombres")}
-              />
-              {errores.nombres && (
-                <span className={styles.errorText}>{errores.nombres}</span>
-              )}
-
-              <input
-                type="text"
-                name="apellidos"
-                placeholder="Ingrese su apellido"
-                value={formulario.apellidos}
-                onChange={handleChange}
-                onBlur={(e) => validarCampo(e.target.name, e.target.value)}
-                className={getInputClass("apellidos")}
-              />
-              {errores.apellidos && (
-                <span className={styles.errorText}>{errores.apellidos}</span>
-              )}
-
-              <input
-                type="email"
-                name="correo"
-                placeholder="Correo"
-                value={formulario.correo}
-                onChange={handleChange}
-                onBlur={(e) => validarCampo(e.target.name, e.target.value)}
-                className={getInputClass("correo")}
-              />
-              {errores.correo && (
-                <span className={styles.errorText}>{errores.correo}</span>
-              )}
-
-              <div className={styles.inputPasswordWrapper}>
-                <input
-                  type={mostrarContrasenia ? "text" : "password"}
-                  name="contrasenia"
-                  placeholder="Contraseña"
-                  value={formulario.contrasenia}
-                  onChange={handleChange}
-                  onBlur={(e) => validarCampo(e.target.name, e.target.value)}
-                  className={getInputClass("contrasenia")}
-                />
-                <span
-                  className={styles.togglePasswordIcon}
-                  onClick={() => setMostrarContrasenia(!mostrarContrasenia)}
-                >
-                  <FontAwesomeIcon
-                    icon={mostrarContrasenia ? faEyeSlash : faEye}
-                  />
-                </span>
-              </div>
-              {errores.contrasenia && (
-                <span className={styles.errorText}>{errores.contrasenia}</span>
-              )}
-
-              <button
-                type="submit"
-                disabled={cargando}
-                className={styles.boton}
-              >
-                {cargando ? "Registrando..." : "REGISTRARSE"}
-              </button>
-            </form>
-
-            <p className={styles.textoLogin}>
-              <a href="/login">¿Ya tienes una cuenta?</a>
-            </p>
-          </div>
-
-          <div className={styles.imagenLateral}>
-            <img
-              src="/src/assets/media/registro_cliente.jpg"
-              alt="Registro LlaqtaMarket"
-            />
-          </div>
-        </div>
-      </div>
-    </>
+      <AuthRedirectLinks tipo="register" />
+    </AuthLayout>
   );
-};
-
-export default RegistroCliente;
+}
